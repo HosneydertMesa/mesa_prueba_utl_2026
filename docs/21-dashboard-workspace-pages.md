@@ -32,6 +32,8 @@ crear rutas especiales. Se puede retroceder, avanzar, finalizar o salir con
 En escritorio la barra lateral y el lienzo analítico ocupan el alto de la ventana;
 solo el espacio activo se desplaza. En pantallas pequeñas la navegación se
 convierte en una barra inferior y el contenido recupera el desplazamiento normal.
+Los paneles del workspace anulan el ancho mínimo implícito de gráficos y tablas;
+así, los recursos anchos desplazan su propio contenedor sin ampliar la página.
 
 ## Guardas del contrato
 
