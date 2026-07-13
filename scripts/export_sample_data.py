@@ -178,6 +178,7 @@ def _write_json(
     temporary.write_text(
         json.dumps(payload, ensure_ascii=False, sort_keys=True, **formatting) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
     temporary.replace(path)
 
@@ -240,7 +241,10 @@ def export_samples(cache_dir: Path, output_dir: Path) -> dict[str, Any]:
             "act_sample_table": SCOPE_CODE,
             "corporations": ["CA", "SE"],
         },
-        "serialization": "UTF-8 JSON compacto, claves ordenadas; bytes HTTP originales no disponibles",
+        "serialization": (
+            "UTF-8 JSON compacto, claves ordenadas; "
+            "bytes HTTP originales no disponibles"
+        ),
         "files": {
             name: {
                 **sources[name],

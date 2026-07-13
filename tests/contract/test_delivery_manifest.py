@@ -47,6 +47,10 @@ class DeliveryManifestContractTests(unittest.TestCase):
         self.assertEqual(self.example, generated_example)
         self.assertEqual(set(self.example), set(self.manifest))
 
+    def test_generated_manifests_use_cross_platform_lf(self) -> None:
+        for name in ("evaluation_manifest.json", "evaluation_manifest.example.json"):
+            self.assertNotIn(b"\r\n", (OUTPUTS / name).read_bytes())
+
 
 if __name__ == "__main__":
     unittest.main()

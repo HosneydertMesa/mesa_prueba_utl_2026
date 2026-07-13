@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 64 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 65 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW/RELEASE están verdes. GitHub Actions ejecuta los controles
 base en cada push y PR; RELEASE se ejecuta localmente después de descargar la
 base contractual desde el Release.

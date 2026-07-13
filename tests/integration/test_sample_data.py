@@ -32,6 +32,7 @@ class CandidateSampleDataIntegrationTests(unittest.TestCase):
         for name, expected in provenance["files"].items():
             path = SAMPLES / name
             self.assertTrue(path.is_file())
+            self.assertNotIn(b"\r\n", path.read_bytes())
             self.assertEqual(path.stat().st_size, expected["bytes"])
             self.assertEqual(sha256(path), expected["sha256"])
 

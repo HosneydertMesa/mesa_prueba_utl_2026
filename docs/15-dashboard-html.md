@@ -62,7 +62,7 @@ python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
 ```
 
-Resultado local consolidado actual: 64 pruebas aprobadas, Ruff limpio, JavaScript
+Resultado local consolidado actual: 65 pruebas aprobadas, Ruff limpio, JavaScript
 sintácticamente válido, auditoría/manifest 4/4 municipios y gates
 DEV/QA/SEC/REVIEW/RELEASE verdes.
 

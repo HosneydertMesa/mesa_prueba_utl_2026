@@ -3,7 +3,7 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 64 pruebas, Ruff, DEV, QA, SEC, REVIEW y RELEASE.
+- Verdes localmente: 65 pruebas, Ruff, DEV, QA, SEC, REVIEW y RELEASE.
 - En nube: retos 1-5, bonus y Dashboard 2.0 integrados en `main`; toda evolución
   web se valida mediante CI antes de su promoción.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard

@@ -91,7 +91,7 @@ MANIFEST OK | salida=outputs\evaluation_manifest.json
 [PASS] RELEASE
 ```
 
-La suite actual contiene 64 pruebas y valida además la procedencia/hash/carga ETL
+La suite actual contiene 65 pruebas y valida además la procedencia/hash/carga ETL
 de las muestras y el contrato JSON del manifest. Antes del tag final se repetirá
 el ensayo limpio sobre el SHA ya fusionado.
 

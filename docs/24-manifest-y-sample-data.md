@@ -35,13 +35,17 @@ Los payloads se extrajeron de la caché creada por `JsonHttpClient`. El
 nomenclátor se reduce de forma mecánica a los cuatro municipios y a los partidos
 referenciados por las dos respuestas ACT. Las respuestas ACT conservan la
 estructura y valores necesarios para los retos; se elimina `cedula` por
-minimización de datos y se reserializan como JSON UTF-8 compacto y determinista. Por eso la
-procedencia declara:
+minimización de datos y se reserializan como JSON UTF-8 compacto, determinista y
+con finales de línea `LF` en cualquier sistema operativo. Por eso la procedencia
+declara:
 
 ```text
 provenance=candidate_captured_from_public_api_cache
 official_utl_sample=false
 ```
+
+`.gitattributes` fija `eol=lf` para estos JSON y para ambos manifests; de esta
+forma Git no altera bytes, tamaños ni hashes al cambiar entre Windows y Linux.
 
 Regeneración opcional desde una caché que contenga exactamente las fuentes
 registradas:

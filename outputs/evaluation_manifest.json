@@ -194,20 +194,20 @@
   "sample_data": {
     "files": {
       "act_ca_tunja_mesa_001.json": {
-        "bytes": 122567,
-        "sha256": "f6e8230795e0c7b0dfaeddbaf52da6e0f6790ee88dc1c0e1f7e1352e787906b0",
+        "bytes": 122566,
+        "sha256": "967d3a8914256fcd3381dc1bdd8abc6917904d1e88c0261b6ba9cff2a9074894",
         "source_url": "https://resultadospreccongreso2026.registraduria.gov.co/json/ACT/CA/0700001010001000001.json",
         "status": "OK"
       },
       "act_se_tunja_mesa_001.json": {
-        "bytes": 242818,
-        "sha256": "ecd5de71c272cee6ad45ffb237bef99c6bf33876a60eedb12163d7466bd1d5e2",
+        "bytes": 242817,
+        "sha256": "a31a3315f46e88828a3862a320a60bad0e04b68e886ec10dbc40d4667d69e0c2",
         "source_url": "https://resultadospreccongreso2026.registraduria.gov.co/json/ACT/SE/0700001010001000001.json",
         "status": "OK"
       },
       "nomenclator_boyaca_sample.json": {
-        "bytes": 42595,
-        "sha256": "f3ba5a3e8226ab7869b13fc67a3a8fef540d2f70a7e164d75e2a4568ff10346b",
+        "bytes": 42594,
+        "sha256": "bd6990a3d0328b78091e61e954b3ae3d5340d5322bb4b2ff992e8137e978f414",
         "source_url": "https://resultadospreccongreso2026.registraduria.gov.co/json/nomenclator.json",
         "status": "OK"
       }

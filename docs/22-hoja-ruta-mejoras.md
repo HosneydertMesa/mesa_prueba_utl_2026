@@ -2,7 +2,7 @@
 
 > Corte: 13 de julio de 2026. Base de partida del incremento: merge commit
 > `8c7e4ea53a83212cc0b25971fb7c6772bbf50d15`. Estado posterior a PR #10 y #11:
-> dashboard publicado; el incremento de cierre eleva la suite a 64 pruebas verdes.
+> dashboard publicado; el incremento de cierre eleva la suite a 65 pruebas verdes.
 
 ## Propósito
 
