@@ -1,25 +1,32 @@
 # Matriz de trazabilidad y puntaje
 
-| ID | Pts | Artefacto | Verificación prevista | Prioridad |
+| ID | Pts | Estado | Artefacto/evidencia | Cierre pendiente |
 |---|---:|---|---|---|
-| 1.1 API | 8 | README `## API` y contrato | 8+ campos, URL, nomenclator y headers con evidencia | P0 |
-| 1.2 Scraper | 12 | `scraper/scraper.py` | defaults, filtro, retry, progreso, segunda corrida | P0 |
-| 1.3 Validación | 5 | manifest oficial | mesas y filas por municipio | P0 |
-| 2.1 Schema | 10 | `db/schema.sql` | UNIQUE, NOT NULL, FK, carga_log, foreign_key_check | P0 |
-| 2.2 ETL | 10 | `db/etl.py` | normalización, deduplicación, insertadas/omitidas | P0 |
-| 2.3 Verificación | 5 | manifest oficial | filas por tabla y líder SE | P0 |
-| 3.1 Arrastre | 9 | `sql/tarea_3_1.sql` | CA=5, SE=57, puesto+municipio, cero seguro | P0 |
-| 3.2 Dominancia | 8 | `sql/tarea_3_2.sql` | candidato/partido >0.60 por mesa | P0 |
-| 3.3 Atribución | 8 | `sql/tarea_3_3.sql` | fórmula exacta y top 5 consolidado | P0 |
-| 4 Dashboard | 15 | `dashboard/index.html` | 4 municipios, selectores, referencia 1.0, colores | P0 |
-| 5.1 Heatmap | 5 | script + PNG | 8x4, porcentajes y anotaciones | P0 |
-| 5.2 Scatter | 5 | script + PNG | mesa, municipio, OLS, Pearson, stdout exacto | P0 |
-| B1 Preflight | +3 | scraper | no persiste ni descarga payload completo | P2 |
-| B2 Índices | +2 | schema + justificación | 3+ índices y `EXPLAIN QUERY PLAN` | P2 |
-| B3 Explicación | +2 | README | CA directo vs reparto proporcional SE | P2 |
-| B4 Dark mode | +3 | dashboard | variables CSS | P2 |
-| B5 CSV | +2 | dashboard | exporta selección con encabezados | P2 |
-| B6 Municipios | +3 | configuración | adicionales sin alterar alcance base | P3 |
+| 1.1 API | 8 | Implementado | README, contrato y nomenclator real | ninguno local |
+| 1.2 Scraper | 12 | Implementado | retry, progreso y segunda corrida completa | ninguno local |
+| 1.3 Validación | 5 | Validado local | 4/4 y 2.214 en auditoría | manifest oficial |
+| 2.1 Schema | 10 | Implementado | FK, UNIQUE, NOT NULL, checks y cinco índices | ninguno local |
+| 2.2 ETL | 10 | Implementado | normalización, transacciones y `carga_log` | ninguno local |
+| 2.3 Verificación | 5 | Validado local | conteos, balances y líderes SE | manifest oficial |
+| 3.1 Arrastre | 9 | Implementado | 73 puestos, `5→57`, cero seguro | manifest oficial |
+| 3.2 Dominancia | 8 | Implementado | 3.780 filas, umbral estricto probado | manifest oficial |
+| 3.3 Atribución | 8 | Implementado | fórmula exacta y top 5 | manifest oficial |
+| 4 Dashboard | 15 | Pendiente | scaffold únicamente | exportación + HTML + QA navegador |
+| 5.1 Heatmap | 5 | Pendiente | scaffold únicamente | script + PNG 8×4 |
+| 5.2 Scatter | 5 | Pendiente | scaffold únicamente | OLS/Pearson + PNG + stdout |
+| B1 Preflight | +3 | Implementado | 4/4 sin escribir BD ni ACT | validación oficial |
+| B2 Índices | +2 | Implementado | cinco índices + `EXPLAIN QUERY PLAN` | validación oficial |
+| B3 Explicación | +2 | Implementado | README y `docs/13-sql-analitico.md` | validación oficial |
+| B4 Dark mode | +3 | Pendiente | - | después del dashboard base |
+| B5 CSV | +2 | Pendiente | - | después del dashboard base |
+| B6 Municipios | +3 | Pospuesto | - | sólo después de 100 base |
+
+## Resumen cuantitativo
+
+- Base implementada y verificada internamente: 75/100 puntos potenciales.
+- Base pendiente de implementación: 25/100 puntos (retos 4 y 5).
+- Bonus implementado: +7 puntos potenciales.
+- Validación oficial pendiente: retos 1.3, 2.3 y 3.x por ausencia del generador.
 
 ## Penalizaciones convertidas en controles
 

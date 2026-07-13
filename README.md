@@ -1,6 +1,7 @@
 # MESA — Prueba Técnica UTL Senado 2026
 
-> Estado: desarrollo incremental local con gates DEV, QA, SEC y REVIEW.
+> Estado: retos 1-3 implementados y auditados localmente; retos 4-5 pendientes.
+> Desarrollo publicado en PR borrador con gates DEV, QA, SEC, REVIEW y CI verdes.
 
 ## Candidato
 
@@ -46,6 +47,9 @@ python scripts/verify_delivery.py
 El schema normalizado, las claves de idempotencia y los índices están documentados en [docs/10-schema-sqlite.md](docs/10-schema-sqlite.md).
 
 El parser, las invariantes y la prueba de doble ejecución están en [docs/11-etl-idempotente.md](docs/11-etl-idempotente.md).
+
+La implementación, homologación y resultados del Reto 3 están en
+[docs/13-sql-analitico.md](docs/13-sql-analitico.md).
 
 
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.

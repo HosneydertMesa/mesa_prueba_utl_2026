@@ -2,13 +2,13 @@
 
 ## Núcleo obligatorio
 
-1. Descriptivo: votos CA, líderes SE y top candidatos.
-2. Arrastre Verde: `votos_SE_codpar57 / votos_CA_codpar5` por puesto y municipio.
-3. Dominancia: participación del candidato dentro del partido por mesa >60%.
-4. Atribución: repartir voto SE según participación CA usando exactamente la fórmula dada.
-5. Relación CA-SE: OLS y Pearson por mesa, con n y pendiente visibles.
+1. **Completado:** descriptivo de votos CA, líderes SE y top candidatos.
+2. **Completado:** arrastre Verde `votos_SE_codpar57 / votos_CA_codpar5` por puesto.
+3. **Completado:** dominancia individual por mesa estrictamente mayor a 60%.
+4. **Completado:** atribución SE con fórmula exacta y homologación documentada.
+5. **Pendiente (Reto 5.2):** OLS y Pearson por mesa, con n y pendiente visibles.
 
-## Diferenciador recomendado
+## Diferenciador recomendado después del Reto 5
 
 Añadir un análisis suplementario, no requerido por el manifest:
 
@@ -28,5 +28,16 @@ La validación debe agrupar por municipio o puesto; una partición aleatoria mez
 - No interpretar `r` alto como transferencia causal CA→SE.
 - No ocultar outliers ni imputar votos sin regla documentada.
 
-Entregable opcional: `analysis/model_diagnostics.py` y `outputs/model_metrics.json`, solo cuando el pipeline base esté verde.
+Entregable opcional: `analysis/model_diagnostics.py` y
+`outputs/model_metrics.json`, sólo cuando dashboard, heatmap, scatter y manifest
+base estén verdes. El modelo no debe retrasar los 25 puntos base restantes.
 
+## Criterio de activación ML
+
+ML se autoriza únicamente si:
+
+- Reto 4 y Reto 5 pasan sus contratos;
+- el manifest oficial está disponible o todos los controles locales equivalentes
+  están verdes;
+- quedan al menos 90 minutos de reserva;
+- el resultado se presenta como sensibilidad exploratoria y no como predicción.

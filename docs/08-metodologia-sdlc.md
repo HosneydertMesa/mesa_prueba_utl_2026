@@ -2,13 +2,17 @@
 
 ## Enfoque
 
-Se adopta desarrollo troncal ligero para una prueba individual de 48 horas:
+Se adopta desarrollo troncal ligero para una prueba individual:
 
-- `main` representa el último estado local revisado.
+- `main` representa el último estado integrado y entregable, no cada avance local.
 - Cada incremento funcional se desarrolla en una rama corta `codex/<tipo>-<alcance>`.
 - Un incremento resuelve un requisito o una capacidad verificable, no varias capas inconexas.
-- No se configura remoto ni se publica nada hasta autorización explícita.
+- Los commits atómicos se publican en un PR borrador cuando el usuario lo autoriza.
 - La promoción se realiza por evidencia: DEV -> QA -> SEC -> REVIEW.
+
+Estado actual: los retos 1-3 están en
+`codex/feat-reto-1-2b-parser-loader` y en el PR #1. Cada push pasó CI. La rama no
+se fusiona a `main` hasta completar la revisión acordada y recibir autorización.
 
 No se mantendrán ramas largas llamadas `dev`, `qa` o `sec`: para una persona y una ventana corta añadirían merges y divergencia sin ofrecer aislamiento real. Esos nombres representan puertas de calidad repetibles.
 
@@ -21,7 +25,8 @@ No se mantendrán ramas largas llamadas `dev`, `qa` o `sec`: para una persona y 
 5. **QA:** ejecutar pruebas unitarias, integración y casos borde aplicables.
 6. **SEC:** buscar secretos, datos confidenciales y prácticas inseguras.
 7. **REVIEW:** revisar diff, trazabilidad, README y evidencia observable.
-8. **Integrar:** commit local atómico únicamente cuando las cuatro puertas estén verdes.
+8. **Publicar:** commit atómico, push y CI en PR borrador cuando las puertas estén verdes.
+9. **Promover:** marcar listo y fusionar sólo tras revisión global/autorización.
 
 ## Puertas
 
@@ -31,7 +36,7 @@ No se mantendrán ramas largas llamadas `dev`, `qa` o `sec`: para una persona y 
 | QA | ¿Hace lo esperado y falla correctamente? | pruebas, fixture, invariantes y regresión |
 | SEC | ¿Evita exposición o corrupción? | escaneo de secretos, parámetros SQL, límites API |
 | REVIEW | ¿Es comprensible, trazable y entregable? | diff pequeño, requisito enlazado, docs y salida |
-| RELEASE | ¿La prueba completa puede enviarse? | manifest oficial, 4/4, SQL OK, PNG, metadata y repo |
+| RELEASE | ¿La prueba completa puede enviarse? | manifest oficial, Release DB, 4/4, SQL OK, PNG, metadata y repo |
 
 ## Comandos
 
@@ -44,13 +49,16 @@ python scripts/quality_gate.py all
 python scripts/quality_gate.py release
 ```
 
-`all` debe pasar antes de aceptar un incremento. `release` puede fallar durante el desarrollo y solo debe quedar verde al cierre.
+`all` debe pasar antes de aceptar y publicar un incremento. `release` puede fallar
+durante el desarrollo y sólo debe quedar verde al cierre.
 
 ## Convenciones locales
 
 - Ramas: `codex/feat-reto-1-2-scraper`, `codex/test-idempotencia`, `codex/docs-api`.
 - Commits: `feat(scraper): add municipal preflight`, `test(db): prove idempotent reload`.
 - Un commit no mezcla refactor amplio, feature y documentación ajena.
+- Un PR puede agrupar varios commits verticales relacionados si cada uno conserva
+  evidencia y el diff completo sigue siendo revisable.
 - No usar `--no-verify` para saltar controles.
 - No guardar tokens en archivos, comandos persistentes, URLs remotas o historial del shell.
 
@@ -61,5 +69,4 @@ python scripts/quality_gate.py release
 - DEV, QA, SEC y REVIEW verdes.
 - Documentación contractual actualizada.
 - Sin secretos, datos confidenciales ni artefactos temporales.
-- Diff revisable y listo para commit local.
-
+- Diff revisable, commit publicado y CI exitoso cuando el remoto está autorizado.

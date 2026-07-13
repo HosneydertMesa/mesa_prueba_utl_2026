@@ -1,37 +1,66 @@
 # Runbook de ejecución y entrega
 
-## Desarrollo incremental
+## Estado actual
 
-1. Incorporar solo insumos autorizados en `sample_data/` y `outputs/`.
-2. Crear entorno e instalar dependencias.
-3. Ejecutar `--preflight`; registrar cobertura sin escribir BD.
-4. Ejecutar scraper y ETL para Tunja; repetir y confirmar cero duplicados.
-5. Escalar a Paipa, Sogamoso y Duitama.
-6. Ejecutar SQL y revisar muestras calculables manualmente.
-7. Exportar JSON; abrir dashboard desde disco y revisar consola.
-8. Generar PNG; validar peso, rótulos, valores y stdout.
-9. Ejecutar pruebas, verificador y manifest oficial.
+- Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
+- Verdes: 33 pruebas, Ruff, DEV, QA, SEC, REVIEW y GitHub Actions.
+- En nube: PR #1 borrador, sin conflictos; `main` aún no se fusiona.
+- Pendientes: dashboard, PNG, insumos/manifest oficial, Release de DB y clon limpio.
+
+## Desarrollo incremental restante
+
+1. Ejecutar `python scripts/audit_database.py` y conservar `ok=True`.
+2. Implementar y probar `dashboard/export_data.py` + `dashboard/data.json`.
+3. Construir `dashboard/index.html` y validarlo mediante `file://`.
+4. Agregar dark mode/CSV sólo cuando el dashboard base esté completo.
+5. Implementar `viz/heatmap.py` y validar PNG 8×4 >10 KB.
+6. Implementar `viz/scatter.py`, PNG y stdout exacto.
+7. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
+8. Publicar SQLite como Release asset y enlazar checksum/URL.
+9. Ensayar clon limpio, gate RELEASE, revisión en incógnito y promoción.
+
+## Comandos reproducibles actuales
+
+```bash
+python scraper/scraper.py --preflight
+python scraper/scraper.py
+python scripts/audit_database.py
+python -m unittest discover -s tests -v
+python scripts/quality_gate.py all
+```
+
+La segunda ejecución del scraper debe informar `insertadas=0`. Durante desarrollo
+se puede usar la caché ignorada por Git; el clon limpio debe funcionar sin ella.
 
 ## Ensayo de clon limpio
 
-- Clonar en otra carpeta y seguir solo el README con cronómetro de 10 minutos.
-- Registrar comandos, tiempos y conocimiento implícito.
-- Corregir y repetir hasta pasar.
+1. Clonar el repositorio público en una ruta nueva.
+2. Seguir únicamente el README con cronómetro de 10 minutos.
+3. Instalar dependencias en un entorno virtual.
+4. Obtener la base desde el Release o regenerarla.
+5. Ejecutar auditoría, SQL, exportación, PNG y manifest.
+6. Abrir dashboard desde disco y revisar DevTools Console.
+7. Registrar cualquier conocimiento implícito, corregir README y repetir.
 
 ## Checklist final irreversible
 
-- Sustituir `APELLIDO`, nombre, email y URL; no dejar `PENDIENTE`.
-- Manifest: 4/4 municipios y SQL OK x3.
-- PNG >10 KB; BD o Release según tamaño.
-- Dashboard en Chrome y Firefox, consola limpia.
-- Revisar secretos, PDF confidencial y rutas obligatorias.
-- Commit final, push a `main`, repo público e incógnito.
-- Guardar SHA y URL; enviar el formulario una sola vez antes del cierre.
+- Repo público accesible en incógnito y nombre `mesa_prueba_utl_2026`.
+- README conserva exactamente los headings obligatorios y metadata real.
+- `evaluation_manifest.json`: 4/4 municipios y SQL OK ×3.
+- Base SQLite disponible en Release con enlace y checksum.
+- Dashboard: cuatro municipios, colores exactos, línea 1.0 y consola limpia.
+- PNG existentes, legibles y mayores de 10 KB.
+- Secretos, PDF confidencial, caché y temporales ausentes del commit.
+- `python scripts/quality_gate.py release` verde.
+- PR revisado, CI exitoso y fusionado a `main` con autorización.
+- SHA final guardado; formulario enviado una sola vez antes del cierre.
 
 ## Recuperación
 
-- API caída: usar muestras, conservar log y documentar intento.
-- SQL ERROR: ejecutar contra copia de BD, corregir y regenerar manifest.
-- DB grande: ignorar, subir Release asset y enlazarlo.
-- Fallo GitHub en últimos 30 minutos: conservar evidencia y contactar al equipo con el asunto indicado.
-
+- API caída: usar caché o muestras oficiales, conservar evidencia y documentar.
+- JSON 200 inválido: retry/backoff automático; nunca cachear cuerpo corrupto.
+- SQL ERROR: ejecutar fixture calculable, corregir y regenerar auditoría/manifest.
+- Dashboard `file://` falla: eliminar fetch local y embeber/cargar datos compatible.
+- DB grande: mantener ignorada, crear Release asset y comprobar descarga.
+- Manifest ausente: no fabricarlo; conservar auditoría local y solicitar insumo.
+- GitHub falla al final: conservar SHA/evidencia y usar el canal indicado por UTL.
