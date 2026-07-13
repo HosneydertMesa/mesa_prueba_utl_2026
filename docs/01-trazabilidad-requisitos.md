@@ -34,5 +34,7 @@
 ## Estado de incrementos
 
 - Reto 1.1 API: implementado y verificado contra el portal oficial; contrato en `docs/09-contrato-api-registraduria.md` y resolución en `scraper/nomenclator.py`.
+- Reto 1.2a preflight/HTTP: implementado; 4/4 municipios, 73 puestos, 1.107 mesas y 2.214 solicitudes ACT estimadas sin descargar resultados.
+- Reto 1.2b descarga, parsing y persistencia idempotente: pendiente.
 - Resto de retos: pendientes.
 

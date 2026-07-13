@@ -28,6 +28,7 @@ Contrato objetivo, aún pendiente de implementación:
 
 ```bash
 python scraper/scraper.py --preflight
+python scraper/scraper.py --preflight --municipios TUNJA PAIPA
 python scraper/scraper.py
 python db/etl.py
 python dashboard/export_data.py
@@ -36,6 +37,8 @@ python viz/scatter.py
 python outputs/generar_manifest.py
 python scripts/verify_delivery.py
 ```
+
+Durante el incremento 1.2a, `--preflight` ya es funcional; la ejecución de descarga sin el flag se habilitará junto con la persistencia idempotente en 1.2b.
 
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.
 

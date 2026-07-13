@@ -19,6 +19,7 @@ REQUIRED_BASE = (
     "requirements.txt",
     "scraper/scraper.py",
     "scraper/nomenclator.py",
+    "scraper/http_client.py",
     "db/schema.sql",
     "db/etl.py",
     "sql/tarea_3_1.sql",

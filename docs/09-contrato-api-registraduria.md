@@ -108,3 +108,5 @@ Además usará timeout explícito, cache local, retry limitado con backoff y con
 ## Implementación asociada
 
 `scraper/nomenclator.py` resuelve municipios, recorre puestos, calcula mesas y construye URLs ACT. Sus pruebas usan un fixture mínimo con la misma forma del contrato, sin depender de red.
+
+El incremento 1.2a añade `scraper/http_client.py` y `scraper/scraper.py`: cliente JSON con caché atómica, timeout y retry/backoff, más `--preflight` local o remoto. La descarga de ACT y la persistencia idempotente pertenecen al incremento 1.2b.
