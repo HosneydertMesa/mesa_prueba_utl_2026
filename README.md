@@ -1,12 +1,12 @@
-# APELLIDO — Prueba Técnica UTL Senado 2026
+# MESA — Prueba Técnica UTL Senado 2026
 
-> Estado: planificación y estructura base. La solución funcional aún no está implementada.
+> Estado: desarrollo incremental local con gates DEV, QA, SEC y REVIEW.
 
 ## Candidato
 
-- Nombre: `PENDIENTE`
-- Email: `PENDIENTE`
-- Repositorio público: `PENDIENTE`
+- Nombre: Hosneydert Mesa
+- Email: hosneydert92@gmail.com
+- Repositorio público: https://github.com/HosneydertMesa/mesa_prueba_utl_2026
 - Plan maestro: [docs/00-plan-maestro.md](docs/00-plan-maestro.md)
 
 ## Instalación
