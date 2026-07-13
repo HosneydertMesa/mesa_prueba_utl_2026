@@ -7,6 +7,9 @@
     "integrity_check": true,
     "no_failed_or_incomplete_loads": true,
     "party_balances": true,
+    "sql_3_1": true,
+    "sql_3_2": true,
+    "sql_3_3": true,
     "two_corporations_per_table": true,
     "vote_balances": true
   },
@@ -129,6 +132,218 @@
         "votantes": 155
       }
     ]
+  },
+  "sql_tasks": {
+    "3.1": {
+      "columns": [
+        "municipio",
+        "puesto_codigo",
+        "puesto",
+        "votos_ca_verde",
+        "votos_se_verde",
+        "ratio_arrastre"
+      ],
+      "ok": true,
+      "row_count": 73,
+      "sample": [
+        {
+          "municipio": "DUITAMA",
+          "puesto": "COLEGIO SALESIANO",
+          "puesto_codigo": "0700079010001",
+          "ratio_arrastre": 1.296703,
+          "votos_ca_verde": 364,
+          "votos_se_verde": 472
+        },
+        {
+          "municipio": "DUITAMA",
+          "puesto": "ANTIGUO TERMINAL DE TRANSPORTE",
+          "puesto_codigo": "0700079010002",
+          "ratio_arrastre": 1.22779,
+          "votos_ca_verde": 439,
+          "votos_se_verde": 539
+        },
+        {
+          "municipio": "DUITAMA",
+          "puesto": "COL SANTO T DE AQUINO SD PRIA 1",
+          "puesto_codigo": "0700079010003",
+          "ratio_arrastre": 1.196774,
+          "votos_ca_verde": 310,
+          "votos_se_verde": 371
+        },
+        {
+          "municipio": "DUITAMA",
+          "puesto": "COL JESUS EUCARISTIA",
+          "puesto_codigo": "0700079010004",
+          "ratio_arrastre": 1.497942,
+          "votos_ca_verde": 243,
+          "votos_se_verde": 364
+        },
+        {
+          "municipio": "DUITAMA",
+          "puesto": "COL SANTO T DE AQUINO SD PRIA 2",
+          "puesto_codigo": "0700079010005",
+          "ratio_arrastre": 1.515419,
+          "votos_ca_verde": 227,
+          "votos_se_verde": 344
+        }
+      ]
+    },
+    "3.2": {
+      "columns": [
+        "municipio",
+        "puesto_codigo",
+        "puesto",
+        "mesa_numero",
+        "mesa_codigo",
+        "corporacion",
+        "codpar",
+        "partido",
+        "codcan",
+        "candidato",
+        "votos_candidato",
+        "votos_partido",
+        "concentracion"
+      ],
+      "ok": true,
+      "row_count": 3780,
+      "sample": [
+        {
+          "candidato": "CARLOS EDUARDO GUEVARA VILLABON",
+          "codcan": "5",
+          "codpar": 43,
+          "concentracion": 1.0,
+          "corporacion": "SE",
+          "mesa_codigo": "0700079010001000001",
+          "mesa_numero": 1,
+          "municipio": "DUITAMA",
+          "partido": "AHORA COLOMBIA",
+          "puesto": "COLEGIO SALESIANO",
+          "puesto_codigo": "0700079010001",
+          "votos_candidato": 1,
+          "votos_partido": 1
+        },
+        {
+          "candidato": "LINA MARIA GARRIDO MARTIN",
+          "codcan": "6",
+          "codpar": 44,
+          "concentracion": 1.0,
+          "corporacion": "SE",
+          "mesa_codigo": "0700079010001000001",
+          "mesa_numero": 1,
+          "municipio": "DUITAMA",
+          "partido": "COALICIÓN CAMBIO RADICAL - ALMA",
+          "puesto": "COLEGIO SALESIANO",
+          "puesto_codigo": "0700079010001",
+          "votos_candidato": 2,
+          "votos_partido": 2
+        },
+        {
+          "candidato": "MARTHA ROCIO ALFONSO BERNAL",
+          "codcan": "6",
+          "codpar": 55,
+          "concentracion": 1.0,
+          "corporacion": "SE",
+          "mesa_codigo": "0700079010001000001",
+          "mesa_numero": 1,
+          "municipio": "DUITAMA",
+          "partido": "FRENTE AMPLIO UNITARIO",
+          "puesto": "COLEGIO SALESIANO",
+          "puesto_codigo": "0700079010001",
+          "votos_candidato": 1,
+          "votos_partido": 1
+        },
+        {
+          "candidato": "NELSON JAVIER ALARCON SUAREZ",
+          "codcan": "4",
+          "codpar": 170,
+          "concentracion": 1.0,
+          "corporacion": "SE",
+          "mesa_codigo": "0700079010001000001",
+          "mesa_numero": 1,
+          "municipio": "DUITAMA",
+          "partido": "COALICIÓN FUERZA CIUDADANA",
+          "puesto": "COLEGIO SALESIANO",
+          "puesto_codigo": "0700079010001",
+          "votos_candidato": 2,
+          "votos_partido": 2
+        },
+        {
+          "candidato": "ALFREDO RAFAEL DELUQUE ZULETA",
+          "codcan": "3",
+          "codpar": 9,
+          "concentracion": 1.0,
+          "corporacion": "SE",
+          "mesa_codigo": "0700079010001000002",
+          "mesa_numero": 2,
+          "municipio": "DUITAMA",
+          "partido": "PARTIDO DE LA UNIÓN POR LA GENTE - PARTIDO DE LA U",
+          "puesto": "COLEGIO SALESIANO",
+          "puesto_codigo": "0700079010001",
+          "votos_candidato": 2,
+          "votos_partido": 2
+        }
+      ]
+    },
+    "3.3": {
+      "columns": [
+        "codpar_ca",
+        "partido_ca",
+        "codcan",
+        "candidato",
+        "votos_candidato_ca",
+        "mesas_calculadas",
+        "atribucion_se_consolidada"
+      ],
+      "ok": true,
+      "row_count": 5,
+      "sample": [
+        {
+          "atribucion_se_consolidada": 9670.753632,
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "codcan": "106",
+          "codpar_ca": 5,
+          "mesas_calculadas": 1104,
+          "partido_ca": "PARTIDO ALIANZA VERDE",
+          "votos_candidato_ca": 11206
+        },
+        {
+          "atribucion_se_consolidada": 9586.687851,
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "codcan": "101",
+          "codpar_ca": 5,
+          "mesas_calculadas": 1104,
+          "partido_ca": "PARTIDO ALIANZA VERDE",
+          "votos_candidato_ca": 9406
+        },
+        {
+          "atribucion_se_consolidada": 9415.791702,
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "codcan": "105",
+          "codpar_ca": 5,
+          "mesas_calculadas": 1104,
+          "partido_ca": "PARTIDO ALIANZA VERDE",
+          "votos_candidato_ca": 8936
+        },
+        {
+          "atribucion_se_consolidada": 7749.201165,
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "codcan": "106",
+          "codpar_ca": 2,
+          "mesas_calculadas": 1104,
+          "partido_ca": "PARTIDO LIBERAL COLOMBIANO",
+          "votos_candidato_ca": 13861
+        },
+        {
+          "atribucion_se_consolidada": 6647.95308,
+          "candidato": "EDUAR ALEXIS TRIANA RINCON",
+          "codcan": "102",
+          "codpar_ca": 10,
+          "mesas_calculadas": 1095,
+          "partido_ca": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos_candidato_ca": 4440
+        }
+      ]
+    }
   },
   "totals": {
     "candidatos": 1127,

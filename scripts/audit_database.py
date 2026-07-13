@@ -21,6 +21,12 @@ DEFAULT_EXPECTED_TABLES = {
     "SOGAMOSO": 301,
     "DUITAMA": 287,
 }
+SQL_DIR = Path(__file__).resolve().parents[1] / "sql"
+SQL_TASKS = {
+    "3.1": SQL_DIR / "tarea_3_1.sql",
+    "3.2": SQL_DIR / "tarea_3_2.sql",
+    "3.3": SQL_DIR / "tarea_3_3.sql",
+}
 FACT_TABLES = (
     "municipios",
     "puestos",
@@ -36,6 +42,30 @@ FACT_TABLES = (
 
 def _one(connection: Any, sql: str, parameters: Sequence[object] = ()) -> Any:
     return connection.execute(sql, parameters).fetchone()[0]
+
+
+def _audit_sql_tasks(connection: Any) -> dict[str, dict[str, Any]]:
+    results: dict[str, dict[str, Any]] = {}
+    for task, path in SQL_TASKS.items():
+        try:
+            cursor = connection.execute(path.read_text(encoding="utf-8"))
+            columns = [item[0] for item in cursor.description]
+            rows = cursor.fetchall()
+            results[task] = {
+                "ok": True,
+                "row_count": len(rows),
+                "columns": columns,
+                "sample": [dict(zip(columns, tuple(row), strict=True)) for row in rows[:5]],
+            }
+        except Exception as error:  # Se serializa el fallo para el gate local.
+            results[task] = {
+                "ok": False,
+                "row_count": 0,
+                "columns": [],
+                "sample": [],
+                "error": str(error),
+            }
+    return results
 
 
 def audit_database(
@@ -125,6 +155,7 @@ def audit_database(
             "WHERE pa.corporacion = 'SE' AND ca.es_lista = 0 GROUP BY ca.id "
             "ORDER BY total DESC, pa.codpar, ca.codcan LIMIT 1"
         ).fetchone()
+        sql_tasks = _audit_sql_tasks(connection)
 
         expected_names = set(expected_tables)
         coverage_ok = set(coverage) == expected_names and all(
@@ -142,6 +173,9 @@ def audit_database(
             "party_balances": invalid_party_balances == 0,
             "candidate_balances": invalid_candidate_balances == 0,
             "no_failed_or_incomplete_loads": set(load_status).issubset({"COMPLETADA"}),
+            "sql_3_1": sql_tasks["3.1"]["ok"],
+            "sql_3_2": sql_tasks["3.2"]["ok"],
+            "sql_3_3": sql_tasks["3.3"]["ok"],
         }
         return {
             "audit_type": "local_non_official",
@@ -150,6 +184,7 @@ def audit_database(
             "coverage": coverage,
             "totals": table_counts,
             "load_status": load_status,
+            "sql_tasks": sql_tasks,
             "quality": {
                 "missing_corporations": missing_corporations,
                 "invalid_vote_balances": invalid_vote_balances,

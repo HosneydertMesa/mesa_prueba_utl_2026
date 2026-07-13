@@ -40,5 +40,8 @@
 - Reto 2.1 schema SQLite: implementado con FK, NOT NULL, CHECK, carga_log, claves UNIQUE y cinco índices justificados.
 - Reto 2.2 ETL: implementado con normalización, catálogo de partidos, transacciones y filas insertadas/omitidas.
 - Reto 2.3 verificación: conteos, balances, integridad, anomalías de fuente y líderes SE incluidos en `outputs/auditoria_local.json`; manifest oficial pendiente.
-- Resto de retos: pendientes.
+- Reto 3.1 arrastre: implementado con homologación `5→57`, 73 puestos y denominador cero como `NULL`.
+- Reto 3.2 dominancia: implementado para CA/SE, candidatos individuales y umbral estricto `>0.60`.
+- Reto 3.3 atribución: implementado con homologación ponderada, fórmula por mesa y top 5 consolidado.
+- Retos 4 y 5: pendientes.
 

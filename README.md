@@ -32,6 +32,7 @@ python scraper/scraper.py --preflight --municipios TUNJA PAIPA
 python scraper/scraper.py
 python scripts/audit_database.py
 
+# SQL analítico: las tres tareas también se validan en la auditoría
 # Incrementos siguientes
 python dashboard/export_data.py
 python viz/heatmap.py
@@ -86,6 +87,9 @@ de distribución de la base se cerrará antes de la entrega.
   Senado (`codpar=92`), con 53.700 votos.
 - Candidato líder agregado en SE: John Edickson Amaya Rodriguez
   (`codpar=57`, `codcan=5`), con 14.036 votos.
+- El candidato con más votos CA es Héctor David Chaparro Chaparro (13.861),
+  mientras el primer lugar por atribución SE es Yamit Noé Hurtado Neira
+  (9.670,753632 votos atribuidos). Son métricas diferentes.
 - La fuente presenta 53 registros CA/SE con `votantes > censo`. Se conservan y
   reportan sin imputación; los balances de votos, partidos y candidatos sí son
   consistentes en toda la base.
@@ -98,6 +102,8 @@ analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-anal
 - `--preflight` funcional sin escritura de base ni descarga de ACT (+3 previsto).
 - Cinco índices analíticos justificados y verificados con `EXPLAIN QUERY PLAN`
   (+2 previsto).
+- Explicación documentada de por qué el top CA puede diferir del top por
+  atribución SE (+2 previsto).
 
 Los bonus de dashboard y municipios adicionales siguen pospuestos hasta asegurar
 los 100 puntos base.

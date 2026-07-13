@@ -47,3 +47,6 @@ class DatabaseAuditIntegrationTests(unittest.TestCase):
         self.assertEqual(report["totals"]["resumen_mesa"], 2)
         self.assertEqual(report["quality"]["missing_corporations"], 0)
         self.assertEqual(report["leaders_SE"]["party"]["codpar"], 57)
+        self.assertTrue(all(task["ok"] for task in report["sql_tasks"].values()))
+        self.assertEqual(report["sql_tasks"]["3.1"]["row_count"], 1)
+        self.assertEqual(report["sql_tasks"]["3.3"]["row_count"], 2)
