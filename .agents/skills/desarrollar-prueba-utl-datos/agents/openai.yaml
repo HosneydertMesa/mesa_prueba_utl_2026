@@ -1,0 +1,4 @@
+interface:
+  display_name: "Desarrollar prueba UTL de datos"
+  short_description: "Guia trazable para la prueba electoral UTL"
+  default_prompt: "Usa $desarrollar-prueba-utl-datos para implementar el siguiente incremento de la prueba con trazabilidad y validacion."
