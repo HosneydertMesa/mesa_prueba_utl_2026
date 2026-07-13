@@ -3,8 +3,8 @@
 ## Estado
 
 Las capas de adquisición, parsing, ETL, SQLite, auditoría, SQL, exportación JSON
-y presentación HTML están implementadas. Las visualizaciones del Reto 5 son el
-siguiente bloque de construcción.
+y presentación HTML están implementadas. El heatmap 5.1 también está completo;
+el scatter 5.2 es el siguiente bloque de construcción.
 
 ## Flujo actual y planificado
 
@@ -18,7 +18,8 @@ Nomenclator + ACT públicos
   -> auditoría local reproducible
   -> export_data.py -> data.json + JSON embebido
   -> dashboard/index.html autocontenido
-  -> [siguiente] heatmap.py / scatter.py -> PNG
+  -> heatmap.py -> heatmap_municipios.png
+  -> [siguiente] scatter.py -> scatter_ca_se.png
   -> [bloqueado] generar_manifest.py oficial
 ```
 
@@ -38,7 +39,8 @@ Nomenclator + ACT públicos
   sincronización atómica del bloque embebido en el HTML.
 - `dashboard/index.html`: presentación estática autocontenida compatible con
   apertura directa, sin runtime ni recursos externos.
-- `viz/`: productos reproducibles derivados de SQLite pendientes.
+- `viz/heatmap.py`: selección top 8 consolidada, matriz porcentual y PNG
+  reproducible; `viz/scatter.py` permanece pendiente.
 - `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
 - `tests/`: unitarias e integración de contratos y casos calculables.
 

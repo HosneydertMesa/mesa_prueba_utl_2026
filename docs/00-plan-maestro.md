@@ -15,9 +15,9 @@ meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 | Reto 2 - SQLite y ETL | 25 | Implementado; manifest oficial pendiente | integridad `ok`, cero FK inválidas, auditoría local |
 | Reto 3 - SQL analítico | 25 | Implementado y probado | SQL 3.1/3.2/3.3 `ok`, casos calculables |
 | Reto 4 - Dashboard | 15 | Implementado y probado | HTML autocontenido, contrato embebido y 4/4 municipios |
-| Reto 5 - Visualizaciones | 10 | Pendiente | scaffolds presentes, PNG no generados |
+| Reto 5 - Visualizaciones | 10 | En progreso; 5.1 completo | heatmap 8×4 generado y probado; scatter pendiente |
 
-Cobertura funcional interna: **90/100 puntos base potenciales**. Esta cifra no es
+Cobertura funcional interna: **95/100 puntos base potenciales**. Esta cifra no es
 una calificación oficial: los retos 1.3 y 2.3 sólo quedan cerrados para entrega
 cuando se ejecute `generar_manifest.py` original, aún no suministrado.
 
@@ -43,7 +43,7 @@ adicional actual: **+7**, sujeto a evaluación.
 | 2. Cobertura | Completada localmente | Cuatro municipios | 4/4 y 2.214 resultados en auditoría local |
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
 | 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 4 municipios y JS válido |
-| 5. Visualizaciones | Pendiente | Heatmap + scatter | PNG >10 KB, rótulos y stdout exacto |
+| 5. Visualizaciones | En progreso | Heatmap completo; scatter pendiente | ambos PNG >10 KB y stdout 5.2 exacto |
 | 6. Entrega | Pendiente | Manifest, Release y repo | clon limpio, manifest oficial y PR integrado |
 
 ## Plan atómico restante
@@ -80,11 +80,15 @@ contrato exportado y las pruebas verifican los landmarks accesibles.
 4.2 ya está verde. Este bonus se mantiene pospuesto hasta completar el Reto 5 y
 alcanzar los 100 puntos base.
 
-### Incremento 5.1 - Heatmap (5 puntos)
+### Incremento 5.1 - Heatmap (completado, 5 puntos)
 
 - Top 8 candidatos CA por criterio documentado.
 - Matriz 8×4 con porcentaje del total municipal y anotaciones.
 - Generar `viz/heatmap_municipios.png` legible y >10 KB.
+
+Evidencia: top 8 por votación CA consolidada en los cuatro municipios, matriz
+8×4 con porcentaje sobre votos CA municipales, anotaciones visibles y PNG de
+más de 200 KB. Pruebas cubren ranking, fórmula, cobertura y dimensiones.
 
 ### Incremento 5.2 - Scatter (5 puntos)
 

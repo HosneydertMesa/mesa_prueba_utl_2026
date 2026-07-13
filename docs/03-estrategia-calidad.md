@@ -9,17 +9,18 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 42 pruebas pasan, Ruff está limpio, los gates
-DEV/QA/SEC/REVIEW están verdes y GitHub Actions valida el PR #1. El gate RELEASE
-sigue rojo por diseño mientras falten PNG y manifest oficial.
+Estado actual: 45 pruebas pasan, Ruff está limpio y los gates
+DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
+cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten el scatter
+y el manifest oficial.
 
 ## Pirámide de pruebas
 
 - Unitarias: normalización, parsing, claves, ratios, atribución y stdout.
 - Integración: fixture CA+SE -> SQLite temporal -> SQL -> exportación.
 - Contrato: archivos, headings, colores, JSON, columnas y HTML autocontenido.
-- End-to-end: cuatro municipios ya auditados y dashboard contractual completo;
-  revisión manual multinavegador, manifest y PNG pendientes.
+- End-to-end: cuatro municipios ya auditados, dashboard contractual y heatmap
+  completos; revisión manual multinavegador, manifest y scatter pendientes.
 
 ## Evidencia específica del dashboard
 
@@ -28,6 +29,15 @@ sigue rojo por diseño mientras falten PNG y manifest oficial.
 - Cada municipio debe exponer top 10 CA, líder SE y arrastre por puesto.
 - Los cuatro colores obligatorios y la referencia `1.0` están bajo contrato.
 - El JavaScript embebido se compila sintácticamente con Node antes del commit.
+
+## Evidencia específica del heatmap
+
+- Ranking determinista del top 8 por votos CA consolidados.
+- Matriz contractual de 8 filas × 4 municipios en orden explícito.
+- Fórmula de cada celda probada contra un fixture calculable a mano.
+- Error temprano si falta un municipio, un candidato o un denominador positivo.
+- PNG real inspeccionado visualmente, con anotaciones y peso superior a 10 KB.
+- CI instala las dependencias declaradas antes de ejecutar los gates.
 
 ## Reglas de calidad de datos
 
