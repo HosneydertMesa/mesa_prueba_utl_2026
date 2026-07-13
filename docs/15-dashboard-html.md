@@ -6,8 +6,8 @@ El incremento 4.2 implementa los 15 puntos base del Reto 4 en un único
 `dashboard/index.html`. El archivo abre directamente desde disco, no necesita
 servidor y no depende de CDN, librerías, fuentes, imágenes o APIs externas.
 
-El bonus de dark mode y exportación CSV no pertenece a este incremento. Se
-mantiene separado hasta completar los 100 puntos base.
+El bonus de dark mode y exportación CSV se implementó después, como incremento
+4.3 separado, y se documenta en `docs/18-bonus-dashboard.md`.
 
 ## Flujo reproducible
 
@@ -60,7 +60,7 @@ python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
 ```
 
-Resultado local del incremento: 42 pruebas aprobadas, Ruff limpio, JavaScript
+Resultado local consolidado: 50 pruebas aprobadas, Ruff limpio, JavaScript
 sintácticamente válido, auditoría 4/4 municipios y gates DEV/QA/SEC/REVIEW
 verdes.
 

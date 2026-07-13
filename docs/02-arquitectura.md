@@ -38,7 +38,8 @@ Nomenclator + ACT públicos
 - `dashboard/export_data.py`: contrato determinista SQLite→JSON, validaciones y
   sincronización atómica del bloque embebido en el HTML.
 - `dashboard/index.html`: presentación estática autocontenida compatible con
-  apertura directa, sin runtime ni recursos externos.
+  apertura directa, sin runtime ni recursos externos; administra el tema local
+  y construye la exportación CSV en memoria.
 - `viz/heatmap.py`: selección top 8 consolidada, matriz porcentual y PNG.
 - `viz/scatter.py`: pareo CA/SE por mesa, Pearson, OLS, PNG y stdout contractual.
 - `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
@@ -84,6 +85,8 @@ se expresa sólo en las consultas que la necesitan.
 - La base de 64 MB no se versiona; la entrega prevista es GitHub Release asset.
 - El dashboard incorpora los datos como JSON embebido para ser compatible con
   `file://` sin servidor ni solicitudes bloqueadas por CORS.
+- El tema se resuelve con CSS custom properties y una preferencia local; el CSV
+  se genera con `Blob` desde el mismo JSON embebido. Ninguna función requiere red.
 
 ## Límites deliberados
 
