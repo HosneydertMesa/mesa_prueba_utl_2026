@@ -27,6 +27,7 @@ IGNORED_PARTS = {
 REQUIRED_BASE = (
     "README.md",
     "requirements.txt",
+    "scraper.py",
     "scraper/scraper.py",
     "scraper/nomenclator.py",
     "scraper/http_client.py",

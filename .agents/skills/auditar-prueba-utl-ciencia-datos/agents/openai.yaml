@@ -1,0 +1,4 @@
+interface:
+  display_name: "Auditar UTL como científico de datos"
+  short_description: "Audita rigor estadístico y valor analítico"
+  default_prompt: "Usa $auditar-prueba-utl-ciencia-datos para revisar la prueba UTL, detectar riesgos y priorizar mejoras responsables."

@@ -147,6 +147,8 @@ municipales, OLS global, Pearson anotado y stdout exacto. Resultado observado:
 
 ### Incremento 6 - Preparación de entrega
 
+- Añadir un punto de entrada raíz compatible con el comando literal
+  `python scraper.py`, sin duplicar la implementación canónica.
 - Incorporar muestras reales con procedencia explícita y sin atribuirlas a la UTL.
 - Implementar y ejecutar `generar_manifest.py` desde el contrato observable del PDF.
 - Generar `evaluation_manifest.json` y su ejemplo de forma determinista.
