@@ -18,7 +18,7 @@ python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
 Salida observada:
 
 ```text
-DASHBOARD_EXPORT municipios=7 puestos=104 mesas=1432 json_bytes=216655 html_bytes=273589
+DASHBOARD_EXPORT municipios=7 puestos=104 mesas=1432 json_bytes=453403 html_bytes=528167
 INFO salida=dashboard\data.json html=dashboard\index.html schema_version=2
 ```
 
@@ -46,6 +46,9 @@ municipios[]
 analitica
   heatmap: municipios[4], candidatos[8], maximo
   scatter: puntos[1107], colores_municipio, estadisticas OLS/Pearson
+  alcance_predeterminado: ampliado
+  ampliada.heatmap: municipios[7], candidatos[8], maximo
+  ampliada.scatter: puntos[1432], colores_municipio, estadisticas OLS/Pearson
 
 bonificaciones[6]
   id, nombre, puntos, evidencia
@@ -87,6 +90,8 @@ obligatorios se validan antes de escribir el archivo.
 - Existen los cuatro municipios requeridos.
 - Los conteos obligatorio/bonus y el puntaje +15 coinciden con el detalle.
 - `mesas_analiticas=1107` impide mezclar el alcance extra con el Reto 5.
+- La extensión 8×7/1.432 tiene sus propios ranking y ajuste, sin sobrescribir
+  los valores contractuales 8×4/1.107.
 - Metadata coincide con el detalle.
 - Cada municipio tiene top 10 CA y líder SE.
 - Cada puesto tiene exactamente un resultado de arrastre.

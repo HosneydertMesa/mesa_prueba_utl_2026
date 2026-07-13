@@ -3,9 +3,9 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 54 pruebas, Ruff, DEV, QA, SEC y REVIEW.
-- En nube: retos 1-5 y los bonus base integrados en `main`; el dashboard 2.0 se
-  valida mediante CI antes de su promoción.
+- Verdes localmente: 58 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- En nube: retos 1-5, bonus y Dashboard 2.0 integrados en `main`; toda evolución
+  web se valida mediante CI antes de su promoción.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
   autocontenido con datos embebidos.
 - Completado adicional: heatmap 8×4 anotado y superior a 10 KB.
@@ -13,6 +13,7 @@
 - Completado adicional: modo oscuro persistente y exportación CSV municipal.
 - Completado adicional: tres municipios bonus, auditoría 7/7 e idempotencia.
 - Completado adicional: Dashboard Analítico 2.0 con heatmap y scatter interactivos.
+- Completado adicional: Workspace 3.0 con cuatro vistas y workflow GitHub Pages.
 - Pendientes: insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
@@ -21,12 +22,14 @@
 2. Regenerar `dashboard/data.json` y confirmar contrato.
 3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
 4. Validar modo oscuro, persistencia y descarga CSV para los siete municipios.
-5. Validar heatmap 8×4, filtros y tooltips del scatter en el dashboard 2.0.
-6. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
-7. Regenerar `viz/scatter_ca_se.png` y confirmar stdout exacto.
-8. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
-9. Publicar SQLite como Release asset y enlazar checksum/URL.
-10. Ensayar clon limpio, gate RELEASE, revisión en incógnito y promoción.
+5. Validar el selector obligatorio/ampliado, heatmap 8×4/8×7 y scatter de
+   1.107/1.432 mesas con filtros y tooltips.
+6. Validar las cuatro vistas, URL con hash y navegación mediante teclado.
+7. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
+8. Regenerar `viz/scatter_ca_se.png` y confirmar stdout exacto.
+9. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
+10. Publicar SQLite como Release asset y enlazar checksum/URL.
+11. Ensayar clon limpio, gate RELEASE, revisión en incógnito y promoción.
 
 ## Comandos reproducibles actuales
 
@@ -66,6 +69,7 @@ se puede usar la caché ignorada por Git; el clon limpio debe funcionar sin ella
   línea 1.0 y consola limpia.
 - Bonus dashboard: tema claro/oscuro y CSV válido en apertura directa `file://`.
 - Bonus scraper: evidencia 7/7 disponible sin sustituir la base contractual 4/4.
+- GitHub Pages: workflow verde, HTTPS activo y URL pública verificada.
 - PNG existentes, legibles y mayores de 10 KB.
 - Secretos, PDF confidencial, caché y temporales ausentes del commit.
 - `python scripts/quality_gate.py release` verde.

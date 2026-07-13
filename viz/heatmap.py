@@ -60,8 +60,10 @@ def load_heatmap_data(
 ) -> HeatmapData:
     """Selecciona el top 8 consolidado y calcula su peso en cada municipio."""
 
-    if len(municipality_order) != 4 or len(set(municipality_order)) != 4:
-        raise HeatmapError("el heatmap requiere exactamente cuatro municipios únicos")
+    if not municipality_order or len(set(municipality_order)) != len(
+        municipality_order
+    ):
+        raise HeatmapError("el heatmap requiere municipios únicos y no vacíos")
 
     placeholders = _placeholders(len(municipality_order))
     catalog_rows = connection.execute(

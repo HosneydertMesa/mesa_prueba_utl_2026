@@ -4,12 +4,13 @@
 
 La versión 2.0 convierte las salidas estáticas del Reto 5 en vistas interactivas
 dentro del mismo `dashboard/index.html`. El comparativo, selector, top 10, líder,
-arrastre y CSV abarcan cuatro municipios obligatorios y tres bonus. El heatmap,
-scatter, colores y ratios contractuales permanecen sobre el alcance obligatorio.
+arrastre y CSV abarcan cuatro municipios obligatorios y tres bonus. Heatmap y
+scatter permiten alternar entre el contrato obligatorio y el alcance ampliado;
+los valores oficiales permanecen disponibles sin modificación.
 
 No se introduce servidor, CDN, `fetch` ni librería JavaScript. El dashboard sigue
-abriendo directamente mediante `file://` y no se publica en hosting para preservar
-el contrato de entrega local.
+abriendo directamente mediante `file://`; la publicación opcional en GitHub
+Pages sirve el mismo artefacto estático y no reemplaza el contrato local.
 
 ## Contrato de datos v2
 
@@ -26,6 +27,10 @@ El contrato raíz también contiene siete municipios con `alcance`, contadores
 separados y seis bonificaciones cuya suma es +15 potencial. La metadata distingue
 `mesas=1432` de `mesas_analiticas=1107` para impedir una mezcla accidental.
 
+`analitica` conserva `heatmap` y `scatter` como contrato obligatorio y añade
+`ampliada` con siete municipios. El dashboard abre en ampliado, pero ofrece un
+selector explícito para comparar ambos universos.
+
 Resultado observado:
 
 ```text
@@ -36,6 +41,16 @@ r=0.963699
 pendiente=0.933433
 intercepto=13.673280
 n_mesas=1107
+```
+
+Resultado suplementario ampliado:
+
+```text
+heatmap=8x7
+r=0.957094
+pendiente=0.938568
+intercepto=11.607821
+n_mesas=1432
 ```
 
 ## Experiencia interactiva
@@ -49,6 +64,8 @@ n_mesas=1107
 - La recta continúa siendo el ajuste OLS global aunque se filtre la visualización.
 - El tema oscuro redibuja el Canvas con los tokens CSS activos.
 - Una sección de ingeniería presenta los seis bonus y su evidencia reproducible.
+- El selector de alcance regenera tarjetas, heatmap, filtros, recta OLS y
+  tooltips con los datos del universo elegido.
 
 ## Accesibilidad e interpretación
 
@@ -68,7 +85,10 @@ python scripts/quality_gate.py all
 ```
 
 Los contratos verifican identidad JSON/HTML, siete municipios, suma bonus +15,
-schema v2, matriz 8×4, 1.107 puntos, estadísticos observados, controles
-interactivos y ausencia de recursos externos.
+schema v2, matrices 8×4/8×7, 1.107/1.432 puntos, estadísticos separados,
+controles interactivos y ausencia de recursos externos.
 La revisión manual pendiente debe abrir el archivo en Chrome y Firefox, alternar
 el tema, recorrer la tabla, filtrar cada municipio y comprobar los tooltips.
+
+La evolución espacial y su despliegue están documentados en
+`docs/21-dashboard-workspace-pages.md`.

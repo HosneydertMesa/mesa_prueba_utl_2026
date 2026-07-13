@@ -62,7 +62,7 @@ python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
 ```
 
-Resultado local consolidado: 54 pruebas aprobadas, Ruff limpio, JavaScript
+Resultado local consolidado: 58 pruebas aprobadas, Ruff limpio, JavaScript
 sintácticamente válido, auditoría 4/4 municipios y gates DEV/QA/SEC/REVIEW
 verdes.
 
@@ -83,3 +83,6 @@ se sustituye por un servidor local.
 
 La evolución suplementaria del mismo archivo está descrita en
 `docs/20-dashboard-analitico-2.md`.
+
+La organización espacial en cuatro vistas y la publicación mínima están
+descritas en `docs/21-dashboard-workspace-pages.md`.

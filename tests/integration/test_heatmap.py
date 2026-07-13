@@ -7,8 +7,13 @@ from pathlib import Path
 
 from viz.heatmap import HeatmapError, load_heatmap_data, render_heatmap
 
+BASE_MUNICIPALITIES = ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA")
+BONUS_MUNICIPALITIES = ("CHIQUINQUIRA", "PUERTO BOYACA", "MONIQUIRA")
 
-def heatmap_connection() -> sqlite3.Connection:
+
+def heatmap_connection(
+    municipalities: tuple[str, ...] = BASE_MUNICIPALITIES,
+) -> sqlite3.Connection:
     connection = sqlite3.connect(":memory:")
     connection.row_factory = sqlite3.Row
     connection.executescript(
@@ -53,9 +58,7 @@ def heatmap_connection() -> sqlite3.Connection:
             "VALUES (?, 1, ?, ?, 0)",
             (candidate_id, str(100 + candidate_id), f"CANDIDATO {candidate_id}"),
         )
-    for index, municipality in enumerate(
-        ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"), start=1
-    ):
+    for index, municipality in enumerate(municipalities, start=1):
         connection.execute(
             "INSERT INTO municipios(id, nombre) VALUES (?, ?)",
             (index, municipality),
@@ -104,6 +107,19 @@ class HeatmapIntegrationTests(unittest.TestCase):
                 load_heatmap_data(connection)
         finally:
             connection.close()
+
+    def test_supports_seven_municipalities_for_bonus_dashboard(self) -> None:
+        municipalities = (*BASE_MUNICIPALITIES, *BONUS_MUNICIPALITIES)
+        connection = heatmap_connection(municipalities)
+        try:
+            data = load_heatmap_data(
+                connection, municipality_order=municipalities
+            )
+        finally:
+            connection.close()
+
+        self.assertEqual(data.percentages.shape, (8, 7))
+        self.assertEqual(data.municipalities, municipalities)
 
     def test_renders_legible_png_over_required_size(self) -> None:
         connection = heatmap_connection()

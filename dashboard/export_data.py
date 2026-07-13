@@ -161,14 +161,17 @@ def _green_drag_by_municipality(
     return result
 
 
-def _analytical_views(connection: sqlite3.Connection) -> dict[str, Any]:
-    """Serializa los mismos datos que alimentan los PNG del Reto 5."""
+def _analytical_scope(
+    connection: sqlite3.Connection,
+    municipality_order: tuple[str, ...],
+) -> dict[str, Any]:
+    """Serializa heatmap y scatter para un alcance municipal explícito."""
 
     from viz.heatmap import load_heatmap_data
     from viz.scatter import MUNICIPALITY_COLORS, fit_regression, load_scatter_data
 
-    heatmap = load_heatmap_data(connection)
-    scatter = load_scatter_data(connection)
+    heatmap = load_heatmap_data(connection, municipality_order=municipality_order)
+    scatter = load_scatter_data(connection, municipality_order=municipality_order)
     statistics = fit_regression(scatter)
     municipality_count = len(heatmap.municipalities)
     maximum_index = int(heatmap.percentages.argmax())
@@ -216,6 +219,24 @@ def _analytical_views(connection: sqlite3.Connection) -> dict[str, Any]:
             },
         },
     }
+
+
+def _analytical_views(
+    connection: sqlite3.Connection,
+    *,
+    include_expanded: bool,
+) -> dict[str, Any]:
+    """Conserva Reto 5 obligatorio y añade la analítica bonus cuando aplica."""
+
+    analytics = _analytical_scope(connection, REQUIRED_MUNICIPALITIES)
+    analytics["alcance_predeterminado"] = (
+        "ampliado" if include_expanded else "obligatorio"
+    )
+    if include_expanded:
+        analytics["ampliada"] = _analytical_scope(
+            connection, DASHBOARD_MUNICIPALITIES
+        )
+    return analytics
 
 
 def build_dashboard_data(
@@ -332,7 +353,12 @@ def build_dashboard_data(
         ],
     }
     if include_analytics:
-        result["analitica"] = _analytical_views(connection)
+        include_expanded = all(
+            name in municipality_order for name in BONUS_MUNICIPALITIES
+        )
+        result["analitica"] = _analytical_views(
+            connection, include_expanded=include_expanded
+        )
     return result
 
 
@@ -398,6 +424,33 @@ def validate_dashboard_contract(
             raise DashboardExportError("el scatter analítico no contiene una fila por mesa")
         if int(statistics.get("n_mesas", 0)) != analytical_tables:
             raise DashboardExportError("n_mesas analítico no coincide con metadata")
+        expanded = analytics.get("ampliada")
+        has_bonus_scope = int(meta.get("municipios_bonus", 0)) == len(
+            BONUS_MUNICIPALITIES
+        )
+        if has_bonus_scope and not isinstance(expanded, Mapping):
+            raise DashboardExportError("falta la analítica ampliada de siete municipios")
+        if isinstance(expanded, Mapping):
+            expanded_heatmap = expanded.get("heatmap")
+            expanded_scatter = expanded.get("scatter")
+            if not isinstance(expanded_heatmap, Mapping) or not isinstance(
+                expanded_scatter, Mapping
+            ):
+                raise DashboardExportError("heatmap o scatter ampliado ausente")
+            if expanded_heatmap.get("municipios") != list(DASHBOARD_MUNICIPALITIES):
+                raise DashboardExportError("municipios del heatmap ampliado inválidos")
+            if len(expanded_heatmap.get("candidatos", [])) != 8:
+                raise DashboardExportError("el heatmap ampliado debe tener 8 candidatos")
+            expanded_points = expanded_scatter.get("puntos", [])
+            expanded_statistics = expanded_scatter.get("estadisticas", {})
+            if len(expanded_points) != int(meta["mesas"]):
+                raise DashboardExportError(
+                    "el scatter ampliado no contiene una fila por mesa"
+                )
+            if int(expanded_statistics.get("n_mesas", 0)) != int(meta["mesas"]):
+                raise DashboardExportError(
+                    "n_mesas ampliado no coincide con metadata"
+                )
 
 
 def write_dashboard_data(data: Mapping[str, Any], output_path: str | Path) -> int:

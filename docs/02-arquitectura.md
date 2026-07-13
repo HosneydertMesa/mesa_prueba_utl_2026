@@ -87,12 +87,17 @@ se expresa sólo en las consultas que la necesitan.
   tres municipios adicionales alteren los resultados contractuales de cuatro.
 - El dashboard incorpora los datos como JSON embebido para ser compatible con
   `file://` sin servidor ni solicitudes bloqueadas por CORS.
-- El dashboard ampliado consume siete municipios con `alcance` explícito, pero
-  el bloque `analitica` reutiliza únicamente las 1.107 mesas obligatorias.
+- El dashboard ampliado consume siete municipios con `alcance` explícito. El
+  bloque `analitica` conserva en la raíz las 1.107 mesas obligatorias y agrega
+  `ampliada` con las 1.432 mesas, su heatmap y su regresión independientes.
 - El tema se resuelve con CSS custom properties y una preferencia local; el CSV
   se genera con `Blob` desde el mismo JSON embebido. Ninguna función requiere red.
 - El schema v2 reutiliza `load_heatmap_data`, `load_scatter_data` y
   `fit_regression`; así los PNG y las vistas interactivas comparten fórmulas.
+- La capa de presentación 3.0 conserva un único documento, pero organiza sus
+  secciones como cuatro paneles accesibles controlados por fragmento de URL.
+- GitHub Pages recibe un artefacto mínimo con `index.html` y `data.json`; el
+  pipeline, SQLite y evidencias internas permanecen fuera del sitio público.
 
 ## Límites deliberados
 
