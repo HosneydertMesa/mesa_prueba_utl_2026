@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import io
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -14,9 +16,22 @@ from scraper.scraper import (
 )
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "nomenclator_boyaca_min.json"
+ROOT = Path(__file__).parents[2]
 
 
 class ScraperCliTests(unittest.TestCase):
+    def test_root_entrypoint_exposes_contractual_command(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scraper.py"), "--help"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--preflight", result.stdout)
+        self.assertIn("--incluir-bonus", result.stdout)
+
     def test_preflight_counts_without_network_or_database(self) -> None:
         output = io.StringIO()
         summary = run_preflight(

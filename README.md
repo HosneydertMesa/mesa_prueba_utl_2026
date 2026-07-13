@@ -34,6 +34,11 @@ La decisión y el schema están documentados en
 Pipeline implementado hasta la auditoría local de cobertura:
 
 ```bash
+# Comando literal del PDF; delega en scraper/scraper.py
+python scraper.py --preflight
+python scraper.py
+
+# Punto de entrada canónico, con las mismas opciones
 python scraper/scraper.py --preflight
 python scraper/scraper.py --preflight --municipios TUNJA PAIPA
 python scraper/scraper.py
@@ -166,6 +171,8 @@ El ensayo independiente desde clon limpio está registrado en
 
 Son hallazgos descriptivos del alcance cargado, no evidencia causal. La estrategia
 analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-analitica-ml.md).
+El dictamen de rigor, riesgos y mejoras priorizadas está en
+[docs/25-auditoria-ciencia-datos.md](docs/25-auditoria-ciencia-datos.md).
 
 ## Bonus implementados
 

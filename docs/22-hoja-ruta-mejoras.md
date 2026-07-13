@@ -49,6 +49,8 @@ Estado ejecutado al 13 de julio de 2026:
   descarga, auditorías, dashboard, PNG, 60 pruebas del corte y gates base reproducidos.
 - **P0-01 completado:** tres muestras reales con procedencia, generador, ejemplo,
   `evaluation_manifest.json`, 4/4 y SQL `OK` ×3; RELEASE está verde.
+- **Blindaje contractual completado:** `python scraper.py` funciona como wrapper
+  del punto de entrada canónico y está cubierto por prueba y gate DEV.
 - **P0-04 avanzado:** Chrome público, teclado, tema, CSV real, presentación,
   alcance 8×4/8×7, filtro scatter, consola y viewports 360/768/1280/1920 verdes.
   Firefox y `file://` permanecen como comprobación manual.
