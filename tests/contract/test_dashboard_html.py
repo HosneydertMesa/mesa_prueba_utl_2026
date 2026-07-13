@@ -97,6 +97,16 @@ class DashboardHtmlContractTests(unittest.TestCase):
         self.assertIn("function initializeWorkspaceNavigation()", self.html)
         self.assertIn("window.location.hash.slice(1)", self.html)
 
+    def test_mobile_workspace_constrains_wide_visuals(self) -> None:
+        self.assertRegex(
+            self.html,
+            r"\.workspace-view\s*\{[^}]*min-width:\s*0",
+        )
+        self.assertRegex(
+            self.html,
+            r"\.workspace-view \.section\s*\{[^}]*min-width:\s*0",
+        )
+
     def test_presentation_provenance_and_shareable_state_are_available(self) -> None:
         for identifier in (
             "presentation-start",
