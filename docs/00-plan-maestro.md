@@ -22,8 +22,8 @@ una calificación oficial: los retos 1.3 y 2.3 sólo quedan cerrados para entreg
 cuando se ejecute `generar_manifest.py` original, aún no suministrado.
 
 Bonus implementados y documentados: `--preflight` (+3 potencial), cinco índices
-(+2 potencial) y explicación CA vs atribución SE (+2 potencial). Total potencial
-adicional actual: **+7**, sujeto a evaluación.
+(+2), explicación CA vs atribución SE (+2), modo oscuro (+3) y exportación CSV
+(+2). Total potencial adicional actual: **+12/+15**, sujeto a evaluación.
 
 ## Principios
 
@@ -72,13 +72,24 @@ Evidencia: un único `dashboard/index.html`, sin dependencias externas ni
 exactos y referencia `1.0`. Los datos embebidos coinciden byte a byte con el
 contrato exportado y las pruebas verifican los landmarks accesibles.
 
-### Incremento 4.3 - Bonus de interfaz (+5 potencial)
+### Incremento 4.3 - Bonus de interfaz (completado, +5 potencial)
 
 - Dark mode mediante CSS custom properties (+3).
 - Exportación CSV de la selección visible (+2).
 
-4.2 ya está verde. Este bonus se mantiene pospuesto hasta completar el Reto 5 y
-alcanzar los 100 puntos base.
+Evidencia: tema oscuro implementado con CSS custom properties, preferencia del
+sistema y persistencia local; exportación CSV UTF-8 de la selección municipal
+visible. Ambos funcionan desde `file://`, sin recursos externos, y están bajo
+pruebas contractuales. Véase `docs/18-bonus-dashboard.md`.
+
+### Incremento B6 - Municipios adicionales (+3 potencial)
+
+- Extender el nomenclátor y el scraper a municipios adicionales de Boyacá.
+- Mantener separados el alcance obligatorio de cuatro municipios y la ampliación.
+- Regenerar base, auditoría y evidencia sin romper los conteos contractuales.
+
+Este bonus queda como incremento independiente: modifica adquisición y volumen
+de datos, mientras que 4.3 sólo afecta la interfaz autocontenida.
 
 ### Incremento 5.1 - Heatmap (completado, 5 puntos)
 

@@ -3,13 +3,14 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 49 pruebas, Ruff, DEV, QA, SEC y REVIEW.
-- En nube: retos 1-4 integrados mediante PR #1 y 5.1 mediante PR #2; 5.2 se
-  desarrolla en `codex/feat-reto-5-2-scatter-ca-se`.
+- Verdes localmente: 50 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- En nube: retos 1-5 integrados en `main`; el bonus de interfaz se desarrolla en
+  `codex/feat-bonus-dashboard-dark-csv`.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
   autocontenido con datos embebidos.
 - Completado adicional: heatmap 8×4 anotado y superior a 10 KB.
 - Completado adicional: scatter de 1.107 mesas, OLS/Pearson y stdout exacto.
+- Completado adicional: modo oscuro persistente y exportación CSV municipal.
 - Pendientes: insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
@@ -17,7 +18,7 @@
 1. Ejecutar `python scripts/audit_database.py` y conservar `ok=True`.
 2. Regenerar `dashboard/data.json` y confirmar contrato.
 3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
-4. Mantener dark mode/CSV pospuestos hasta completar los 100 puntos base.
+4. Validar modo oscuro, persistencia y descarga CSV para los cuatro municipios.
 5. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
 6. Regenerar `viz/scatter_ca_se.png` y confirmar stdout exacto.
 7. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
@@ -55,6 +56,7 @@ se puede usar la caché ignorada por Git; el clon limpio debe funcionar sin ella
 - `evaluation_manifest.json`: 4/4 municipios y SQL OK ×3.
 - Base SQLite disponible en Release con enlace y checksum.
 - Dashboard: cuatro municipios, colores exactos, línea 1.0 y consola limpia.
+- Bonus dashboard: tema claro/oscuro y CSV válido en apertura directa `file://`.
 - PNG existentes, legibles y mayores de 10 KB.
 - Secretos, PDF confidencial, caché y temporales ausentes del commit.
 - `python scripts/quality_gate.py release` verde.

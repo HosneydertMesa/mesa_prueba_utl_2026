@@ -66,3 +66,15 @@ class DashboardHtmlContractTests(unittest.TestCase):
         self.assertIn('id="drag-chart"', self.html)
         self.assertGreaterEqual(self.html.count('role="img"'), 3)
         self.assertIn('aria-live="polite"', self.html)
+
+    def test_bonus_dark_mode_and_csv_export_are_self_contained(self) -> None:
+        self.assertIn('html[data-theme="dark"]', self.html)
+        self.assertIn('id="theme-toggle"', self.html)
+        self.assertIn('id="theme-label"', self.html)
+        self.assertIn('aria-pressed="false"', self.html)
+        self.assertIn('localStorage.setItem("utl-dashboard-theme"', self.html)
+        self.assertIn('id="csv-export"', self.html)
+        self.assertIn('new Blob([content], { type: "text/csv;charset=utf-8" })', self.html)
+        self.assertIn('link.download = `dashboard-${slug}.csv`', self.html)
+        self.assertIn('"\\uFEFF"', self.html)
+        self.assertIn('"ratio_arrastre"', self.html)

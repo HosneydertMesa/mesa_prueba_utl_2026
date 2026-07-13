@@ -128,6 +128,11 @@ analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-anal
   (+2 previsto).
 - Explicación documentada de por qué el top CA puede diferir del top por
   atribución SE (+2 previsto).
+- Modo oscuro accesible basado en CSS custom properties, preferencia del sistema
+  y persistencia local (+3 previsto).
+- Exportación CSV funcional de la selección municipal visible, sin servidor ni
+  dependencias externas (+2 previsto).
 
-Los bonus de dashboard y municipios adicionales siguen pospuestos hasta asegurar
-los 100 puntos base.
+Bonus implementado potencial: **+12/+15**. Queda como ampliación separada el
+scraping de municipios adicionales de Boyacá (+3 previsto), para no alterar la
+evidencia ya cerrada de los cuatro municipios obligatorios.

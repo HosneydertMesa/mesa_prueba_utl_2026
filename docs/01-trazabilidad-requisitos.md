@@ -17,15 +17,15 @@
 | B1 Preflight | +3 | Implementado | 4/4 sin escribir BD ni ACT | validación oficial |
 | B2 Índices | +2 | Implementado | cinco índices + `EXPLAIN QUERY PLAN` | validación oficial |
 | B3 Explicación | +2 | Implementado | README y `docs/13-sql-analitico.md` | validación oficial |
-| B4 Dark mode | +3 | Pendiente | - | después del dashboard base |
-| B5 CSV | +2 | Pendiente | - | después del dashboard base |
-| B6 Municipios | +3 | Pospuesto | - | sólo después de 100 base |
+| B4 Dark mode | +3 | Implementado | CSS custom properties, preferencia y persistencia local | validación oficial |
+| B5 CSV | +2 | Implementado | exportación UTF-8 de la selección municipal visible | validación oficial |
+| B6 Municipios | +3 | Planificado | incremento independiente documentado | ampliar scraper y regenerar evidencia |
 
 ## Resumen cuantitativo
 
 - Base implementada y verificada internamente: 100/100 puntos potenciales.
 - Base pendiente de implementación: 0/100 puntos.
-- Bonus implementado: +7 puntos potenciales.
+- Bonus implementado: +12/+15 puntos potenciales.
 - Validación oficial pendiente: retos 1.3, 2.3 y 3.x por ausencia del generador.
 
 ## Penalizaciones convertidas en controles

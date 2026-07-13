@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 49 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 50 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
 cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
 insumos del manifest oficial y la distribución de la base.
@@ -28,6 +28,10 @@ insumos del manifest oficial y la distribución de la base.
 - Se rechazan `fetch`, scripts externos, CDNs y URLs HTTP en el HTML.
 - Cada municipio debe exponer top 10 CA, líder SE y arrastre por puesto.
 - Los cuatro colores obligatorios y la referencia `1.0` están bajo contrato.
+- El tema oscuro usa CSS custom properties, conserva estado accesible y persiste
+  una preferencia local sin comprometer la apertura mediante `file://`.
+- El CSV exportado contiene la selección municipal visible, cabeceras estables,
+  BOM UTF-8 y valores escapados; no necesita backend ni acceso de red.
 - El JavaScript embebido se compila sintácticamente con Node antes del commit.
 
 ## Evidencia específica del heatmap
