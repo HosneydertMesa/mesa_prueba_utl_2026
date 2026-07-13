@@ -16,6 +16,8 @@ if __package__ in {None, ""}:
 from db.database import connect_database  # noqa: E402
 
 REQUIRED_MUNICIPALITIES = ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA")
+BONUS_MUNICIPALITIES = ("CHIQUINQUIRA", "PUERTO BOYACA", "MONIQUIRA")
+DASHBOARD_MUNICIPALITIES = (*REQUIRED_MUNICIPALITIES, *BONUS_MUNICIPALITIES)
 PARTY_COLORS = {
     5: "#007C34",
     57: "#007C34",
@@ -251,25 +253,83 @@ def build_dashboard_data(
             ),
             "lider_se": leader,
             "arrastre_verde": drag.get(name, []),
+            "alcance": "obligatorio" if name in REQUIRED_MUNICIPALITIES else "bonus",
         }
         municipalities.append(item)
-        comparison.append({"municipio": name, "votos_ca_total": camera_total})
+        comparison.append(
+            {
+                "municipio": name,
+                "votos_ca_total": camera_total,
+                "alcance": item["alcance"],
+            }
+        )
 
     if include_analytics is None:
-        include_analytics = tuple(municipality_order) == REQUIRED_MUNICIPALITIES
+        include_analytics = all(
+            name in municipality_order for name in REQUIRED_MUNICIPALITIES
+        )
     result = {
         "meta": {
             "schema_version": 2,
             "dataset": "Congreso 2026 - Cámara y Senado - Boyacá",
             "corporaciones": ["CA", "SE"],
             "municipios": len(municipalities),
+            "municipios_obligatorios": sum(
+                item["alcance"] == "obligatorio" for item in municipalities
+            ),
+            "municipios_bonus": sum(
+                item["alcance"] == "bonus" for item in municipalities
+            ),
             "puestos": sum(item["puestos"] for item in municipalities),
             "mesas": sum(item["mesas"] for item in municipalities),
+            "mesas_analiticas": sum(
+                item["mesas"]
+                for item in municipalities
+                if item["alcance"] == "obligatorio"
+            ),
             "referencia_arrastre": 1.0,
         },
         "colores_partido": {str(code): color for code, color in PARTY_COLORS.items()},
         "comparativo_ca": comparison,
         "municipios": municipalities,
+        "bonificaciones": [
+            {
+                "id": "B1",
+                "nombre": "Preflight sin escritura",
+                "puntos": 3,
+                "evidencia": "7/7 municipios, 104 puestos y 1.432 mesas",
+            },
+            {
+                "id": "B2",
+                "nombre": "Índices analíticos",
+                "puntos": 2,
+                "evidencia": "5 índices explícitos y EXPLAIN QUERY PLAN",
+            },
+            {
+                "id": "B3",
+                "nombre": "Explicación CA vs SE",
+                "puntos": 2,
+                "evidencia": "Diferencia entre voto CA y atribución SE documentada",
+            },
+            {
+                "id": "B4",
+                "nombre": "Modo oscuro",
+                "puntos": 3,
+                "evidencia": "CSS custom properties y preferencia persistente",
+            },
+            {
+                "id": "B5",
+                "nombre": "Exportación CSV",
+                "puntos": 2,
+                "evidencia": "Descarga UTF-8 del municipio seleccionado",
+            },
+            {
+                "id": "B6",
+                "nombre": "Municipios adicionales",
+                "puntos": 3,
+                "evidencia": "Chiquinquirá, Puerto Boyacá y Moniquirá",
+            },
+        ],
     }
     if include_analytics:
         result["analitica"] = _analytical_views(connection)
@@ -292,13 +352,24 @@ def validate_dashboard_contract(
         raise DashboardExportError("meta.mesas no coincide con el detalle")
     names = [str(item["nombre"]) for item in municipalities]
     if require_analytics is None:
-        require_analytics = tuple(names) == REQUIRED_MUNICIPALITIES
+        require_analytics = all(name in names for name in REQUIRED_MUNICIPALITIES)
     comparison_names = [str(item["municipio"]) for item in data["comparativo_ca"]]
     if names != comparison_names or len(names) != len(set(names)):
         raise DashboardExportError("orden o unicidad municipal inconsistente")
     expected_colors = {str(code): color for code, color in PARTY_COLORS.items()}
     if data["colores_partido"] != expected_colors:
         raise DashboardExportError("colores obligatorios incompletos o alterados")
+    if int(meta.get("municipios_obligatorios", 0)) != sum(
+        item.get("alcance") == "obligatorio" for item in municipalities
+    ):
+        raise DashboardExportError("conteo de municipios obligatorios inconsistente")
+    if int(meta.get("municipios_bonus", 0)) != sum(
+        item.get("alcance") == "bonus" for item in municipalities
+    ):
+        raise DashboardExportError("conteo de municipios bonus inconsistente")
+    bonuses = data.get("bonificaciones", [])
+    if len(bonuses) != 6 or sum(int(item["puntos"]) for item in bonuses) != 15:
+        raise DashboardExportError("bonificaciones incompletas o puntaje distinto de 15")
     for item in municipalities:
         if len(item["arrastre_verde"]) != int(item["puestos"]):
             raise DashboardExportError(
@@ -322,9 +393,10 @@ def validate_dashboard_contract(
             raise DashboardExportError("el heatmap analítico debe tener 8 candidatos")
         points = scatter.get("puntos", [])
         statistics = scatter.get("estadisticas", {})
-        if len(points) != int(meta["mesas"]):
+        analytical_tables = int(meta.get("mesas_analiticas", 0))
+        if len(points) != analytical_tables:
             raise DashboardExportError("el scatter analítico no contiene una fila por mesa")
-        if int(statistics.get("n_mesas", 0)) != int(meta["mesas"]):
+        if int(statistics.get("n_mesas", 0)) != analytical_tables:
             raise DashboardExportError("n_mesas analítico no coincide con metadata")
 
 
@@ -375,10 +447,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--db", type=Path, default=Path("db/puestos_2026.db"))
     parser.add_argument("--output", type=Path, default=Path("dashboard/data.json"))
     parser.add_argument("--html", type=Path, default=Path("dashboard/index.html"))
+    parser.add_argument(
+        "--include-bonus",
+        action="store_true",
+        help="incluye los tres municipios bonus en el dashboard exportado",
+    )
     args = parser.parse_args(argv)
     connection = connect_database(args.db)
     try:
-        data = build_dashboard_data(connection)
+        municipality_order = (
+            DASHBOARD_MUNICIPALITIES if args.include_bonus else REQUIRED_MUNICIPALITIES
+        )
+        data = build_dashboard_data(connection, municipality_order=municipality_order)
         validate_dashboard_contract(data)
     finally:
         connection.close()

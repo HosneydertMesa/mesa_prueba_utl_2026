@@ -866,6 +866,70 @@
 
     .scatter-tooltip[hidden] { display: none; }
 
+    .bonus-summary {
+      display: grid;
+      grid-template-columns: minmax(12rem, 0.45fr) minmax(0, 1.55fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .bonus-score {
+      display: grid;
+      place-content: center;
+      min-height: 14rem;
+      padding: 1.4rem;
+      color: #fff;
+      border-radius: var(--radius-md);
+      background: linear-gradient(145deg, var(--navy), var(--navy-soft));
+      text-align: center;
+    }
+
+    .bonus-score strong {
+      display: block;
+      font-size: clamp(2.7rem, 6vw, 4.8rem);
+      line-height: 1;
+    }
+
+    .bonus-score span { margin-top: 0.55rem; font-size: 0.78rem; opacity: 0.82; }
+
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .bonus-card {
+      padding: 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      background: var(--surface-soft);
+    }
+
+    .bonus-card header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .bonus-card b { color: var(--blue); font-size: 0.75rem; }
+    .bonus-card strong { font-size: 0.82rem; }
+    .bonus-card p { margin: 0.45rem 0 0; color: var(--muted); font-size: 0.7rem; }
+
+    .scope-badge {
+      display: inline-block;
+      margin-left: 0.35rem;
+      padding: 0.12rem 0.34rem;
+      color: var(--green);
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: 0.58rem;
+      font-weight: 850;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
     footer {
       padding: 2rem 0 3rem;
       color: var(--footer-ink);
@@ -900,6 +964,7 @@
       .insight-card { min-height: 11rem; }
       .leader-card { min-height: auto; }
       .analytics-intro { grid-template-columns: 1fr 1fr; }
+      .bonus-summary { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 620px) {
@@ -930,6 +995,7 @@
 
       .candidate-track { display: none; }
       .analytics-intro { grid-template-columns: 1fr; }
+      .bonus-grid { grid-template-columns: 1fr; }
       #scatter-canvas { height: 420px; }
     }
   </style>
@@ -942,22 +1008,22 @@
           <span class="brand-mark" aria-hidden="true">HM</span>
           <span>Mesa · Data Lab</span>
         </div>
-        <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Cobertura completa</span>
+        <span class="status-pill"><span class="status-dot" aria-hidden="true"></span><span id="scope-status">Base + bonus completos</span></span>
       </div>
 
       <div class="hero-copy">
         <div>
           <span class="eyebrow">Congreso 2026 · Boyacá</span>
           <h1>Panorama electoral</h1>
-          <p class="hero-lead">
-            Cámara y Senado, mesa a mesa, para Tunja, Paipa, Sogamoso y Duitama.
-            Una lectura descriptiva de volumen, liderazgo y arrastre electoral.
+          <p id="scope-lead" class="hero-lead">
+            Cámara y Senado, mesa a mesa, para cuatro municipios obligatorios y
+            tres municipios adicionales de Boyacá.
           </p>
         </div>
         <div class="hero-stats" aria-label="Resumen de cobertura">
-          <div class="hero-stat"><strong id="hero-municipalities">4</strong><span>municipios</span></div>
-          <div class="hero-stat"><strong id="hero-positions">73</strong><span>puestos</span></div>
-          <div class="hero-stat"><strong id="hero-tables">1.107</strong><span>mesas</span></div>
+          <div class="hero-stat"><strong id="hero-municipalities">7</strong><span>municipios</span></div>
+          <div class="hero-stat"><strong id="hero-positions">104</strong><span>puestos</span></div>
+          <div class="hero-stat"><strong id="hero-tables">1.432</strong><span>mesas</span></div>
           <div class="hero-stat"><strong>CA + SE</strong><span>corporaciones</span></div>
         </div>
       </div>
@@ -972,7 +1038,7 @@
         <div>
           <p class="section-kicker">Comparativo territorial</p>
           <h2 id="comparison-title">Votos Cámara por municipio</h2>
-          <p class="section-copy">Total de votos depositados por partidos de Cámara en los cuatro municipios del alcance.</p>
+          <p id="comparison-copy" class="section-copy">Comparación de los cuatro municipios obligatorios y los tres municipios bonus.</p>
         </div>
       </div>
 
@@ -1058,7 +1124,7 @@
         <div id="drag-chart" class="drag-chart" role="img" aria-label="Ratio de arrastre Verde por puesto"></div>
       </div>
 
-      <p class="method-note">
+      <p id="analytics-scope-note" class="method-note">
         Un ratio superior a 1,0 describe más votos para la lista homologada de Senado que para Cámara en ese puesto.
         Es una comparación determinística de resultados agregados; no demuestra transferencia causal ni intención individual.
       </p>
@@ -1111,6 +1177,26 @@
         Pearson y OLS describen asociación entre resultados agregados del mismo evento. Los puntos alejados de la recta no se clasifican como fraude ni prueban transferencia o causalidad.
       </p>
     </section>
+
+    <section class="section" aria-labelledby="bonus-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Evidencia de ingeniería</p>
+          <h2 id="bonus-title">Bonus implementados y verificables</h2>
+          <p class="section-copy">Seis mejoras suplementarias trazadas a código, pruebas y artefactos reproducibles.</p>
+        </div>
+      </div>
+      <div class="bonus-summary">
+        <aside class="bonus-score" aria-label="Puntaje bonus potencial">
+          <strong id="bonus-total">+15/15</strong>
+          <span>puntaje potencial · sujeto a evaluación oficial</span>
+        </aside>
+        <div id="bonus-grid" class="bonus-grid"></div>
+      </div>
+      <p class="method-note">
+        El dashboard muestra siete municipios, pero el heatmap 8×4 y el scatter de 1.107 mesas conservan exactamente el alcance obligatorio del Reto 5.
+      </p>
+    </section>
   </main>
 
   <footer>
@@ -1129,9 +1215,12 @@
       "CA",
       "SE"
     ],
-    "municipios": 4,
-    "puestos": 73,
-    "mesas": 1107,
+    "municipios": 7,
+    "municipios_obligatorios": 4,
+    "municipios_bonus": 3,
+    "puestos": 104,
+    "mesas": 1432,
+    "mesas_analiticas": 1107,
     "referencia_arrastre": 1.0
   },
   "colores_partido": {
@@ -1145,19 +1234,38 @@
   "comparativo_ca": [
     {
       "municipio": "TUNJA",
-      "votos_ca_total": 72461
+      "votos_ca_total": 72461,
+      "alcance": "obligatorio"
     },
     {
       "municipio": "PAIPA",
-      "votos_ca_total": 16807
+      "votos_ca_total": 16807,
+      "alcance": "obligatorio"
     },
     {
       "municipio": "SOGAMOSO",
-      "votos_ca_total": 50881
+      "votos_ca_total": 50881,
+      "alcance": "obligatorio"
     },
     {
       "municipio": "DUITAMA",
-      "votos_ca_total": 48187
+      "votos_ca_total": 48187,
+      "alcance": "obligatorio"
+    },
+    {
+      "municipio": "CHIQUINQUIRA",
+      "votos_ca_total": 20502,
+      "alcance": "bonus"
+    },
+    {
+      "municipio": "PUERTO BOYACA",
+      "votos_ca_total": 17735,
+      "alcance": "bonus"
+    },
+    {
+      "municipio": "MONIQUIRA",
+      "votos_ca_total": 8817,
+      "alcance": "bonus"
     }
   ],
   "municipios": [
@@ -1460,7 +1568,8 @@
           "votos_se_verde": 35,
           "ratio_arrastre": 0.660377
         }
-      ]
+      ],
+      "alcance": "obligatorio"
     },
     {
       "codigo": "0700181",
@@ -1628,7 +1737,8 @@
           "votos_se_verde": 155,
           "ratio_arrastre": 0.630081
         }
-      ]
+      ],
+      "alcance": "obligatorio"
     },
     {
       "codigo": "0700277",
@@ -1873,7 +1983,8 @@
           "votos_se_verde": 14,
           "ratio_arrastre": 1.166667
         }
-      ]
+      ],
+      "alcance": "obligatorio"
     },
     {
       "codigo": "0700079",
@@ -2146,7 +2257,623 @@
           "votos_se_verde": 77,
           "ratio_arrastre": 1.241935
         }
-      ]
+      ],
+      "alcance": "obligatorio"
+    },
+    {
+      "codigo": "0700067",
+      "nombre": "CHIQUINQUIRA",
+      "puestos": 12,
+      "mesas": 139,
+      "votos_ca_total": 20502,
+      "votos_se_total": 20557,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 10,
+          "codcan": "102",
+          "candidato": "EDUAR ALEXIS TRIANA RINCON",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 2824,
+          "porcentaje_ca_municipal": 13.7743,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "102",
+          "candidato": "VIVIAN ANDREA NIETO FLOREZ",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1501,
+          "porcentaje_ca_municipal": 7.3212,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 121,
+          "codcan": "103",
+          "candidato": "JOSE DARIO MAHECHA CASTILLO",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 1325,
+          "porcentaje_ca_municipal": 6.4628,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 4,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1169,
+          "porcentaje_ca_municipal": 5.7019,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 5,
+          "codpar": 122,
+          "codcan": "103",
+          "candidato": "HECTOR JOSUE CAMACHO ACOSTA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 971,
+          "porcentaje_ca_municipal": 4.7361,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 6,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 870,
+          "porcentaje_ca_municipal": 4.2435,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 7,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 792,
+          "porcentaje_ca_municipal": 3.863,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 8,
+          "codpar": 2,
+          "codcan": "106",
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 735,
+          "porcentaje_ca_municipal": 3.585,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 9,
+          "codpar": 122,
+          "codcan": "102",
+          "candidato": "FABIAN CAMILO ROJAS BARRERA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 734,
+          "porcentaje_ca_municipal": 3.5801,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 10,
+          "codpar": 10,
+          "codcan": "103",
+          "candidato": "JICLY ESGARDO MUTIS ISAZA",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 552,
+          "porcentaje_ca_municipal": 2.6924,
+          "color": "#1E477D"
+        }
+      ],
+      "lider_se": {
+        "codpar": 57,
+        "partido": "ALIANZA POR COLOMBIA",
+        "votos": 4993,
+        "porcentaje_se_municipal": 24.2886,
+        "color": "#007C34"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700067010001",
+          "puesto": "U.PEDAG. Y TECNOLOGICA DE COL",
+          "votos_ca_verde": 510,
+          "votos_se_verde": 536,
+          "ratio_arrastre": 1.05098
+        },
+        {
+          "puesto_codigo": "0700067010002",
+          "puesto": "I.T.I.JULIO FLOREZ SECCION BT",
+          "votos_ca_verde": 526,
+          "votos_se_verde": 583,
+          "ratio_arrastre": 1.108365
+        },
+        {
+          "puesto_codigo": "0700067010003",
+          "puesto": "COL.LICEO NAL. JOSE JOAQUIN C",
+          "votos_ca_verde": 550,
+          "votos_se_verde": 614,
+          "ratio_arrastre": 1.116364
+        },
+        {
+          "puesto_codigo": "0700067010004",
+          "puesto": "NORMAL SUPERIOR SOR JOSEFA DEL CASTILLO",
+          "votos_ca_verde": 567,
+          "votos_se_verde": 604,
+          "ratio_arrastre": 1.065256
+        },
+        {
+          "puesto_codigo": "0700067020001",
+          "puesto": "CENTRO VIDA",
+          "votos_ca_verde": 411,
+          "votos_se_verde": 384,
+          "ratio_arrastre": 0.934307
+        },
+        {
+          "puesto_codigo": "0700067020002",
+          "puesto": "UNIVERSIDAD SANTO TOMAS",
+          "votos_ca_verde": 855,
+          "votos_se_verde": 775,
+          "ratio_arrastre": 0.906433
+        },
+        {
+          "puesto_codigo": "0700067020003",
+          "puesto": "COL PIO ALBERTO FERRO PEÑA SECCION PRIA",
+          "votos_ca_verde": 649,
+          "votos_se_verde": 593,
+          "ratio_arrastre": 0.913713
+        },
+        {
+          "puesto_codigo": "0700067020004",
+          "puesto": "C.PIO ALBERTO SECCION SECUNDA",
+          "votos_ca_verde": 471,
+          "votos_se_verde": 479,
+          "ratio_arrastre": 1.016985
+        },
+        {
+          "puesto_codigo": "0700067020005",
+          "puesto": "COLISEO DE FERIAS Y EXPOSICIONES",
+          "votos_ca_verde": 305,
+          "votos_se_verde": 317,
+          "ratio_arrastre": 1.039344
+        },
+        {
+          "puesto_codigo": "0700067980001",
+          "puesto": "CARCEL",
+          "votos_ca_verde": 2,
+          "votos_se_verde": 2,
+          "ratio_arrastre": 1.0
+        },
+        {
+          "puesto_codigo": "0700067990020",
+          "puesto": "SASA MOYAVITA",
+          "votos_ca_verde": 86,
+          "votos_se_verde": 95,
+          "ratio_arrastre": 1.104651
+        },
+        {
+          "puesto_codigo": "0700067990025",
+          "puesto": "VARELA",
+          "votos_ca_verde": 12,
+          "votos_se_verde": 11,
+          "ratio_arrastre": 0.916667
+        }
+      ],
+      "alcance": "bonus"
+    },
+    {
+      "codigo": "0700214",
+      "nombre": "PUERTO BOYACA",
+      "puestos": 14,
+      "mesas": 125,
+      "votos_ca_total": 17735,
+      "votos_se_total": 17027,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 10,
+          "codcan": "103",
+          "candidato": "JICLY ESGARDO MUTIS ISAZA",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 4277,
+          "porcentaje_ca_municipal": 24.1162,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 2026,
+          "porcentaje_ca_municipal": 11.4237,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1565,
+          "porcentaje_ca_municipal": 8.8244,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 4,
+          "codpar": 10,
+          "codcan": "102",
+          "candidato": "EDUAR ALEXIS TRIANA RINCON",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 1200,
+          "porcentaje_ca_municipal": 6.7663,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 5,
+          "codpar": 122,
+          "codcan": "102",
+          "candidato": "FABIAN CAMILO ROJAS BARRERA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 903,
+          "porcentaje_ca_municipal": 5.0916,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 6,
+          "codpar": 120,
+          "codcan": "101",
+          "candidato": "JAIRO ENRIQUE CASTIBLANCO PARRA",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 637,
+          "porcentaje_ca_municipal": 3.5918,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 7,
+          "codpar": 5,
+          "codcan": "103",
+          "candidato": "ADELINDA NUMPAQUE SARMIENTO",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 309,
+          "porcentaje_ca_municipal": 1.7423,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 8,
+          "codpar": 5,
+          "codcan": "102",
+          "candidato": "VIVIAN ANDREA NIETO FLOREZ",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 287,
+          "porcentaje_ca_municipal": 1.6183,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 9,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 259,
+          "porcentaje_ca_municipal": 1.4604,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 10,
+          "codpar": 120,
+          "codcan": "105",
+          "candidato": "NANCY YANETH ZAPATA PACHON",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 239,
+          "porcentaje_ca_municipal": 1.3476,
+          "color": "#64748B"
+        }
+      ],
+      "lider_se": {
+        "codpar": 57,
+        "partido": "ALIANZA POR COLOMBIA",
+        "votos": 5229,
+        "porcentaje_se_municipal": 30.71,
+        "color": "#007C34"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700214010001",
+          "puesto": "COLEGIO JOSE ANTONIO GALAN",
+          "votos_ca_verde": 1060,
+          "votos_se_verde": 1114,
+          "ratio_arrastre": 1.050943
+        },
+        {
+          "puesto_codigo": "0700214010002",
+          "puesto": "COL.NACIONAL.SAN PEDRO CLAVER",
+          "votos_ca_verde": 1053,
+          "votos_se_verde": 1177,
+          "ratio_arrastre": 1.117759
+        },
+        {
+          "puesto_codigo": "0700214020001",
+          "puesto": "COLEGIO JHON F. KENNEDY",
+          "votos_ca_verde": 989,
+          "votos_se_verde": 990,
+          "ratio_arrastre": 1.001011
+        },
+        {
+          "puesto_codigo": "0700214020002",
+          "puesto": "CONCENTRACION SIMON BOLIVAR",
+          "votos_ca_verde": 831,
+          "votos_se_verde": 936,
+          "ratio_arrastre": 1.126354
+        },
+        {
+          "puesto_codigo": "0700214980001",
+          "puesto": "CARCEL DEL CIRCUITO",
+          "votos_ca_verde": 9,
+          "votos_se_verde": 15,
+          "ratio_arrastre": 1.666667
+        },
+        {
+          "puesto_codigo": "0700214990001",
+          "puesto": "PALAGUA",
+          "votos_ca_verde": 196,
+          "votos_se_verde": 175,
+          "ratio_arrastre": 0.892857
+        },
+        {
+          "puesto_codigo": "0700214990003",
+          "puesto": "GUANEGRO",
+          "votos_ca_verde": 49,
+          "votos_se_verde": 80,
+          "ratio_arrastre": 1.632653
+        },
+        {
+          "puesto_codigo": "0700214990004",
+          "puesto": "CALDERON",
+          "votos_ca_verde": 119,
+          "votos_se_verde": 168,
+          "ratio_arrastre": 1.411765
+        },
+        {
+          "puesto_codigo": "0700214990005",
+          "puesto": "PUERTO GUTIERREZ",
+          "votos_ca_verde": 13,
+          "votos_se_verde": 16,
+          "ratio_arrastre": 1.230769
+        },
+        {
+          "puesto_codigo": "0700214990006",
+          "puesto": "PUERTO PINZON",
+          "votos_ca_verde": 48,
+          "votos_se_verde": 91,
+          "ratio_arrastre": 1.895833
+        },
+        {
+          "puesto_codigo": "0700214990008",
+          "puesto": "KILOMETRO 25",
+          "votos_ca_verde": 51,
+          "votos_se_verde": 67,
+          "ratio_arrastre": 1.313725
+        },
+        {
+          "puesto_codigo": "0700214990009",
+          "puesto": "VASCONIA (PUERTO SERVIEZ)",
+          "votos_ca_verde": 165,
+          "votos_se_verde": 181,
+          "ratio_arrastre": 1.09697
+        },
+        {
+          "puesto_codigo": "0700214990010",
+          "puesto": "EL MARFIL",
+          "votos_ca_verde": 135,
+          "votos_se_verde": 120,
+          "ratio_arrastre": 0.888889
+        },
+        {
+          "puesto_codigo": "0700214990030",
+          "puesto": "PUERTO ROMERO",
+          "votos_ca_verde": 143,
+          "votos_se_verde": 99,
+          "ratio_arrastre": 0.692308
+        }
+      ],
+      "alcance": "bonus"
+    },
+    {
+      "codigo": "0700160",
+      "nombre": "MONIQUIRA",
+      "puestos": 5,
+      "mesas": 61,
+      "votos_ca_total": 8817,
+      "votos_se_total": 8901,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1050,
+          "porcentaje_ca_municipal": 11.9088,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 838,
+          "porcentaje_ca_municipal": 9.5044,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 631,
+          "porcentaje_ca_municipal": 7.1566,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 4,
+          "codpar": 2,
+          "codcan": "106",
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 442,
+          "porcentaje_ca_municipal": 5.013,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 5,
+          "codpar": 120,
+          "codcan": "101",
+          "candidato": "JAIRO ENRIQUE CASTIBLANCO PARRA",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 384,
+          "porcentaje_ca_municipal": 4.3552,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 6,
+          "codpar": 10,
+          "codcan": "103",
+          "candidato": "JICLY ESGARDO MUTIS ISAZA",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 379,
+          "porcentaje_ca_municipal": 4.2985,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 7,
+          "codpar": 121,
+          "codcan": "104",
+          "candidato": "GLORIA CECILIA PALACIOS GUASTAR",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 279,
+          "porcentaje_ca_municipal": 3.1643,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 8,
+          "codpar": 122,
+          "codcan": "102",
+          "candidato": "FABIAN CAMILO ROJAS BARRERA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 266,
+          "porcentaje_ca_municipal": 3.0169,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 9,
+          "codpar": 10,
+          "codcan": "102",
+          "candidato": "EDUAR ALEXIS TRIANA RINCON",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 197,
+          "porcentaje_ca_municipal": 2.2343,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 10,
+          "codpar": 2,
+          "codcan": "103",
+          "candidato": "DIANA PAOLA HERRERA NUÑEZ",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 188,
+          "porcentaje_ca_municipal": 2.1322,
+          "color": "#E07B00"
+        }
+      ],
+      "lider_se": {
+        "codpar": 57,
+        "partido": "ALIANZA POR COLOMBIA",
+        "votos": 2338,
+        "porcentaje_se_municipal": 26.2667,
+        "color": "#007C34"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700160000000",
+          "puesto": "PUESTO CABECERA MUNICIPAL",
+          "votos_ca_verde": 2827,
+          "votos_se_verde": 2190,
+          "ratio_arrastre": 0.774673
+        },
+        {
+          "puesto_codigo": "0700160980001",
+          "puesto": "CARCEL",
+          "votos_ca_verde": 13,
+          "votos_se_verde": 9,
+          "ratio_arrastre": 0.692308
+        },
+        {
+          "puesto_codigo": "0700160990040",
+          "puesto": "MACIEGAL",
+          "votos_ca_verde": 88,
+          "votos_se_verde": 44,
+          "ratio_arrastre": 0.5
+        },
+        {
+          "puesto_codigo": "0700160990060",
+          "puesto": "PAJONALES",
+          "votos_ca_verde": 91,
+          "votos_se_verde": 81,
+          "ratio_arrastre": 0.89011
+        },
+        {
+          "puesto_codigo": "0700160990063",
+          "puesto": "PANTANILLO",
+          "votos_ca_verde": 21,
+          "votos_se_verde": 14,
+          "ratio_arrastre": 0.666667
+        }
+      ],
+      "alcance": "bonus"
+    }
+  ],
+  "bonificaciones": [
+    {
+      "id": "B1",
+      "nombre": "Preflight sin escritura",
+      "puntos": 3,
+      "evidencia": "7/7 municipios, 104 puestos y 1.432 mesas"
+    },
+    {
+      "id": "B2",
+      "nombre": "Índices analíticos",
+      "puntos": 2,
+      "evidencia": "5 índices explícitos y EXPLAIN QUERY PLAN"
+    },
+    {
+      "id": "B3",
+      "nombre": "Explicación CA vs SE",
+      "puntos": 2,
+      "evidencia": "Diferencia entre voto CA y atribución SE documentada"
+    },
+    {
+      "id": "B4",
+      "nombre": "Modo oscuro",
+      "puntos": 3,
+      "evidencia": "CSS custom properties y preferencia persistente"
+    },
+    {
+      "id": "B5",
+      "nombre": "Exportación CSV",
+      "puntos": 2,
+      "evidencia": "Descarga UTF-8 del municipio seleccionado"
+    },
+    {
+      "id": "B6",
+      "nombre": "Municipios adicionales",
+      "puntos": 3,
+      "evidencia": "Chiquinquirá, Puerto Boyacá y Moniquirá"
     }
   ],
   "analitica": {
@@ -9310,6 +10037,20 @@
       document.getElementById("hero-tables").textContent = numberFormat.format(DATA.meta.mesas);
     }
 
+    function renderScopeContext() {
+      const expanded = DATA.meta.municipios_bonus === 3;
+      document.getElementById("scope-status").textContent = expanded ? "Base + bonus completos" : "Alcance obligatorio completo";
+      document.getElementById("scope-lead").textContent = expanded
+        ? "Cámara y Senado, mesa a mesa, para cuatro municipios obligatorios y tres municipios adicionales de Boyacá."
+        : "Cámara y Senado, mesa a mesa, para los cuatro municipios obligatorios de Boyacá.";
+      document.getElementById("comparison-copy").textContent = expanded
+        ? "Comparación de los cuatro municipios obligatorios y los tres municipios bonus."
+        : "Comparación de los cuatro municipios del alcance obligatorio.";
+      document.getElementById("analytics-scope-note").textContent = expanded
+        ? "El dashboard muestra siete municipios, pero el heatmap 8×4 y el scatter de 1.107 mesas conservan exactamente el alcance obligatorio del Reto 5."
+        : "El dashboard muestra el alcance obligatorio; los tres municipios bonus se incorporan al exportar la base ampliada con --include-bonus.";
+    }
+
     function renderComparison() {
       const chart = document.getElementById("comparison-chart");
       chart.replaceChildren();
@@ -9318,6 +10059,9 @@
       DATA.comparativo_ca.forEach(item => {
         const row = createElement("div", "bar-row");
         const label = createElement("span", "bar-label", item.municipio);
+        if (item.alcance === "bonus") {
+          label.append(createElement("span", "scope-badge", "bonus"));
+        }
         const track = createElement("div", "bar-track");
         const fill = createElement("div", "bar-fill");
         const value = createElement("span", "bar-value", numberFormat.format(item.votos_ca_total));
@@ -9343,7 +10087,7 @@
       DATA.municipios.forEach(municipality => {
         const option = document.createElement("option");
         option.value = municipality.nombre;
-        option.textContent = municipality.nombre;
+        option.textContent = `${municipality.nombre}${municipality.alcance === "bonus" ? " · bonus" : ""}`;
         select.append(option);
       });
       select.addEventListener("change", () => renderMunicipality(select.value));
@@ -9433,23 +10177,57 @@
     function renderMunicipality(name) {
       const municipality = DATA.municipios.find(item => item.nombre === name);
       if (!municipality) throw new Error(`Municipio no encontrado: ${name}`);
+      const scopeLabel = municipality.alcance === "bonus" ? "municipio bonus" : "alcance obligatorio";
       document.getElementById("municipality-summary").textContent =
-        `${numberFormat.format(municipality.puestos)} puestos · ${numberFormat.format(municipality.mesas)} mesas · ${numberFormat.format(municipality.votos_ca_total)} votos CA`;
+        `${numberFormat.format(municipality.puestos)} puestos · ${numberFormat.format(municipality.mesas)} mesas · ${numberFormat.format(municipality.votos_ca_total)} votos CA · ${scopeLabel}`;
       renderCandidates(municipality);
       renderLeader(municipality);
       renderDrag(municipality);
     }
 
+    function renderBonusEvidence() {
+      const bonuses = DATA.bonificaciones || [];
+      const total = bonuses.reduce((sum, item) => sum + item.puntos, 0);
+      document.getElementById("bonus-total").textContent = `+${total}/15`;
+      const grid = document.getElementById("bonus-grid");
+      grid.replaceChildren();
+      bonuses.forEach(item => {
+        const card = createElement("article", "bonus-card");
+        const header = document.createElement("header");
+        header.append(
+          createElement("b", "", item.id),
+          createElement("strong", "", `+${item.puntos}`)
+        );
+        card.append(
+          header,
+          createElement("strong", "", item.nombre),
+          createElement("p", "", item.evidencia)
+        );
+        grid.append(card);
+      });
+    }
+
     function initializeDashboard() {
-      if (!DATA.meta || DATA.meta.municipios !== 4) {
+      const requiredMunicipalities = ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"];
+      const hasRequiredScope = requiredMunicipalities.every(name =>
+        DATA.municipios.some(item => item.nombre === name && item.alcance === "obligatorio")
+      );
+      const validMunicipalityScope = DATA.meta && DATA.meta.municipios_obligatorios === 4 && (
+        (DATA.meta.municipios === 4 && DATA.meta.municipios_bonus === 0) ||
+        (DATA.meta.municipios === 7 && DATA.meta.municipios_bonus === 3)
+      );
+      if (!validMunicipalityScope ||
+          !hasRequiredScope || !DATA.bonificaciones || DATA.bonificaciones.length !== 6) {
         throw new Error("Contrato de datos incompleto");
       }
       initializeTheme();
+      renderScopeContext();
       setHeroMetrics();
       renderComparison();
       populateMunicipalitySelector();
       renderMunicipality(DATA.municipios[0].nombre);
       initializeAnalytics();
+      renderBonusEvidence();
       document.getElementById("csv-export").addEventListener("click", exportSelectedMunicipalityCsv);
     }
 

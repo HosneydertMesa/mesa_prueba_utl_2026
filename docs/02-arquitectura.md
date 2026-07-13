@@ -87,6 +87,8 @@ se expresa sólo en las consultas que la necesitan.
   tres municipios adicionales alteren los resultados contractuales de cuatro.
 - El dashboard incorpora los datos como JSON embebido para ser compatible con
   `file://` sin servidor ni solicitudes bloqueadas por CORS.
+- El dashboard ampliado consume siete municipios con `alcance` explícito, pero
+  el bloque `analitica` reutiliza únicamente las 1.107 mesas obligatorias.
 - El tema se resuelve con CSS custom properties y una preferencia local; el CSV
   se genera con `Blob` desde el mismo JSON embebido. Ninguna función requiere red.
 - El schema v2 reutiliza `load_heatmap_data`, `load_scatter_data` y

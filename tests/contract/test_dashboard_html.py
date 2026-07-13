@@ -8,7 +8,9 @@ from pathlib import Path
 ROOT = Path(__file__).parents[2]
 HTML_PATH = ROOT / "dashboard" / "index.html"
 JSON_PATH = ROOT / "dashboard" / "data.json"
-EXPECTED_MUNICIPALITIES = ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"]
+REQUIRED_MUNICIPALITIES = ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"]
+BONUS_MUNICIPALITIES = ["CHIQUINQUIRA", "PUERTO BOYACA", "MONIQUIRA"]
+EXPECTED_MUNICIPALITIES = REQUIRED_MUNICIPALITIES + BONUS_MUNICIPALITIES
 DATA_PATTERN = re.compile(
     r'<script id="dashboard-data" type="application/json">\s*(.*?)\s*</script>',
     re.DOTALL,
@@ -33,12 +35,19 @@ class DashboardHtmlContractTests(unittest.TestCase):
 
     def test_embedded_data_matches_exported_contract(self) -> None:
         self.assertEqual(self.embedded, self.exported)
-        self.assertEqual(self.embedded["meta"]["municipios"], 4)
-        self.assertEqual(self.embedded["meta"]["puestos"], 73)
-        self.assertEqual(self.embedded["meta"]["mesas"], 1107)
+        self.assertEqual(self.embedded["meta"]["municipios"], 7)
+        self.assertEqual(self.embedded["meta"]["municipios_obligatorios"], 4)
+        self.assertEqual(self.embedded["meta"]["municipios_bonus"], 3)
+        self.assertEqual(self.embedded["meta"]["puestos"], 104)
+        self.assertEqual(self.embedded["meta"]["mesas"], 1432)
+        self.assertEqual(self.embedded["meta"]["mesas_analiticas"], 1107)
         self.assertEqual(
             [item["nombre"] for item in self.embedded["municipios"]],
             EXPECTED_MUNICIPALITIES,
+        )
+        self.assertEqual(
+            [item["alcance"] for item in self.embedded["municipios"]],
+            ["obligatorio"] * 4 + ["bonus"] * 3,
         )
 
     def test_each_municipality_has_required_views(self) -> None:
@@ -80,10 +89,18 @@ class DashboardHtmlContractTests(unittest.TestCase):
         self.assertIn('"\\uFEFF"', self.html)
         self.assertIn('"ratio_arrastre"', self.html)
 
+    def test_all_six_bonus_are_visible_and_total_fifteen_points(self) -> None:
+        bonuses = self.embedded["bonificaciones"]
+        self.assertEqual(len(bonuses), 6)
+        self.assertEqual(sum(item["puntos"] for item in bonuses), 15)
+        self.assertIn('id="bonus-grid"', self.html)
+        self.assertIn('id="bonus-total"', self.html)
+        self.assertIn("renderBonusEvidence()", self.html)
+
     def test_analytical_v2_reuses_heatmap_and_scatter_contracts(self) -> None:
         self.assertEqual(self.embedded["meta"]["schema_version"], 2)
         analytics = self.embedded["analitica"]
-        self.assertEqual(analytics["heatmap"]["municipios"], EXPECTED_MUNICIPALITIES)
+        self.assertEqual(analytics["heatmap"]["municipios"], REQUIRED_MUNICIPALITIES)
         self.assertEqual(len(analytics["heatmap"]["candidatos"]), 8)
         self.assertEqual(len(analytics["scatter"]["puntos"]), 1107)
         statistics = analytics["scatter"]["estadisticas"]

@@ -50,10 +50,12 @@
 - Reto 3.1 arrastre: implementado con homologación `5→57`, 73 puestos y denominador cero como `NULL`.
 - Reto 3.2 dominancia: implementado para CA/SE, candidatos individuales y umbral estricto `>0.60`.
 - Reto 3.3 atribución: implementado con homologación ponderada, fórmula por mesa y top 5 consolidado.
-- Reto 4.1 exportación: implementado con JSON determinista, cuatro municipios,
-  top 10 CA, líder SE, arrastre por puesto y colores obligatorios.
+- Reto 4.1 exportación: implementado con JSON determinista, cuatro municipios
+  obligatorios y tres bonus identificados, top 10 CA, líder SE, arrastre por
+  puesto y colores obligatorios.
 - Reto 4.2 dashboard HTML: implementado como archivo autocontenido, sin servidor,
-  dependencias externas ni `fetch`; contrato validado para 4/4 municipios.
+  dependencias externas ni `fetch`; contrato validado para 7/7 municipios y
+  sección verificable de seis bonus (+15 potenciales).
 - Reto 5.1 heatmap: implementado con top 8 CA consolidado, cuatro municipios,
   porcentaje del total CA municipal, anotaciones y PNG >10 KB.
 - Reto 5.2 scatter: implementado con una observación por mesa, color por

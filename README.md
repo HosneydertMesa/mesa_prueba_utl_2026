@@ -40,7 +40,7 @@ python scripts/audit_database.py --db db/puestos_2026_bonus.db \
   --output outputs/auditoria_bonus_local.json --require-bonus
 
 # SQL analítico: las tres tareas también se validan en la auditoría
-python dashboard/export_data.py
+python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
 # Abrir dashboard/index.html directamente en el navegador
 
 # Incrementos siguientes
@@ -148,4 +148,7 @@ analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-anal
 
 Bonus implementado potencial: **+15/+15**. La base obligatoria de cuatro
 municipios permanece separada de `db/puestos_2026_bonus.db`, por lo que la
-ampliación no altera el manifest, SQL ni dashboard contractuales.
+ampliación no altera el manifest, SQL ni las visualizaciones contractuales. El
+dashboard publicado sí muestra los siete municipios con etiquetas de alcance y
+una sección de evidencia bonus; su heatmap y scatter conservan las 1.107 mesas
+obligatorias.
