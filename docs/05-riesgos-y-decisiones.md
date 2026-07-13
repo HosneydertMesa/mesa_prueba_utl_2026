@@ -9,24 +9,26 @@
 | R3 | Clave natural incorrecta o duplicados | Cerrado local | Crítico | UNIQUE, comparación, doble corrida completa con cero inserciones |
 | R4 | Confusión CA/SE o `codpar` | Mitigado | Alto | corporación en claves y homologación explícita/probada |
 | R5 | División por cero | Cerrado local | Medio | `NULLIF`, resultado `NULL` y pruebas calculables |
-| R6 | Dashboard falla en `file://` | Abierto | Alto | contrato de datos embebidos y QA real en Chrome/Firefox |
-| R7 | CDN no disponible | Abierto | Medio | preferir dashboard autocontenido o degradación documentada |
+| R6 | Dashboard falla en un navegador o viewport no cubierto | Abierto residual | Alto | contrato `file://` verde; falta QA manual Chrome/Firefox y móvil |
+| R7 | Dependencia web/CDN no disponible | Cerrado | Medio | dashboard autocontenido, sin CDN, `fetch` ni recursos externos |
 | R8 | ML consume tiempo base | Controlado | Alto | bloqueado hasta completar retos 4/5 y manifest |
 | R9 | DB supera 50 MB | Confirmado | Alto | 64 MB; Git ignore + GitHub Release asset + enlace README |
 | R10 | Publicar PDF confidencial | Controlado | Crítico | permanece en Downloads; SEC y `git status` antes de push |
 | R11 | Commits posteriores al formulario | Abierto final | Crítico | congelar SHA y enviar una sola vez |
 | R12 | `votantes > censo` en fuente | Aceptado/documentado | Medio | conservar ambos valores; 53 registros reportados; no imputar |
-| R13 | PR acumula varios retos | Abierto gestionado | Medio | commits atómicos, CI por push y no fusionar sin review final |
+| R13 | PR acumula varios retos | Cerrado para 4.5 | Medio | PR #7 revisado, CI verde y fusión autorizada a `main` |
+| R14 | Sitio Pages diverge del artefacto local | Mitigado/monitor | Alto | mismo HTML/JSON, workflow mínimo y smoke HTTPS con 7/7 y 1.432 puntos |
 
 ## Camino crítico
 
-1. Exportación JSON y dashboard `file://`.
-2. Heatmap y scatter con contratos exactos.
-3. Insumos oficiales y manifest.
-4. Release asset de SQLite.
-5. Clon limpio, gate RELEASE y promoción del PR.
+1. Obtener los insumos oficiales y ejecutar el manifest sin modificarlo.
+2. Publicar el Release asset de SQLite con SHA-256 y enlazarlo desde README.
+3. Ensayar clon limpio en menos de 10 minutos y ejecutar gate RELEASE.
+4. Completar QA manual Chrome/Firefox, responsive, teclado y consola.
+5. Congelar el SHA final y realizar una única entrega.
 
-ML, municipios extra y refactors amplios no pertenecen al camino crítico.
+ML adicional y refactors amplios no pertenecen al camino crítico. Los tres
+municipios extra y Pages ya están implementados y auditados.
 
 ## ADR-001: pipeline vertical primero
 
@@ -59,3 +61,6 @@ por similitud de nombre.
 Estado: aceptada, pendiente de ejecución. La base mide aproximadamente 64 MB y se
 mantiene fuera de Git para evitar inflar el historial. Antes de entrega se adjunta
 a un GitHub Release y se documentan URL y checksum.
+
+Los cierres del camino crítico y las mejoras opcionales se gestionan en
+`docs/22-hoja-ruta-mejoras.md`.

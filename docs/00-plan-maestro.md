@@ -7,7 +7,7 @@ Cámara (CA) y Senado (SE), modele datos en SQLite, responda las tres preguntas
 SQL, genere un dashboard estático y produzca las dos visualizaciones exigidas. La
 meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 
-## Estado ejecutivo - 12 de julio de 2026
+## Estado ejecutivo - 13 de julio de 2026
 
 | Bloque | Puntos base | Estado | Evidencia |
 |---|---:|---|---|
@@ -45,7 +45,7 @@ evaluación.
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
 | 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 7 municipios con alcance explícito y JS válido |
 | 5. Visualizaciones | Completada | Heatmap + scatter | ambos PNG >10 KB y stdout 5.2 exacto |
-| 6. Entrega | Pendiente | Manifest, Release y repo | clon limpio, manifest oficial y PR integrado |
+| 6. Entrega | En curso, bloqueo externo parcial | Repo y Pages publicados; faltan manifest, Release y clon limpio | manifest oficial, asset verificable y ensayo reproducible |
 
 ## Plan atómico restante
 
@@ -108,7 +108,8 @@ Véase `docs/20-dashboard-analitico-2.md`.
   Pages después de revisión y fusión a `main`.
 
 Evidencia: navegación lateral/inferior accesible, estado por fragmento de URL,
-redibujado seguro del Canvas y workflow con permisos mínimos. Véase
+redibujado seguro del Canvas, workflow con permisos mínimos y publicación HTTPS
+verificada desde `main` mediante el PR #7. Véase
 `docs/21-dashboard-workspace-pages.md`.
 
 ### Incremento B6 - Municipios adicionales (completado, +3 potencial)
@@ -177,3 +178,5 @@ Estos bloqueos no impiden Reto 4 o 5. Sí impiden declarar cerrados oficialmente
 
 Las decisiones contrastadas con fuentes están en
 [07-fuentes-investigacion.md](07-fuentes-investigacion.md).
+Los cierres pendientes y evoluciones opcionales están priorizados en
+[22-hoja-ruta-mejoras.md](22-hoja-ruta-mejoras.md).

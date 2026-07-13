@@ -14,6 +14,8 @@
 - Completado adicional: tres municipios bonus, auditoría 7/7 e idempotencia.
 - Completado adicional: Dashboard Analítico 2.0 con heatmap y scatter interactivos.
 - Completado adicional: Workspace 3.0 con cuatro vistas y workflow GitHub Pages.
+- Publicado: dashboard HTTPS verificado en
+  `https://hosneydertmesa.github.io/mesa_prueba-utl_2026/` desde `main`.
 - Pendientes: insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante

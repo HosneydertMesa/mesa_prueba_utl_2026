@@ -71,7 +71,8 @@ La automatización verifica:
 - ausencia de recursos externos y `fetch`;
 - identidad entre JSON exportado y embebido;
 - 7 municipios, 104 puestos y 1.432 mesas, diferenciados por alcance;
-- 6 bonus cuya suma es +15 y 1.107 mesas analíticas obligatorias;
+- 6 bonus cuya suma es +15, 1.107 mesas analíticas obligatorias y 1.432
+  observaciones en el alcance ampliado;
 - vistas obligatorias para cada municipio;
 - colores exactos y referencia `1.0`;
 - landmarks interactivos y accesibilidad básica.

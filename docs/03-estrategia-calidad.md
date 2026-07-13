@@ -37,7 +37,8 @@ insumos del manifest oficial y la distribución de la base.
 - Se rechazan `fetch`, scripts externos, CDNs y URLs HTTP en el HTML.
 - Cada municipio debe exponer top 10 CA, líder SE y arrastre por puesto.
 - El contrato exige 4 municipios obligatorios, 3 bonus, 104 puestos, 1.432 mesas
-  totales, 1.107 mesas analíticas y seis bonificaciones que suman +15.
+  totales, 1.107 mesas analíticas obligatorias, 1.432 ampliadas y seis
+  bonificaciones que suman +15.
 - Los cuatro colores obligatorios y la referencia `1.0` están bajo contrato.
 - El tema oscuro usa CSS custom properties, conserva estado accesible y persiste
   una preferencia local sin comprometer la apertura mediante `file://`.
