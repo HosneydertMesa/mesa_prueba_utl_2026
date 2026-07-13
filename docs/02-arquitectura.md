@@ -2,9 +2,9 @@
 
 ## Estado
 
-Las capas de adquisición, parsing, ETL, SQLite, auditoría, SQL y exportación JSON
-están implementadas. La presentación HTML y las visualizaciones son el siguiente
-bloque de construcción.
+Las capas de adquisición, parsing, ETL, SQLite, auditoría, SQL, exportación JSON
+y presentación HTML están implementadas. Las visualizaciones del Reto 5 son el
+siguiente bloque de construcción.
 
 ## Flujo actual y planificado
 
@@ -16,8 +16,8 @@ Nomenclator + ACT públicos
   -> SQLite normalizado + carga_log
   -> SQL 3.1 / 3.2 / 3.3
   -> auditoría local reproducible
-  -> export_data.py -> data.json
-  -> [siguiente] dashboard/index.html
+  -> export_data.py -> data.json + JSON embebido
+  -> dashboard/index.html autocontenido
   -> [siguiente] heatmap.py / scatter.py -> PNG
   -> [bloqueado] generar_manifest.py oficial
 ```
@@ -34,8 +34,10 @@ Nomenclator + ACT públicos
 - `db/etl.py`: dimensiones, hechos, transacciones, idempotencia y auditoría.
 - `scripts/audit_database.py`: cobertura, integridad, calidad y ejecución SQL.
 - `sql/`: consultas puras, deterministas e independientes de Python.
-- `dashboard/export_data.py`: contrato determinista SQLite→JSON y validaciones.
-- `dashboard/index.html`: presentación estática pendiente.
+- `dashboard/export_data.py`: contrato determinista SQLite→JSON, validaciones y
+  sincronización atómica del bloque embebido en el HTML.
+- `dashboard/index.html`: presentación estática autocontenida compatible con
+  apertura directa, sin runtime ni recursos externos.
 - `viz/`: productos reproducibles derivados de SQLite pendientes.
 - `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
 - `tests/`: unitarias e integración de contratos y casos calculables.
@@ -78,7 +80,8 @@ se expresa sólo en las consultas que la necesitan.
 - Datos fuente y nombres normalizados se conservan por separado.
 - Orden explícito y `NULLIF` en SQL para resultados repetibles y cero seguro.
 - La base de 64 MB no se versiona; la entrega prevista es GitHub Release asset.
-- El dashboard deberá incorporar los datos de forma compatible con `file://`.
+- El dashboard incorpora los datos como JSON embebido para ser compatible con
+  `file://` sin servidor ni solicitudes bloqueadas por CORS.
 
 ## Límites deliberados
 

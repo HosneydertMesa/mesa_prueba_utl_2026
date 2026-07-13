@@ -3,17 +3,18 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes: 36 pruebas, Ruff, DEV, QA, SEC, REVIEW y GitHub Actions.
+- Verdes localmente: 42 pruebas, Ruff, DEV, QA, SEC y REVIEW.
 - En nube: PR #1 borrador, sin conflictos; `main` aún no se fusiona.
-- Completado adicional: exportador y contrato `dashboard/data.json`.
-- Pendientes: dashboard HTML, PNG, insumos/manifest oficial, Release de DB y clon limpio.
+- Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
+  autocontenido con datos embebidos.
+- Pendientes: PNG, insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
 
 1. Ejecutar `python scripts/audit_database.py` y conservar `ok=True`.
 2. Regenerar `dashboard/data.json` y confirmar contrato.
-3. Construir `dashboard/index.html` y validarlo mediante `file://`.
-4. Agregar dark mode/CSV sólo cuando el dashboard base esté completo.
+3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
+4. Mantener dark mode/CSV pospuestos hasta completar los 100 puntos base.
 5. Implementar `viz/heatmap.py` y validar PNG 8×4 >10 KB.
 6. Implementar `viz/scatter.py`, PNG y stdout exacto.
 7. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.

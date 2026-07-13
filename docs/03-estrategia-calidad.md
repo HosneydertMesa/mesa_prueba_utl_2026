@@ -9,17 +9,25 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 36 pruebas pasan, Ruff está limpio, los gates
+Estado actual: 42 pruebas pasan, Ruff está limpio, los gates
 DEV/QA/SEC/REVIEW están verdes y GitHub Actions valida el PR #1. El gate RELEASE
-sigue rojo por diseño mientras falten dashboard, PNG y manifest oficial.
+sigue rojo por diseño mientras falten PNG y manifest oficial.
 
 ## Pirámide de pruebas
 
 - Unitarias: normalización, parsing, claves, ratios, atribución y stdout.
 - Integración: fixture CA+SE -> SQLite temporal -> SQL -> exportación.
-- Contrato: archivos, headings, colores, JSON y columnas.
-- End-to-end: cuatro municipios ya auditados; manifest, PNG y dashboard desde
-  `file://` pendientes.
+- Contrato: archivos, headings, colores, JSON, columnas y HTML autocontenido.
+- End-to-end: cuatro municipios ya auditados y dashboard contractual completo;
+  revisión manual multinavegador, manifest y PNG pendientes.
+
+## Evidencia específica del dashboard
+
+- El JSON embebido debe ser idéntico a `dashboard/data.json`.
+- Se rechazan `fetch`, scripts externos, CDNs y URLs HTTP en el HTML.
+- Cada municipio debe exponer top 10 CA, líder SE y arrastre por puesto.
+- Los cuatro colores obligatorios y la referencia `1.0` están bajo contrato.
+- El JavaScript embebido se compila sintácticamente con Node antes del commit.
 
 ## Reglas de calidad de datos
 

@@ -1,6 +1,6 @@
 # MESA — Prueba Técnica UTL Senado 2026
 
-> Estado: retos 1-3 implementados y auditados localmente; retos 4-5 pendientes.
+> Estado: retos 1-4 implementados y auditados localmente; Reto 5 pendiente.
 > Desarrollo publicado en PR borrador con gates DEV, QA, SEC, REVIEW y CI verdes.
 
 ## Candidato
@@ -34,8 +34,10 @@ python scraper/scraper.py
 python scripts/audit_database.py
 
 # SQL analítico: las tres tareas también se validan en la auditoría
-# Incrementos siguientes
 python dashboard/export_data.py
+# Abrir dashboard/index.html directamente en el navegador
+
+# Incrementos siguientes
 python viz/heatmap.py
 python viz/scatter.py
 python outputs/generar_manifest.py
@@ -53,6 +55,9 @@ La implementación, homologación y resultados del Reto 3 están en
 
 El contrato SQLite→JSON del dashboard está documentado en
 [docs/14-contrato-exportacion-dashboard.md](docs/14-contrato-exportacion-dashboard.md).
+
+La implementación y validación del dashboard autocontenido están documentadas
+en [docs/15-dashboard-html.md](docs/15-dashboard-html.md).
 
 
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.

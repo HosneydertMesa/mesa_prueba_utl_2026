@@ -11,7 +11,7 @@
 | 3.1 Arrastre | 9 | Implementado | 73 puestos, `5→57`, cero seguro | manifest oficial |
 | 3.2 Dominancia | 8 | Implementado | 3.780 filas, umbral estricto probado | manifest oficial |
 | 3.3 Atribución | 8 | Implementado | fórmula exacta y top 5 | manifest oficial |
-| 4 Dashboard | 15 | En progreso | exportador + JSON contractual | HTML + QA navegador |
+| 4 Dashboard | 15 | Implementado | `dashboard/index.html`, JSON embebido y 5 contratos HTML | revisión manual Chrome/Firefox |
 | 5.1 Heatmap | 5 | Pendiente | scaffold únicamente | script + PNG 8×4 |
 | 5.2 Scatter | 5 | Pendiente | scaffold únicamente | OLS/Pearson + PNG + stdout |
 | B1 Preflight | +3 | Implementado | 4/4 sin escribir BD ni ACT | validación oficial |
@@ -23,8 +23,8 @@
 
 ## Resumen cuantitativo
 
-- Base implementada y verificada internamente: 75/100 puntos potenciales.
-- Base pendiente de implementación: 25/100 puntos (retos 4 y 5).
+- Base implementada y verificada internamente: 90/100 puntos potenciales.
+- Base pendiente de implementación: 10/100 puntos (Reto 5).
 - Bonus implementado: +7 puntos potenciales.
 - Validación oficial pendiente: retos 1.3, 2.3 y 3.x por ausencia del generador.
 
@@ -52,5 +52,7 @@
 - Reto 3.3 atribución: implementado con homologación ponderada, fórmula por mesa y top 5 consolidado.
 - Reto 4.1 exportación: implementado con JSON determinista, cuatro municipios,
   top 10 CA, líder SE, arrastre por puesto y colores obligatorios.
-- Reto 4.2 dashboard HTML y Reto 5: pendientes.
+- Reto 4.2 dashboard HTML: implementado como archivo autocontenido, sin servidor,
+  dependencias externas ni `fetch`; contrato validado para 4/4 municipios.
+- Reto 5: pendiente.
 

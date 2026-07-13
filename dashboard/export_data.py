@@ -26,6 +26,8 @@ PARTY_COLORS = {
 }
 DEFAULT_PARTY_COLOR = "#64748B"
 SQL_3_1_PATH = Path(__file__).resolve().parents[1] / "sql" / "tarea_3_1.sql"
+DATA_SCRIPT_OPEN = '<script id="dashboard-data" type="application/json">'
+DATA_SCRIPT_CLOSE = "</script>"
 
 
 class DashboardExportError(RuntimeError):
@@ -258,10 +260,37 @@ def write_dashboard_data(data: Mapping[str, Any], output_path: str | Path) -> in
     return len(encoded)
 
 
+def embed_dashboard_data(data: Mapping[str, Any], html_path: str | Path) -> int:
+    path = Path(html_path)
+    html = path.read_text(encoding="utf-8")
+    open_index = html.find(DATA_SCRIPT_OPEN)
+    if open_index < 0:
+        raise DashboardExportError("index.html no contiene el bloque dashboard-data")
+    content_start = open_index + len(DATA_SCRIPT_OPEN)
+    close_index = html.find(DATA_SCRIPT_CLOSE, content_start)
+    if close_index < 0:
+        raise DashboardExportError("bloque dashboard-data no tiene cierre")
+    embedded = json.dumps(data, ensure_ascii=False, indent=2, sort_keys=False)
+    embedded = embedded.replace("</", "<\\/")
+    rendered = (
+        html[:content_start]
+        + "\n"
+        + embedded
+        + "\n  "
+        + html[close_index:]
+    )
+    encoded = rendered.encode("utf-8")
+    temporary = path.with_suffix(".tmp")
+    temporary.write_bytes(encoded)
+    temporary.replace(path)
+    return len(encoded)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, default=Path("db/puestos_2026.db"))
     parser.add_argument("--output", type=Path, default=Path("dashboard/data.json"))
+    parser.add_argument("--html", type=Path, default=Path("dashboard/index.html"))
     args = parser.parse_args(argv)
     connection = connect_database(args.db)
     try:
@@ -270,11 +299,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     finally:
         connection.close()
     size = write_dashboard_data(data, args.output)
+    html_size = embed_dashboard_data(data, args.html)
     print(
         f"DASHBOARD_EXPORT municipios={data['meta']['municipios']} "
-        f"puestos={data['meta']['puestos']} mesas={data['meta']['mesas']} bytes={size}"
+        f"puestos={data['meta']['puestos']} mesas={data['meta']['mesas']} "
+        f"json_bytes={size} html_bytes={html_size}"
     )
-    print(f"INFO salida={args.output} schema_version={data['meta']['schema_version']}")
+    print(
+        f"INFO salida={args.output} html={args.html} "
+        f"schema_version={data['meta']['schema_version']}"
+    )
     return 0
 
 

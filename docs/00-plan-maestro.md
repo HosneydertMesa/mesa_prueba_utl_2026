@@ -14,10 +14,10 @@ meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 | Reto 1 - API y scraper | 25 | Implementado; manifest oficial pendiente | 1.107 mesas, 2.214 ACT, segunda corrida sin inserciones |
 | Reto 2 - SQLite y ETL | 25 | Implementado; manifest oficial pendiente | integridad `ok`, cero FK inválidas, auditoría local |
 | Reto 3 - SQL analítico | 25 | Implementado y probado | SQL 3.1/3.2/3.3 `ok`, casos calculables |
-| Reto 4 - Dashboard | 15 | En progreso | exportador y `data.json` completos; HTML pendiente |
+| Reto 4 - Dashboard | 15 | Implementado y probado | HTML autocontenido, contrato embebido y 4/4 municipios |
 | Reto 5 - Visualizaciones | 10 | Pendiente | scaffolds presentes, PNG no generados |
 
-Cobertura funcional interna: **75/100 puntos base potenciales**. Esta cifra no es
+Cobertura funcional interna: **90/100 puntos base potenciales**. Esta cifra no es
 una calificación oficial: los retos 1.3 y 2.3 sólo quedan cerrados para entrega
 cuando se ejecute `generar_manifest.py` original, aún no suministrado.
 
@@ -42,7 +42,7 @@ adicional actual: **+7**, sujeto a evaluación.
 | 1. Esqueleto vertical | Completada | Mesa CA+SE hasta SQLite | reejecución estable y FK activas |
 | 2. Cobertura | Completada localmente | Cuatro municipios | 4/4 y 2.214 resultados en auditoría local |
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
-| 4. Dashboard | En progreso | JSON completo; `index.html` pendiente | `file://`, 4 municipios, consola limpia |
+| 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 4 municipios y JS válido |
 | 5. Visualizaciones | Pendiente | Heatmap + scatter | PNG >10 KB, rótulos y stdout exacto |
 | 6. Entrega | Pendiente | Manifest, Release y repo | clon limpio, manifest oficial y PR integrado |
 
@@ -59,7 +59,7 @@ Evidencia: cuatro municipios, 73 puestos, 1.107 mesas, colores exactos, top 10,
 líder SE y arrastre por puesto. Serialización determinista y contrato integrado a
 la auditoría local.
 
-### Incremento 4.2 - Dashboard base (15 puntos)
+### Incremento 4.2 - Dashboard base (completado, 15 puntos)
 
 - Construir un único `dashboard/index.html` autocontenido.
 - Abrir directamente mediante `file://`, sin servidor ni fetch bloqueado por CORS.
@@ -67,14 +67,18 @@ la auditoría local.
 - Preservar `#007C34`, `#7B2D8B`, `#1E477D`, `#E07B00` y referencia `1.0`.
 - Validar Chrome/Firefox, consola limpia, responsive y accesibilidad básica.
 
-Puerta: contrato visual completo para los cuatro municipios.
+Evidencia: un único `dashboard/index.html`, sin dependencias externas ni
+`fetch`; cuatro municipios, comparativo CA, top 10, líder SE, arrastre, colores
+exactos y referencia `1.0`. Los datos embebidos coinciden byte a byte con el
+contrato exportado y las pruebas verifican los landmarks accesibles.
 
 ### Incremento 4.3 - Bonus de interfaz (+5 potencial)
 
 - Dark mode mediante CSS custom properties (+3).
 - Exportación CSV de la selección visible (+2).
 
-Se implementa sólo después de que 4.2 esté verde.
+4.2 ya está verde. Este bonus se mantiene pospuesto hasta completar el Reto 5 y
+alcanzar los 100 puntos base.
 
 ### Incremento 5.1 - Heatmap (5 puntos)
 

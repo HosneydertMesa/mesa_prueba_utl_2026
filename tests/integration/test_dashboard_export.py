@@ -8,6 +8,7 @@ from pathlib import Path
 from dashboard.export_data import (
     DashboardExportError,
     build_dashboard_data,
+    embed_dashboard_data,
     validate_dashboard_contract,
     write_dashboard_data,
 )
@@ -79,3 +80,20 @@ class DashboardExportIntegrationTests(unittest.TestCase):
         write_dashboard_data(data, second)
 
         self.assertEqual(first.read_bytes(), second.read_bytes())
+
+    def test_embeds_data_without_fetch_or_external_runtime(self) -> None:
+        data = build_dashboard_data(self.connection, municipality_order=("TUNJA",))
+        html = Path(self.temporary.name) / "index.html"
+        html.write_text(
+            '<script id="dashboard-data" type="application/json">{}</script>',
+            encoding="utf-8",
+        )
+
+        first_size = embed_dashboard_data(data, html)
+        first = html.read_bytes()
+        second_size = embed_dashboard_data(data, html)
+
+        self.assertEqual(first_size, second_size)
+        self.assertEqual(first, html.read_bytes())
+        self.assertIn(b'"nombre": "TUNJA"', first)
+        self.assertNotIn(b"fetch(", first)
