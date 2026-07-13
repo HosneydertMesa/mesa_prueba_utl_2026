@@ -60,6 +60,27 @@ los tres SQL, los nombres/colores exigidos ni el manifest oficial.
 | P1-04 | Auditoría accesible y de rendimiento | Aporta evidencia objetiva adicional | Lighthouse/axe documentados, sin errores críticos y presupuesto acordado |
 | P1-05 | Tarjeta de procedencia | Mejora confianza y lectura ejecutiva | muestra fuente, fecha de corrida, alcance, anomalías preservadas y SHA del dataset |
 | P1-06 | Regresión visual controlada | Evita romper el layout al ajustar CSS | capturas estables de cuatro vistas en claro/oscuro y viewport desktop/móvil |
+| P1-07 | Actualizar runtimes de GitHub Actions | Elimina la advertencia de Node 20 obsoleto observada en CI | majors compatibles con Node 24, gates verdes y cero anotaciones de deprecación |
+
+### Deuda técnica de CI observada
+
+El workflow `quality` del merge documental concluyó correctamente, pero la
+ejecución `29227104337` informó que `actions/checkout@v4` y
+`actions/setup-python@v5` usan Node 20 y están siendo forzadas a Node 24 por el
+runner alojado de GitHub. No bloquea la entrega actual, pero debe resolverse
+antes de que la compatibilidad transitoria desaparezca.
+
+Plan de actualización:
+
+1. Probar en una rama un major compatible con Node 24 para ambas actions.
+2. Conservar `python-version` explícito y los permisos mínimos actuales.
+3. Ejecutar `quality` y `deploy-dashboard-pages` sin warnings de deprecación.
+4. Fusionar solo si artefacto Pages, caché y gates permanecen idénticos.
+
+Al corte de este documento, las fuentes oficiales registran majors modernos con
+Node 24: [releases de `actions/checkout`](https://github.com/actions/checkout/releases)
+y [releases de `actions/setup-python`](https://github.com/actions/setup-python/releases).
+La compatibilidad del runner debe verificarse antes de seleccionar el major.
 
 ### Recomendación de diseño
 
