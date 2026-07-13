@@ -25,6 +25,11 @@ DEFAULT_EXPECTED_TABLES = {
     "SOGAMOSO": 301,
     "DUITAMA": 287,
 }
+BONUS_EXPECTED_TABLES = {
+    "CHIQUINQUIRA": 139,
+    "PUERTO BOYACA": 125,
+    "MONIQUIRA": 61,
+}
 SQL_DIR = Path(__file__).resolve().parents[1] / "sql"
 SQL_TASKS = {
     "3.1": SQL_DIR / "tarea_3_1.sql",
@@ -265,13 +270,27 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, default=Path("db/puestos_2026.db"))
     parser.add_argument("--output", type=Path, default=Path("outputs/auditoria_local.json"))
+    parser.add_argument(
+        "--require-bonus",
+        action="store_true",
+        help="exige los cuatro municipios base y los tres municipios bonus",
+    )
     args = parser.parse_args(argv)
-    report = audit_database(args.db)
+    expected_tables = dict(DEFAULT_EXPECTED_TABLES)
+    if args.require_bonus:
+        expected_tables.update(BONUS_EXPECTED_TABLES)
+    report = audit_database(args.db, expected_tables=expected_tables)
     write_audit(report, args.output)
+    required_loaded = sum(
+        name in report["coverage"] for name in DEFAULT_EXPECTED_TABLES
+    )
+    bonus_loaded = sum(name in report["coverage"] for name in BONUS_EXPECTED_TABLES)
     print(
-        f"AUDITORIA ok={report['ok']} municipios={len(report['coverage'])}/4 "
-        f"mesas={report['totals']['mesas']}/1107 "
-        f"resultados={report['totals']['resumen_mesa']}/2214 "
+        f"AUDITORIA ok={report['ok']} "
+        f"municipios_obligatorios={required_loaded}/{len(DEFAULT_EXPECTED_TABLES)} "
+        f"municipios_bonus={bonus_loaded}/{len(BONUS_EXPECTED_TABLES)} "
+        f"mesas={report['totals']['mesas']}/{sum(expected_tables.values())} "
+        f"resultados={report['totals']['resumen_mesa']}/{sum(expected_tables.values()) * 2} "
         f"anomalias_censo={report['quality']['voters_over_census_count']}"
     )
     print(f"INFO salida={args.output} tipo={report['audit_type']}")

@@ -8,8 +8,9 @@ El incremento 4.3 añade los dos bonus de interfaz sin modificar los datos ni lo
 - modo oscuro mediante CSS custom properties: +3 puntos potenciales;
 - botón funcional para exportar CSV: +2 puntos potenciales.
 
-Con los bonus ya existentes, el proyecto alcanza **+12/+15 puntos potenciales**.
-La valoración final corresponde al evaluador.
+Este incremento llevó inicialmente el proyecto a +12. Con el bonus municipal
+implementado después, el total alcanza **+15/+15 puntos potenciales**. La
+valoración final corresponde al evaluador.
 
 ## Modo oscuro
 
@@ -57,8 +58,8 @@ persistencia local, creación del `Blob`, MIME, BOM, nombre descargable y column
 `ratio_arrastre`. La revisión manual final debe alternar ambos temas y descargar
 un CSV para cada uno de los cuatro municipios desde Chrome y Firefox.
 
-## Bonus aún disponible
+## Relación con el bonus municipal
 
-El único bonus oficial pendiente es extender el scraper a municipios adicionales
-de Boyacá (+3 potencial). Se mantiene en un incremento independiente porque
-requiere regenerar la base, la auditoría y la evidencia de cobertura.
+El scraper fue extendido posteriormente a tres municipios adicionales de Boyacá
+(+3 potencial). Su evidencia permanece separada en
+`docs/19-bonus-municipios-boyaca.md`, sin modificar el dashboard contractual.

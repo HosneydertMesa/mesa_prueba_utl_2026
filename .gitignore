@@ -15,7 +15,10 @@ venv/
 tmp/
 *.log
 db/puestos_2026.db
+db/puestos_2026_bonus.db
 db/puestos_2026.db-shm
 db/puestos_2026.db-wal
+db/puestos_2026_bonus.db-shm
+db/puestos_2026_bonus.db-wal
 sample_data/raw/
 data/raw/

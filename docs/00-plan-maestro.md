@@ -22,8 +22,9 @@ una calificación oficial: los retos 1.3 y 2.3 sólo quedan cerrados para entreg
 cuando se ejecute `generar_manifest.py` original, aún no suministrado.
 
 Bonus implementados y documentados: `--preflight` (+3 potencial), cinco índices
-(+2), explicación CA vs atribución SE (+2), modo oscuro (+3) y exportación CSV
-(+2). Total potencial adicional actual: **+12/+15**, sujeto a evaluación.
+(+2), explicación CA vs atribución SE (+2), modo oscuro (+3), exportación CSV
+(+2) y tres municipios adicionales (+3). Total potencial: **+15/+15**, sujeto a
+evaluación.
 
 ## Principios
 
@@ -82,14 +83,17 @@ sistema y persistencia local; exportación CSV UTF-8 de la selección municipal
 visible. Ambos funcionan desde `file://`, sin recursos externos, y están bajo
 pruebas contractuales. Véase `docs/18-bonus-dashboard.md`.
 
-### Incremento B6 - Municipios adicionales (+3 potencial)
+### Incremento B6 - Municipios adicionales (completado, +3 potencial)
 
 - Extender el nomenclátor y el scraper a municipios adicionales de Boyacá.
 - Mantener separados el alcance obligatorio de cuatro municipios y la ampliación.
 - Regenerar base, auditoría y evidencia sin romper los conteos contractuales.
 
-Este bonus queda como incremento independiente: modifica adquisición y volumen
-de datos, mientras que 4.3 sólo afecta la interfaz autocontenida.
+Evidencia: Chiquinquirá, Puerto Boyacá y Moniquirá fueron seleccionados por ser
+los tres municipios no obligatorios con más mesas. El preflight confirmó 7/7,
+104 puestos, 1.432 mesas y 2.864 ACT. La base ampliada auditó `ok=True` y la
+segunda corrida registró `insertadas=0`. Véase
+`docs/19-bonus-municipios-boyaca.md`.
 
 ### Incremento 5.1 - Heatmap (completado, 5 puntos)
 

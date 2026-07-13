@@ -33,6 +33,12 @@ python scraper/scraper.py --preflight --municipios TUNJA PAIPA
 python scraper/scraper.py
 python scripts/audit_database.py
 
+# Bonus: base separada con siete municipios
+python scraper/scraper.py --preflight --incluir-bonus
+python scraper/scraper.py --incluir-bonus --db db/puestos_2026_bonus.db
+python scripts/audit_database.py --db db/puestos_2026_bonus.db \
+  --output outputs/auditoria_bonus_local.json --require-bonus
+
 # SQL analítico: las tres tareas también se validan en la auditoría
 python dashboard/export_data.py
 # Abrir dashboard/index.html directamente en el navegador
@@ -65,6 +71,8 @@ El criterio, la fórmula y la validación del heatmap 8×4 están documentados e
 El pareo por mesa, OLS, Pearson y contrato stdout del scatter están documentados
 en [docs/17-scatter-ca-se.md](docs/17-scatter-ca-se.md).
 
+La selección, carga e idempotencia de los tres municipios adicionales están en
+[docs/19-bonus-municipios-boyaca.md](docs/19-bonus-municipios-boyaca.md).
 
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.
 
@@ -132,7 +140,9 @@ analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-anal
   y persistencia local (+3 previsto).
 - Exportación CSV funcional de la selección municipal visible, sin servidor ni
   dependencias externas (+2 previsto).
+- Scraper extendido a Chiquinquirá, Puerto Boyacá y Moniquirá, con preflight,
+  base separada, auditoría 7/7 e idempotencia completa (+3 previsto).
 
-Bonus implementado potencial: **+12/+15**. Queda como ampliación separada el
-scraping de municipios adicionales de Boyacá (+3 previsto), para no alterar la
-evidencia ya cerrada de los cuatro municipios obligatorios.
+Bonus implementado potencial: **+15/+15**. La base obligatoria de cuatro
+municipios permanece separada de `db/puestos_2026_bonus.db`, por lo que la
+ampliación no altera el manifest, SQL ni dashboard contractuales.

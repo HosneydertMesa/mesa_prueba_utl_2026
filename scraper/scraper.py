@@ -29,7 +29,9 @@ from scraper.nomenclator import (  # noqa: E402
     resolve_municipality,
 )
 
-DEFAULT_MUNICIPALITIES = ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA")
+REQUIRED_MUNICIPALITIES = ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA")
+BONUS_MUNICIPALITIES = ("CHIQUINQUIRA", "PUERTO BOYACA", "MONIQUIRA")
+DEFAULT_MUNICIPALITIES = REQUIRED_MUNICIPALITIES
 NOMENCLATOR_PATH = "/json/nomenclator.json"
 
 
@@ -86,14 +88,20 @@ def parse_municipalities(values: Sequence[str]) -> tuple[str, ...]:
     normalized: list[str] = []
     for value in values:
         name = normalize_name(value)
-        if name not in DEFAULT_MUNICIPALITIES:
-            allowed = ", ".join(DEFAULT_MUNICIPALITIES)
-            raise ValueError(f"municipio no soportado: {value}. Permitidos: {allowed}")
+        if not name:
+            continue
         if name not in normalized:
             normalized.append(name)
     if not normalized:
         raise ValueError("debe indicar al menos un municipio")
     return tuple(normalized)
+
+
+def select_municipalities(
+    values: Sequence[str], *, include_bonus: bool = False
+) -> tuple[str, ...]:
+    selected = [*values, *(BONUS_MUNICIPALITIES if include_bonus else ())]
+    return parse_municipalities(selected)
 
 
 def run_preflight(
@@ -247,6 +255,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="muestra cobertura sin descargar resultados ni escribir BD",
     )
     parser.add_argument(
+        "--incluir-bonus",
+        action="store_true",
+        help=(
+            "añade Chiquinquirá, Puerto Boyacá y Moniquirá al alcance solicitado"
+        ),
+    )
+    parser.add_argument(
         "--nomenclator",
         type=Path,
         help="archivo local alternativo para desarrollo offline",
@@ -281,7 +296,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     connection: sqlite3.Connection | None = None
     try:
-        municipalities = parse_municipalities(args.municipios)
+        municipalities = select_municipalities(
+            args.municipios, include_bonus=args.incluir_bonus
+        )
         if args.limit_mesas is not None and args.limit_mesas < 1:
             raise ValueError("--limit-mesas debe ser mayor que cero")
         client = JsonHttpClient(

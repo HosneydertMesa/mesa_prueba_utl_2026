@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 50 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 52 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
 cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
 insumos del manifest oficial y la distribución de la base.
@@ -20,7 +20,16 @@ insumos del manifest oficial y la distribución de la base.
 - Integración: fixture CA+SE -> SQLite temporal -> SQL -> exportación.
 - Contrato: archivos, headings, colores, JSON, columnas y HTML autocontenido.
 - End-to-end: cuatro municipios ya auditados, dashboard contractual, heatmap y
-  scatter completos; revisión manual multinavegador y manifest pendientes.
+  scatter completos; base bonus 7/7 auditada; revisión manual multinavegador y
+  manifest pendientes.
+
+## Evidencia específica del bonus municipal
+
+- El alcance predeterminado continúa siendo exactamente los cuatro municipios.
+- `--incluir-bonus` añade tres municipios deterministas y no acepta duplicados.
+- El resolver valida que cada nombre pertenezca a Boyacá y exista en CA y SE.
+- Preflight real: 7 municipios, 104 puestos, 1.432 mesas y 2.864 ACT.
+- Base bonus separada, auditoría completa y segunda corrida con cero inserciones.
 
 ## Evidencia específica del dashboard
 
