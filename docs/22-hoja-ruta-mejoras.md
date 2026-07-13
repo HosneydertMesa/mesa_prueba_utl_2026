@@ -1,7 +1,7 @@
 # Hoja de ruta de cierre y mejoras
 
 > Corte: 13 de julio de 2026. Base funcional de referencia: merge commit
-> `7c5272e04f6e1a329c96ab55e5ccc9da95ffe0e6`, dashboard publicado y 58 pruebas
+> `8c7e4ea53a83212cc0b25971fb7c6772bbf50d15`, dashboard publicado y 59 pruebas
 > verdes.
 
 ## Propósito
@@ -26,8 +26,8 @@ los tres SQL, los nombres/colores exigidos ni el manifest oficial.
 | Bonus | +15/+15 potenciales | validación del evaluador |
 | Datos base | 4 municipios, 1.107 mesas, 2.214 ACT | publicar SQLite como Release asset |
 | Datos bonus | 7 municipios, 1.432 mesas, 2.864 ACT | ninguno funcional |
-| Dashboard | workspace BI, `file://`, 4/7, dark mode y CSV | QA manual multinavegador |
-| Publicación | Pages HTTPS activo y workflows verdes | automatizar smoke posdespliegue |
+| Dashboard | workspace BI, `file://`, 4/7, modo guiado, URL compartible, dark mode y CSV | QA manual multinavegador |
+| Publicación | Pages HTTPS activo, Actions Node 24 y smoke posdespliegue | validar cada despliegue de `main` |
 | Reproducibilidad | runbook, auditorías y gates | ensayo desde clon limpio <10 minutos |
 | Insumos UTL | PDF revisado, contrato documentado | faltan muestras y generador oficiales |
 
@@ -52,35 +52,29 @@ los tres SQL, los nombres/colores exigidos ni el manifest oficial.
 
 ## Prioridad P1: alto impacto y riesgo bajo
 
-| ID | Propuesta | Por qué hace diferencia | Criterio de aceptación |
+| ID | Propuesta | Estado | Evidencia o criterio pendiente |
 |---|---|---|---|
-| P1-01 | Modo presentación guiada | Permite explicar el proyecto en 3-5 minutos sin navegar libremente | recorrido Resumen → Municipio → Analítica → Bonus, reversible y accesible |
-| P1-02 | Estado completo en URL | Hace compartible una vista exacta del análisis | hash conserva vista, municipio, alcance y filtro sin romper `file://` |
-| P1-03 | Smoke posdespliegue en CI | Detecta Pages verde pero contenido incompleto | verifica HTTP 200, schema v2, 7 municipios y 1.432 puntos después del deploy |
-| P1-04 | Auditoría accesible y de rendimiento | Aporta evidencia objetiva adicional | Lighthouse/axe documentados, sin errores críticos y presupuesto acordado |
-| P1-05 | Tarjeta de procedencia | Mejora confianza y lectura ejecutiva | muestra fuente, fecha de corrida, alcance, anomalías preservadas y SHA del dataset |
-| P1-06 | Regresión visual controlada | Evita romper el layout al ajustar CSS | capturas estables de cuatro vistas en claro/oscuro y viewport desktop/móvil |
-| P1-07 | Actualizar runtimes de GitHub Actions | Elimina la advertencia de Node 20 obsoleto observada en CI | majors compatibles con Node 24, gates verdes y cero anotaciones de deprecación |
+| P1-01 | Modo presentación guiada | Implementado | recorrido accesible Resumen → Municipio → Analítica → Bonus, reversible con botón o `Esc` |
+| P1-02 | Estado completo en URL | Implementado | hash conserva vista, municipio, alcance y filtro; acepta hashes simples anteriores |
+| P1-03 | Smoke posdespliegue en CI | Implementado | comprueba HTTP, schema v2, 7 municipios, 1.432 mesas/puntos y huella SHA-256 |
+| P1-04 | Auditoría accesible y de rendimiento | Pendiente | Lighthouse/axe documentados, sin errores críticos y presupuesto acordado |
+| P1-05 | Tarjeta de procedencia | Implementado | fuente, alcance, control local no oficial, anomalías preservadas y SHA-256 reproducible |
+| P1-06 | Regresión visual controlada | Pendiente | capturas estables de cuatro vistas en claro/oscuro y viewport desktop/móvil |
+| P1-07 | Actualizar runtimes de GitHub Actions | Implementado | `checkout@v7`, `setup-python@v6` y actions Pages compatibles con Node 24 |
 
-### Deuda técnica de CI observada
+### CI y recuperación de Pages
 
-El workflow `quality` del merge documental concluyó correctamente, pero la
-ejecución `29227104337` informó que `actions/checkout@v4` y
-`actions/setup-python@v5` usan Node 20 y están siendo forzadas a Node 24 por el
-runner alojado de GitHub. No bloquea la entrega actual, pero debe resolverse
-antes de que la compatibilidad transitoria desaparezca.
+La deuda de Node 20 quedó resuelta en rama con los majors oficiales basados en
+Node 24: `actions/checkout@v7`, `actions/setup-python@v6`,
+`actions/configure-pages@v6`, `actions/upload-pages-artifact@v5` y
+`actions/deploy-pages@v5`. Los permisos mínimos y la composición del artefacto
+se conservaron.
 
-Plan de actualización:
-
-1. Probar en una rama un major compatible con Node 24 para ambas actions.
-2. Conservar `python-version` explícito y los permisos mínimos actuales.
-3. Ejecutar `quality` y `deploy-dashboard-pages` sin warnings de deprecación.
-4. Fusionar solo si artefacto Pages, caché y gates permanecen idénticos.
-
-Al corte de este documento, las fuentes oficiales registran majors modernos con
-Node 24: [releases de `actions/checkout`](https://github.com/actions/checkout/releases)
-y [releases de `actions/setup-python`](https://github.com/actions/setup-python/releases).
-La compatibilidad del runner debe verificarse antes de seleccionar el major.
+El error de Pages del 13 de julio no fue causado por el dashboard: el repositorio
+había pasado a privado y el plan de la cuenta no admite Pages para repositorios
+privados. GitHub eliminó la configuración del sitio y el deploy respondió 404.
+Se restauró la visibilidad pública autorizada, se reactivó Pages con origen
+`workflow` y la ejecución `29226541060` volvió a concluir `success`.
 
 ### Recomendación de diseño
 
@@ -135,7 +129,7 @@ riesgo de sobreajuste que valor.
 3. Publicar la base y documentar checksum (P0-02).
 4. Ensayar clon limpio y corregir cualquier paso implícito (P0-03).
 5. Congelar SHA/tag y entregar (P0-05).
-6. Solo con reserva de tiempo, implementar P1-03 y P1-01.
+6. Completar auditoría accesible/rendimiento y regresión visual (P1-04/P1-06).
 7. Presentar P2-01/P2-02 como idea o anexo; no arriesgar el artefacto final.
 
 ## Regla de decisión

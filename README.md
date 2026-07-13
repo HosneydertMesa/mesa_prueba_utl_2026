@@ -8,6 +8,7 @@
 - Nombre: Hosneydert Mesa
 - Email: hosneydert92@gmail.com
 - Repositorio público: https://github.com/HosneydertMesa/mesa_prueba_utl_2026
+- Dashboard público: https://hosneydertmesa.github.io/mesa_prueba_utl_2026/
 - Plan maestro: [docs/00-plan-maestro.md](docs/00-plan-maestro.md)
 
 ## Instalación
@@ -71,6 +72,8 @@ La evolución interactiva con hallazgos, heatmap y scatter está documentada en
 La navegación espacial tipo BI y la publicación controlada mediante GitHub Pages
 están documentadas en
 [docs/21-dashboard-workspace-pages.md](docs/21-dashboard-workspace-pages.md).
+La interfaz incluye modo presentación, filtros compartibles por URL y procedencia
+visible con huella SHA-256, sin añadir servidor ni dependencias de red.
 
 Los pendientes de entrega y las mejoras opcionales priorizadas están en
 [docs/22-hoja-ruta-mejoras.md](docs/22-hoja-ruta-mejoras.md).

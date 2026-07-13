@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sqlite3
 import sys
@@ -66,6 +67,16 @@ def _party_votes_total(
             "JOIN puestos pu ON pu.id = me.puesto_id "
             "WHERE pu.municipio_id = ? AND pa.corporacion = ?",
             (municipality_id, corporation),
+        ).fetchone()[0]
+    )
+
+
+def _census_anomaly_count(connection: sqlite3.Connection) -> int:
+    """Cuenta filas fuente donde votantes supera censo, sin imputarlas."""
+
+    return int(
+        connection.execute(
+            "SELECT COUNT(1) FROM resumen_mesa WHERE votantes > censo"
         ).fetchone()[0]
     )
 
@@ -309,6 +320,12 @@ def build_dashboard_data(
                 if item["alcance"] == "obligatorio"
             ),
             "referencia_arrastre": 1.0,
+            "procedencia": {
+                "fuente": "Resultados públicos ACT · Registraduría Nacional",
+                "alcance": "Boyacá · Cámara y Senado · mesa a mesa",
+                "tipo_auditoria": "local_non_official",
+                "anomalias_censo_preservadas": _census_anomaly_count(connection),
+            },
         },
         "colores_partido": {str(code): color for code, color in PARTY_COLORS.items()},
         "comparativo_ca": comparison,
@@ -359,6 +376,15 @@ def build_dashboard_data(
         result["analitica"] = _analytical_views(
             connection, include_expanded=include_expanded
         )
+    fingerprint_payload = json.dumps(
+        result,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    result["meta"]["procedencia"]["huella_contenido_sha256"] = hashlib.sha256(
+        fingerprint_payload
+    ).hexdigest()
     return result
 
 
@@ -393,6 +419,18 @@ def validate_dashboard_contract(
         item.get("alcance") == "bonus" for item in municipalities
     ):
         raise DashboardExportError("conteo de municipios bonus inconsistente")
+    provenance = meta.get("procedencia")
+    if not isinstance(provenance, Mapping):
+        raise DashboardExportError("falta metadata de procedencia")
+    if provenance.get("tipo_auditoria") != "local_non_official":
+        raise DashboardExportError("tipo de auditoría de procedencia inválido")
+    if int(provenance.get("anomalias_censo_preservadas", -1)) < 0:
+        raise DashboardExportError("conteo de anomalías de censo inválido")
+    fingerprint = str(provenance.get("huella_contenido_sha256", ""))
+    if len(fingerprint) != 64 or any(
+        character not in "0123456789abcdef" for character in fingerprint
+    ):
+        raise DashboardExportError("huella SHA-256 de contenido inválida")
     bonuses = data.get("bonificaciones", [])
     if len(bonuses) != 6 or sum(int(item["puntos"]) for item in bonuses) != 15:
         raise DashboardExportError("bonificaciones incompletas o puntaje distinto de 15")

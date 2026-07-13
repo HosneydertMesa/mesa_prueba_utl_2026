@@ -66,6 +66,11 @@ n_mesas=1432
 - Una sección de ingeniería presenta los seis bonus y su evidencia reproducible.
 - El selector de alcance regenera tarjetas, heatmap, filtros, recta OLS y
   tooltips con los datos del universo elegido.
+- El modo presentación guía cuatro hallazgos y puede abandonarse sin recargar.
+- Vista, municipio, alcance y filtro del scatter se serializan en una URL
+  compartible, con compatibilidad hacia atrás para los hashes simples.
+- La franja de procedencia muestra fuente, alcance, carácter local no oficial,
+  anomalías conservadas y una huella SHA-256 reproducible del contenido.
 
 ## Accesibilidad e interpretación
 
@@ -86,7 +91,8 @@ python scripts/quality_gate.py all
 
 Los contratos verifican identidad JSON/HTML, siete municipios, suma bonus +15,
 schema v2, matrices 8×4/8×7, 1.107/1.432 puntos, estadísticos separados,
-controles interactivos y ausencia de recursos externos.
+controles interactivos, presentación, estado compartible, procedencia y ausencia
+de recursos externos.
 La revisión manual pendiente debe abrir el archivo en Chrome y Firefox, alternar
 el tema, recorrer la tabla, filtrar cada municipio y comprobar los tooltips.
 

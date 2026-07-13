@@ -1234,6 +1234,84 @@
     .workspace-content .hero-stat strong { font-size: clamp(1.3rem, 2vw, 1.75rem); }
     .workspace-content .hero-stat span { font-size: 0.68rem; }
 
+    .presentation-bar {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 0.85rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0.75rem 0.85rem;
+      border: 1px solid rgba(184, 217, 242, 0.24);
+      border-radius: 0.85rem;
+      background: rgba(7, 31, 56, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .presentation-bar[hidden] { display: none; }
+
+    .presentation-progress {
+      color: #b8d9f2;
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .presentation-copy { min-width: 0; }
+    .presentation-copy strong { display: block; font-size: 0.82rem; }
+    .presentation-copy span { color: #b7cad9; font-size: 0.72rem; }
+    .presentation-actions { display: flex; gap: 0.4rem; }
+
+    .presentation-button {
+      min-height: 2.1rem;
+      padding: 0.35rem 0.65rem;
+      color: #e9f4fb;
+      border: 1px solid rgba(184, 217, 242, 0.24);
+      border-radius: 0.55rem;
+      background: rgba(255, 255, 255, 0.07);
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 750;
+    }
+
+    .presentation-button:hover,
+    .presentation-button:focus-visible { border-color: #75aee0; }
+
+    .provenance-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.65rem;
+      padding: 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.9rem;
+      background: var(--surface);
+      box-shadow: 0 8px 28px rgba(17, 43, 70, 0.05);
+    }
+
+    .provenance-item {
+      display: grid;
+      gap: 0.15rem;
+      min-width: 0;
+      padding: 0.25rem 0.4rem;
+    }
+
+    .provenance-item small {
+      color: var(--muted);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .provenance-item strong {
+      overflow: hidden;
+      font-size: 0.75rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .workspace-content main { padding-top: 1.15rem; padding-bottom: 1.25rem; }
 
     .workspace-view {
@@ -1271,6 +1349,13 @@
       }
 
       #view-analytics .heatmap-table { min-width: 650px; }
+    }
+
+    @media (max-width: 760px) {
+      .presentation-bar { grid-template-columns: 1fr; }
+      .presentation-actions { justify-content: stretch; }
+      .presentation-button { flex: 1; }
+      .provenance-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 1080px) {
@@ -1367,6 +1452,10 @@
       </nav>
       <div class="workspace-sidebar-footer">
         <p class="workspace-contract">Contrato v2 · 4 municipios obligatorios + 3 bonus · analítica sobre 1.107 mesas.</p>
+        <button id="presentation-start" class="action-button" type="button" aria-label="Iniciar presentación guiada">
+          <span class="action-icon" aria-hidden="true">▶</span>
+          <span>Presentar hallazgos</span>
+        </button>
         <button id="theme-toggle" class="action-button" type="button" aria-pressed="false">
           <span class="action-icon" aria-hidden="true">◐</span>
           <span id="theme-label">Modo oscuro</span>
@@ -1401,6 +1490,18 @@
           <div class="hero-stat"><strong>CA + SE</strong><span>corporaciones</span></div>
         </div>
       </div>
+      <div id="presentation-bar" class="presentation-bar" role="region" aria-label="Recorrido guiado" hidden>
+        <span id="presentation-progress" class="presentation-progress">1 / 4</span>
+        <div class="presentation-copy" aria-live="polite">
+          <strong id="presentation-title">Cobertura territorial completa</strong>
+          <span id="presentation-description">Cuatro municipios obligatorios y tres bonus en un mismo contrato trazable.</span>
+        </div>
+        <div class="presentation-actions">
+          <button id="presentation-previous" class="presentation-button" type="button">Anterior</button>
+          <button id="presentation-next" class="presentation-button" type="button">Siguiente</button>
+          <button id="presentation-exit" class="presentation-button" type="button">Salir</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -1408,6 +1509,12 @@
 
   <main id="workspace-main">
     <div id="view-overview" class="workspace-view" role="tabpanel" aria-labelledby="nav-overview" data-workspace-view="overview">
+    <section id="provenance-strip" class="provenance-strip" aria-label="Procedencia y alcance de los datos">
+      <div class="provenance-item"><small>Fuente</small><strong id="provenance-source">—</strong></div>
+      <div class="provenance-item"><small>Alcance</small><strong id="provenance-scope">—</strong></div>
+      <div class="provenance-item"><small>Control</small><strong id="provenance-audit">—</strong></div>
+      <div class="provenance-item"><small>Anomalías preservadas</small><strong id="provenance-anomalies">—</strong></div>
+    </section>
     <section class="section" aria-labelledby="comparison-title">
       <div class="section-heading">
         <div>
@@ -1609,7 +1716,14 @@
     "puestos": 104,
     "mesas": 1432,
     "mesas_analiticas": 1107,
-    "referencia_arrastre": 1.0
+    "referencia_arrastre": 1.0,
+    "procedencia": {
+      "fuente": "Resultados públicos ACT · Registraduría Nacional",
+      "alcance": "Boyacá · Cámara y Senado · mesa a mesa",
+      "tipo_auditoria": "local_non_official",
+      "anomalias_censo_preservadas": 66,
+      "huella_contenido_sha256": "93adb4479e6019afee11cbe8b897d65ad891ce08c28925ee5d96e8d02b02205b"
+    }
   },
   "colores_partido": {
     "5": "#007C34",
@@ -18925,12 +19039,40 @@
     let analyticsScope = "obligatorio";
     let scatterFilter = "TODOS";
     let scatterResizeFrame = null;
+    let activeWorkspaceView = "overview";
+    let hashSyncLocked = false;
+    let presentationActive = false;
+    let presentationIndex = 0;
     const WORKSPACE_VIEWS = {
       overview: { kicker: "Vista ejecutiva", title: "Resumen territorial" },
       municipality: { kicker: "Exploración detallada", title: "Análisis municipal" },
       analytics: { kicker: "Modelo descriptivo", title: "Analítica CA–SE" },
       bonus: { kicker: "Evidencia técnica", title: "Bonus verificables" }
     };
+    const PRESENTATION_STEPS = [
+      {
+        view: "overview",
+        title: "Cobertura territorial completa",
+        description: "Cuatro municipios obligatorios y tres bonus en un mismo contrato trazable."
+      },
+      {
+        view: "municipality",
+        municipality: "TUNJA",
+        title: "Detalle municipal reproducible",
+        description: "Top 10 de Cámara, liderazgo de Senado y arrastre por puesto sin mezclar métricas."
+      },
+      {
+        view: "analytics",
+        scope: "ampliado",
+        title: "Asociación CA–SE con alcance explícito",
+        description: "El selector conserva 1.107 mesas contractuales y amplía a 1.432 sin afirmar causalidad."
+      },
+      {
+        view: "bonus",
+        title: "Ingeniería verificable",
+        description: "Seis bonus, +15 puntos potenciales y evidencia enlazada a código, pruebas y artefactos."
+      }
+    ];
 
     function createElement(tag, className, text) {
       const element = document.createElement(tag);
@@ -18939,8 +19081,40 @@
       return element;
     }
 
+    function readDashboardState() {
+      const fragment = window.location.hash.slice(1);
+      if (!fragment) return { view: "overview" };
+      if (!fragment.includes("=")) {
+        return { view: WORKSPACE_VIEWS[fragment] ? fragment : "overview" };
+      }
+      const params = new URLSearchParams(fragment);
+      return {
+        view: params.get("view") || "overview",
+        municipality: params.get("municipio"),
+        scope: params.get("scope"),
+        scatter: params.get("scatter")
+      };
+    }
+
+    function syncDashboardHash() {
+      if (hashSyncLocked) return;
+      const params = new URLSearchParams();
+      params.set("view", activeWorkspaceView);
+      const select = document.getElementById("municipality-select");
+      if (select && select.value) params.set("municipio", select.value);
+      params.set("scope", analyticsScope);
+      params.set("scatter", scatterFilter);
+      const hash = `#${params.toString()}`;
+      try {
+        window.history.replaceState(null, "", hash);
+      } catch (_) {
+        window.location.hash = hash;
+      }
+    }
+
     function setWorkspaceView(view, updateHash = true) {
       const selectedView = WORKSPACE_VIEWS[view] ? view : "overview";
+      activeWorkspaceView = selectedView;
       document.querySelectorAll("[data-workspace-view]").forEach(panel => {
         panel.hidden = panel.dataset.workspaceView !== selectedView;
       });
@@ -18954,16 +19128,33 @@
       document.getElementById("active-view-title").textContent = context.title;
       document.title = `${context.title} · Panorama electoral`;
       document.querySelector(".workspace-content").scrollTop = 0;
-      if (updateHash) {
-        try {
-          window.history.replaceState(null, "", `#${selectedView}`);
-        } catch (_) {
-          window.location.hash = selectedView;
-        }
-      }
+      if (updateHash) syncDashboardHash();
       if (selectedView === "analytics" && analyticsInitialized) {
         window.requestAnimationFrame(renderScatter);
       }
+    }
+
+    function applyDashboardState(state) {
+      hashSyncLocked = true;
+      const select = document.getElementById("municipality-select");
+      const municipalityExists = state.municipality && DATA.municipios.some(
+        item => item.nombre === state.municipality
+      );
+      if (select && municipalityExists) {
+        select.value = state.municipality;
+        renderMunicipality(state.municipality);
+      }
+
+      const expandedAvailable = Boolean(DATA.analitica && DATA.analitica.ampliada);
+      if (state.scope === "obligatorio" || (state.scope === "ampliado" && expandedAvailable)) {
+        analyticsScope = state.scope;
+      }
+      const allowedScatter = ["TODOS", ...activeAnalytics().heatmap.municipios];
+      scatterFilter = allowedScatter.includes(state.scatter) ? state.scatter : "TODOS";
+      if (analyticsInitialized) renderAnalyticsScope(false);
+      setWorkspaceView(state.view, false);
+      hashSyncLocked = false;
+      syncDashboardHash();
     }
 
     function initializeWorkspaceNavigation() {
@@ -18987,9 +19178,8 @@
         });
       });
       window.addEventListener("hashchange", () => {
-        setWorkspaceView(window.location.hash.slice(1), false);
+        applyDashboardState(readDashboardState());
       });
-      setWorkspaceView(window.location.hash.slice(1) || "overview", false);
     }
 
     function preferredTheme() {
@@ -19171,6 +19361,7 @@
             item.setAttribute("aria-pressed", String(item.dataset.municipality === name))
           );
           renderScatter();
+          syncDashboardHash();
         });
         container.append(button);
       });
@@ -19312,7 +19503,7 @@
         : DATA.analitica;
     }
 
-    function renderAnalyticsScope() {
+    function renderAnalyticsScope(resetScatter = true) {
       const analytics = activeAnalytics();
       const municipalityCount = analytics.heatmap.municipios.length;
       const tableCount = analytics.scatter.estadisticas.n_mesas;
@@ -19328,11 +19519,12 @@
       document.getElementById("analytics-scope-note").textContent = analyticsScope === "ampliado"
         ? `Vista ampliada suplementaria: ${municipalityCount} municipios y ${numberFormat.format(tableCount)} mesas. Pearson y OLS describen asociación; no prueban causalidad, transferencia ni fraude.`
         : `Vista contractual del Reto 5: ${municipalityCount} municipios y ${numberFormat.format(tableCount)} mesas. Sus resultados permanecen separados del alcance bonus.`;
-      scatterFilter = "TODOS";
+      if (resetScatter) scatterFilter = "TODOS";
       renderAnalyticsInsights();
       renderInteractiveHeatmap();
       renderScatterFilters();
       renderScatter();
+      syncDashboardHash();
     }
 
     function initializeAnalyticsScope() {
@@ -19350,6 +19542,77 @@
         });
       });
       renderAnalyticsScope();
+    }
+
+    function renderProvenance() {
+      const provenance = DATA.meta.procedencia;
+      if (!provenance) throw new Error("Metadata de procedencia incompleta");
+      document.getElementById("provenance-source").textContent = provenance.fuente;
+      document.getElementById("provenance-scope").textContent = provenance.alcance;
+      document.getElementById("provenance-audit").textContent =
+        provenance.tipo_auditoria === "local_non_official"
+          ? `Auditoría local · SHA ${provenance.huella_contenido_sha256.slice(0, 8)}`
+          : provenance.tipo_auditoria;
+      document.getElementById("provenance-audit").title =
+        `Huella SHA-256 del contenido: ${provenance.huella_contenido_sha256}`;
+      document.getElementById("provenance-anomalies").textContent =
+        `${numberFormat.format(provenance.anomalias_censo_preservadas)} filas sin imputar`;
+    }
+
+    function renderPresentationStep(index) {
+      presentationIndex = Math.max(0, Math.min(index, PRESENTATION_STEPS.length - 1));
+      const step = PRESENTATION_STEPS[presentationIndex];
+      const bar = document.getElementById("presentation-bar");
+      bar.hidden = false;
+      document.getElementById("presentation-progress").textContent =
+        `${presentationIndex + 1} / ${PRESENTATION_STEPS.length}`;
+      document.getElementById("presentation-title").textContent = step.title;
+      document.getElementById("presentation-description").textContent = step.description;
+      document.getElementById("presentation-previous").disabled = presentationIndex === 0;
+      document.getElementById("presentation-next").textContent =
+        presentationIndex === PRESENTATION_STEPS.length - 1 ? "Finalizar" : "Siguiente";
+
+      if (step.municipality) {
+        const select = document.getElementById("municipality-select");
+        select.value = step.municipality;
+        renderMunicipality(step.municipality);
+      }
+      if (step.scope) {
+        analyticsScope = step.scope;
+        renderAnalyticsScope();
+      }
+      setWorkspaceView(step.view);
+    }
+
+    function startPresentation() {
+      presentationActive = true;
+      document.getElementById("presentation-start").setAttribute("aria-pressed", "true");
+      renderPresentationStep(0);
+    }
+
+    function exitPresentation() {
+      presentationActive = false;
+      document.getElementById("presentation-bar").hidden = true;
+      const start = document.getElementById("presentation-start");
+      start.setAttribute("aria-pressed", "false");
+      start.focus();
+    }
+
+    function initializePresentation() {
+      const start = document.getElementById("presentation-start");
+      start.setAttribute("aria-pressed", "false");
+      start.addEventListener("click", startPresentation);
+      document.getElementById("presentation-previous").addEventListener("click", () => {
+        renderPresentationStep(presentationIndex - 1);
+      });
+      document.getElementById("presentation-next").addEventListener("click", () => {
+        if (presentationIndex === PRESENTATION_STEPS.length - 1) exitPresentation();
+        else renderPresentationStep(presentationIndex + 1);
+      });
+      document.getElementById("presentation-exit").addEventListener("click", exitPresentation);
+      document.addEventListener("keydown", event => {
+        if (presentationActive && event.key === "Escape") exitPresentation();
+      });
     }
 
     function setHeroMetrics() {
@@ -19408,7 +19671,10 @@
         option.textContent = `${municipality.nombre}${municipality.alcance === "bonus" ? " · bonus" : ""}`;
         select.append(option);
       });
-      select.addEventListener("change", () => renderMunicipality(select.value));
+      select.addEventListener("change", () => {
+        renderMunicipality(select.value);
+        syncDashboardHash();
+      });
     }
 
     function renderCandidates(municipality) {
@@ -19526,6 +19792,8 @@
     }
 
     function initializeDashboard() {
+      const initialState = readDashboardState();
+      hashSyncLocked = true;
       const requiredMunicipalities = ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"];
       const hasRequiredScope = requiredMunicipalities.every(name =>
         DATA.municipios.some(item => item.nombre === name && item.alcance === "obligatorio")
@@ -19541,13 +19809,17 @@
       initializeTheme();
       renderScopeContext();
       setHeroMetrics();
+      renderProvenance();
       renderComparison();
       populateMunicipalitySelector();
       renderMunicipality(DATA.municipios[0].nombre);
       initializeAnalytics();
       renderBonusEvidence();
       initializeWorkspaceNavigation();
+      initializePresentation();
       document.getElementById("csv-export").addEventListener("click", exportSelectedMunicipalityCsv);
+      hashSyncLocked = false;
+      applyDashboardState(initialState);
     }
 
     initializeDashboard();
