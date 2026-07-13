@@ -22,9 +22,9 @@
 ## Camino crítico
 
 1. Obtener los insumos oficiales y ejecutar el manifest sin modificarlo.
-2. Publicar el Release asset de SQLite con SHA-256 y enlazarlo desde README.
-3. Ensayar clon limpio en menos de 10 minutos y ejecutar gate RELEASE.
-4. Completar QA manual Chrome/Firefox, responsive, teclado y consola.
+2. Release de bases con SHA-256 y enlace README: completado en `data-v1.0.0`.
+3. Clon limpio <10 minutos y gates base: completado; RELEASE espera manifest.
+4. Completar QA manual Firefox y `file://`; Chrome/responsive/teclado están verdes.
 5. Congelar el SHA final y realizar una única entrega.
 
 ML adicional y refactors amplios no pertenecen al camino crítico. Los tres

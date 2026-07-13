@@ -45,7 +45,7 @@ evaluación.
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
 | 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 7 municipios con alcance explícito y JS válido |
 | 5. Visualizaciones | Completada | Heatmap + scatter | ambos PNG >10 KB y stdout 5.2 exacto |
-| 6. Entrega | En curso, bloqueo externo parcial | Repo y Pages publicados; faltan manifest, Release y clon limpio | manifest oficial, asset verificable y ensayo reproducible |
+| 6. Entrega | En curso, bloqueo externo parcial | Repo, Pages, Release y clon limpio verificados | manifest oficial, QA Firefox/`file://` y tag final |
 
 ## Plan atómico restante
 
@@ -149,8 +149,8 @@ municipales, OLS global, Pearson anotado y stdout exacto. Resultado observado:
 
 - Incorporar `sample_data`, `generar_manifest.py` y ejemplo originales sin modificarlos.
 - Ejecutar manifest oficial y corregir cualquier diferencia contractual.
-- Publicar `db/puestos_2026.db` de 64 MB como GitHub Release asset y enlazarlo.
-- Ensayar clon limpio en menos de 10 minutos.
+- Release `data-v1.0.0` publicado con bases 4/4 y 7/7, tamaños y SHA-256.
+- Clon limpio ensayado en menos de 2 minutos observados; gates base verdes.
 - Ejecutar gate `release`, revisar en incógnito y fusionar el PR sólo con autorización.
 
 ## Bloqueos externos

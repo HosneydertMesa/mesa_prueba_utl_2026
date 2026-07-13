@@ -3,7 +3,7 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 58 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- Verdes localmente: 60 pruebas, Ruff, DEV, QA, SEC y REVIEW.
 - En nube: retos 1-5, bonus y Dashboard 2.0 integrados en `main`; toda evolución
   web se valida mediante CI antes de su promoción.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
@@ -16,22 +16,20 @@
 - Completado adicional: Workspace 3.0 con cuatro vistas y workflow GitHub Pages.
 - Publicado: dashboard HTTPS verificado en
   `https://hosneydertmesa.github.io/mesa_prueba-utl_2026/` desde `main`.
-- Pendientes: insumos/manifest oficial, Release de DB y clon limpio.
+- Publicado: Release `data-v1.0.0` con bases 4/4 y 7/7, tamaños y SHA-256.
+- Verificado: clon limpio, descarga de assets, auditorías, exportador, PNG,
+  60 pruebas y gates DEV/QA/SEC/REVIEW en menos de 2 minutos observados en esta
+  máquina con caché normal de paquetes.
+- Pendientes: insumos/manifest oficial, QA manual Firefox + `file://` y tag final.
 
-## Desarrollo incremental restante
+## Cierre restante
 
-1. Ejecutar `python scripts/audit_database.py` y conservar `ok=True`.
-2. Regenerar `dashboard/data.json` y confirmar contrato.
-3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
-4. Validar modo oscuro, persistencia y descarga CSV para los siete municipios.
-5. Validar el selector obligatorio/ampliado, heatmap 8×4/8×7 y scatter de
-   1.107/1.432 mesas con filtros y tooltips.
-6. Validar las cuatro vistas, URL con hash y navegación mediante teclado.
-7. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
-8. Regenerar `viz/scatter_ca_se.png` y confirmar stdout exacto.
-9. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
-10. Publicar SQLite como Release asset y enlazar checksum/URL.
-11. Ensayar clon limpio, gate RELEASE, revisión en incógnito y promoción.
+1. Abrir `dashboard/index.html` mediante `file://` en Chrome y Firefox.
+2. Repetir teclado, tema, CSV y tooltips en Firefox; registrar evidencia manual.
+3. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
+4. Confirmar `evaluation_manifest.json`: 4/4 municipios y SQL `OK` ×3.
+5. Ejecutar `python scripts/quality_gate.py release` hasta obtener verde.
+6. Congelar `main`, crear tag final, registrar SHA y enviar una sola vez.
 
 ## Comandos reproducibles actuales
 
@@ -41,6 +39,8 @@ python scraper/scraper.py
 python scripts/audit_database.py
 python scraper/scraper.py --preflight --incluir-bonus
 python scraper/scraper.py --incluir-bonus --db db/puestos_2026_bonus.db
+gh release download data-v1.0.0 --pattern puestos_2026.db --dir db
+gh release download data-v1.0.0 --pattern puestos_2026_bonus.db --dir db
 python scripts/audit_database.py --db db/puestos_2026_bonus.db \
   --output outputs/auditoria_bonus_local.json --require-bonus
 python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
@@ -53,11 +53,15 @@ se puede usar la caché ignorada por Git; el clon limpio debe funcionar sin ella
 
 ## Ensayo de clon limpio
 
+Ejecución completada el 13 de julio de 2026. Evidencia, resultados, tiempos y
+limitaciones en `docs/23-evidencia-cierre-reproducibilidad.md`.
+
 1. Clonar el repositorio público en una ruta nueva.
 2. Seguir únicamente el README con cronómetro de 10 minutos.
 3. Instalar dependencias en un entorno virtual.
 4. Obtener la base desde el Release o regenerarla.
-5. Ejecutar auditoría, SQL, exportación, PNG y manifest.
+5. Ejecutar auditoría, SQL, exportación y PNG; el manifest requiere los insumos
+   originales de la UTL.
 6. Abrir dashboard desde disco y revisar DevTools Console.
 7. Registrar cualquier conocimiento implícito, corregir README y repetir.
 
