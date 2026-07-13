@@ -21,6 +21,7 @@ REQUIRED_BASE = (
     "scraper/nomenclator.py",
     "scraper/http_client.py",
     "db/schema.sql",
+    "db/database.py",
     "db/etl.py",
     "sql/tarea_3_1.sql",
     "sql/tarea_3_2.sql",

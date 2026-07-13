@@ -40,6 +40,9 @@ python scripts/verify_delivery.py
 
 Durante el incremento 1.2a, `--preflight` ya es funcional; la ejecución de descarga sin el flag se habilitará junto con la persistencia idempotente en 1.2b.
 
+El schema normalizado, las claves de idempotencia y los índices están documentados en [docs/10-schema-sqlite.md](docs/10-schema-sqlite.md).
+
+
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.
 
 
