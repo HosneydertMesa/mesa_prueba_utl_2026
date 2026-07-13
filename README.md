@@ -116,8 +116,22 @@ La corrida completa validada contiene los cuatro municipios y ambas corporacione
 | Duitama | 22 | 287 | 287 | 287 |
 
 La base local `db/puestos_2026.db` se excluye de Git por tamaño. La auditoría
-reproducible y versionable está en `outputs/auditoria_local.json`; la estrategia
-de distribución de la base se cerrará antes de la entrega.
+reproducible y versionable está en `outputs/auditoria_local.json`. Las bases se
+distribuyen en el Release público
+[`data-v1.0.0`](https://github.com/HosneydertMesa/mesa_prueba_utl_2026/releases/tag/data-v1.0.0):
+
+```bash
+gh release download data-v1.0.0 --pattern puestos_2026.db --dir db
+gh release download data-v1.0.0 --pattern puestos_2026_bonus.db --dir db
+```
+
+| Asset | Alcance | Tamaño | SHA-256 |
+|---|---|---:|---|
+| `puestos_2026.db` | 4 municipios · 1.107 mesas | 67.227.648 bytes | `19B017DD003654A086D44080F01ACF817BC65947965B6A1E84D864FFF25BD553` |
+| `puestos_2026_bonus.db` | 7 municipios · 1.432 mesas | 86.376.448 bytes | `A72C4EBB1D4ACC6EE5DDB8E64383D81E69465C7AE6BEBAA9B5353D3FF27CFF82` |
+
+El ensayo independiente desde clon limpio está registrado en
+[docs/23-evidencia-cierre-reproducibilidad.md](docs/23-evidencia-cierre-reproducibilidad.md).
 
 ## Hallazgos principales
 

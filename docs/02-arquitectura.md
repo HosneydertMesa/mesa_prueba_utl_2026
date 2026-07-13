@@ -104,5 +104,5 @@ se expresa sólo en las consultas que la necesitan.
 - No se persiste `cedula` porque no es necesaria para los retos.
 - No se imputa `censo` cuando la fuente publica `votantes > censo`.
 - La atribución SE es determinística y descriptiva, no causal.
-- ML queda fuera del camino crítico hasta cerrar manifest, Release, clon limpio
-  y revisión manual de entrega.
+- ML queda fuera del camino crítico hasta cerrar manifest, revisión manual
+  Firefox/`file://` y congelamiento final de entrega.
