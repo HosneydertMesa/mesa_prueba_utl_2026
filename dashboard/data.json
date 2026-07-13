@@ -12,7 +12,14 @@
     "puestos": 104,
     "mesas": 1432,
     "mesas_analiticas": 1107,
-    "referencia_arrastre": 1.0
+    "referencia_arrastre": 1.0,
+    "procedencia": {
+      "fuente": "Resultados públicos ACT · Registraduría Nacional",
+      "alcance": "Boyacá · Cámara y Senado · mesa a mesa",
+      "tipo_auditoria": "local_non_official",
+      "anomalias_censo_preservadas": 66,
+      "huella_contenido_sha256": "93adb4479e6019afee11cbe8b897d65ad891ce08c28925ee5d96e8d02b02205b"
+    }
   },
   "colores_partido": {
     "5": "#007C34",

@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 58 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 59 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
 cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
 insumos del manifest oficial y la distribución de la base.
@@ -54,6 +54,10 @@ insumos del manifest oficial y la distribución de la base.
   ausencia de identificadores HTML duplicados.
 - El workflow Pages solo empaqueta `dashboard/index.html` y `data.json`, con
   permisos mínimos y despliegue desde `main`.
+- El despliegue usa Actions con runtime Node 24 y un smoke posterior que valida
+  el contenido HTTPS publicado: schema, cobertura, scatter y huella SHA-256.
+- La metadata visible declara procedencia local no oficial y conserva el conteo
+  de anomalías sin imputación; su huella se deriva del contenido canónico.
 
 ## Evidencia específica del heatmap
 

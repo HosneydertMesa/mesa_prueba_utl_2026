@@ -58,6 +58,18 @@ class DashboardExportIntegrationTests(unittest.TestCase):
         self.assertEqual(data["meta"]["municipios_obligatorios"], 1)
         self.assertEqual(data["meta"]["municipios_bonus"], 0)
         self.assertEqual(data["meta"]["mesas_analiticas"], 1)
+        self.assertEqual(
+            data["meta"]["procedencia"]["tipo_auditoria"],
+            "local_non_official",
+        )
+        self.assertGreaterEqual(
+            data["meta"]["procedencia"]["anomalias_censo_preservadas"], 0
+        )
+        fingerprint = data["meta"]["procedencia"]["huella_contenido_sha256"]
+        self.assertEqual(len(fingerprint), 64)
+        self.assertTrue(
+            all(character in "0123456789abcdef" for character in fingerprint)
+        )
         self.assertEqual(len(data["bonificaciones"]), 6)
         self.assertEqual(sum(item["puntos"] for item in data["bonificaciones"]), 15)
         self.assertEqual(data["meta"]["referencia_arrastre"], 1.0)

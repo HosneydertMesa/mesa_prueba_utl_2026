@@ -14,7 +14,8 @@ y se registran solo decisiones aplicables al alcance.
 | [scikit-learn: validación agrupada](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-iterators-for-grouped-data) | La independencia se rompe con muestras del mismo grupo | Agrupar por municipio/puesto; no separar mesas relacionadas al azar |
 | [scikit-learn: GroupKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html) | Evita que un grupo aparezca en entrenamiento y prueba a la vez | Sensibilidad leave-one-municipality-out con cuatro grupos |
 | [statsmodels: Cook's distance](https://www.statsmodels.org/stable/generated/statsmodels.stats.outliers_influence.GLMInfluence.cooks_distance.html) | Permite cuantificar influencia sobre el ajuste | Marcar observaciones influyentes sin llamarlas fraude ni eliminarlas automáticamente |
-| [`actions/checkout` releases](https://github.com/actions/checkout/releases) y [`actions/setup-python` releases](https://github.com/actions/setup-python/releases) | Los majors basados en Node 24 sustituyen runtimes Node 20 en deprecación | Actualizar en rama y conservar gates, permisos y artefactos |
+| [`actions/checkout` releases](https://github.com/actions/checkout/releases) y [`actions/setup-python` releases](https://github.com/actions/setup-python/releases) | Los majors basados en Node 24 sustituyen runtimes Node 20 en deprecación | Usar `checkout@v7` y `setup-python@v6` conservando Python explícito y gates |
+| [`actions/configure-pages` releases](https://github.com/actions/configure-pages/releases), [`actions/upload-pages-artifact` releases](https://github.com/actions/upload-pages-artifact/releases) y [`actions/deploy-pages` releases](https://github.com/actions/deploy-pages/releases) | Los majors vigentes migran a Node 24 y mantienen el flujo oficial de Pages | Usar v6/v5/v5, permisos mínimos, artefacto estático y smoke HTTPS posterior |
 
 ## Conclusión de investigación
 
