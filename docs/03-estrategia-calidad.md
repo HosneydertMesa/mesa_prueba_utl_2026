@@ -24,6 +24,8 @@
 - Conservar nombre fuente y normalizado por separado.
 - Comparar conteos de preflight, payload, staging y SQLite.
 - Investigar sumas de candidatos que superen el total de partido/mesa.
+- Reportar `votantes > censo` como anomalía de fuente conservando ambos valores;
+  no imputar ni excluir la mesa sin una regla oficial.
 
 ## Seguridad y ética
 
@@ -41,4 +43,3 @@ python -m compileall scraper db dashboard viz outputs scripts
 python scripts/verify_delivery.py
 python outputs/generar_manifest.py
 ```
-

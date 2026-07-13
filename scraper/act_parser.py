@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Any, Mapping, Sequence
+from typing import Any
 
 from scraper.nomenclator import normalize_name
 
@@ -93,7 +94,8 @@ def parse_table_result(
         raise ActParseError(f"corporación no soportada: {corporation}")
     if str(payload.get("elec")) != ELECTION_NUMBER[corporation]:
         raise ActParseError(
-            f"elección inesperada: {payload.get('elec')!r}; se esperaba {ELECTION_NUMBER[corporation]}"
+            f"elección inesperada: {payload.get('elec')!r}; "
+            f"se esperaba {ELECTION_NUMBER[corporation]}"
         )
     scope_code = str(payload.get("amb", ""))
     if len(scope_code) != 19 or not scope_code.isalnum():
@@ -129,7 +131,9 @@ def parse_table_result(
             candidate = _mapping(raw_candidate, "cantotabla[]")
             candidate_code = str(candidate.get("codcan", "")).strip()
             if not candidate_code or candidate_code in seen_candidates:
-                raise ActParseError(f"codcan vacío o duplicado en partido {code}: {candidate_code!r}")
+                raise ActParseError(
+                    f"codcan vacío o duplicado en partido {code}: {candidate_code!r}"
+                )
             seen_candidates.add(candidate_code)
             source_name = _candidate_name(candidate)
             if not source_name:
@@ -140,22 +144,30 @@ def parse_table_result(
                     code=candidate_code,
                     source_name=source_name,
                     normalized_name=normalized_name,
-                    votes=_nonnegative_int(candidate.get("vot"), f"candidato[{candidate_code}].vot"),
+                    votes=_nonnegative_int(
+                        candidate.get("vot"), f"candidato[{candidate_code}].vot"
+                    ),
                     is_list=candidate_code == "0" or normalized_name == "SOLO POR LA LISTA",
                 )
             )
         candidate_votes = sum(candidate.votes for candidate in candidates)
         if candidate_votes != votes:
             raise ActParseError(
-                f"suma de candidatos inconsistente para partido {code}: {candidate_votes} != {votes}"
+                f"suma de candidatos inconsistente para partido {code}: "
+                f"{candidate_votes} != {votes}"
             )
         parties.append(PartyResult(code=code, votes=votes, candidates=tuple(candidates)))
 
-    chamber_totals = _mapping(_mapping(chamber.get("totales"), "camara.totales").get("act"), "camara.totales.act")
+    chamber_totals = _mapping(
+        _mapping(chamber.get("totales"), "camara.totales").get("act"),
+        "camara.totales.act",
+    )
     expected_candidate_votes = _nonnegative_int(chamber_totals.get("votcan"), "camara.votcan")
     party_votes = sum(party.votes for party in parties)
     if party_votes != expected_candidate_votes:
-        raise ActParseError(f"suma de partidos inconsistente: {party_votes} != {expected_candidate_votes}")
+        raise ActParseError(
+            f"suma de partidos inconsistente: {party_votes} != {expected_candidate_votes}"
+        )
 
     census = _nonnegative_int(totals.get("centota"), "centota")
     voters = _nonnegative_int(chamber_totals.get("votant"), "camara.votant")
@@ -163,8 +175,6 @@ def parse_table_result(
     unmarked_votes = _nonnegative_int(chamber_totals.get("votnma"), "camara.votnma")
     blank_votes = _nonnegative_int(chamber_totals.get("votbla"), "camara.votbla")
     valid_votes = _nonnegative_int(chamber_totals.get("votval"), "camara.votval")
-    if voters > census:
-        raise ActParseError(f"votantes superan censo: {voters} > {census}")
     if valid_votes + null_votes + unmarked_votes != voters:
         raise ActParseError(
             "balance de votos inconsistente: "
@@ -173,7 +183,8 @@ def parse_table_result(
         )
     if party_votes + blank_votes != valid_votes:
         raise ActParseError(
-            f"votos de partido + blancos inconsistentes: {party_votes} + {blank_votes} != {valid_votes}"
+            "votos de partido + blancos inconsistentes: "
+            f"{party_votes} + {blank_votes} != {valid_votes}"
         )
 
     return TableResult(

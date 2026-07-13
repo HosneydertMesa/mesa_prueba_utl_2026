@@ -1,0 +1,144 @@
+{
+  "audit_type": "local_non_official",
+  "blocking_checks": {
+    "candidate_balances": true,
+    "coverage": true,
+    "foreign_key_check": true,
+    "integrity_check": true,
+    "no_failed_or_incomplete_loads": true,
+    "party_balances": true,
+    "two_corporations_per_table": true,
+    "vote_balances": true
+  },
+  "coverage": {
+    "DUITAMA": {
+      "mesas_cargadas": 287,
+      "mesas_esperadas": 287,
+      "mesas_nomenclator": 287,
+      "puestos": 22,
+      "resultados_CA": 287,
+      "resultados_SE": 287
+    },
+    "PAIPA": {
+      "mesas_cargadas": 95,
+      "mesas_esperadas": 95,
+      "mesas_nomenclator": 95,
+      "puestos": 7,
+      "resultados_CA": 95,
+      "resultados_SE": 95
+    },
+    "SOGAMOSO": {
+      "mesas_cargadas": 301,
+      "mesas_esperadas": 301,
+      "mesas_nomenclator": 301,
+      "puestos": 18,
+      "resultados_CA": 301,
+      "resultados_SE": 301
+    },
+    "TUNJA": {
+      "mesas_cargadas": 424,
+      "mesas_esperadas": 424,
+      "mesas_nomenclator": 424,
+      "puestos": 26,
+      "resultados_CA": 424,
+      "resultados_SE": 424
+    }
+  },
+  "leaders_SE": {
+    "candidate": {
+      "codcan": "5",
+      "codpar": 57,
+      "nombre": "JOHN EDICKSON AMAYA RODRIGUEZ",
+      "votos": 14036
+    },
+    "party": {
+      "codpar": 92,
+      "nombre": "PACTO HISTÓRICO SENADO",
+      "votos": 53700
+    }
+  },
+  "load_status": {
+    "COMPLETADA": 4494
+  },
+  "ok": true,
+  "quality": {
+    "invalid_candidate_balances": 0,
+    "invalid_party_balances": 0,
+    "invalid_vote_balances": 0,
+    "missing_corporations": 0,
+    "voters_over_census_count": 53,
+    "voters_over_census_sample": [
+      {
+        "censo": 62,
+        "corporacion": "CA",
+        "mesa": "0700001010001000027",
+        "votantes": 100
+      },
+      {
+        "censo": 62,
+        "corporacion": "SE",
+        "mesa": "0700001010001000027",
+        "votantes": 111
+      },
+      {
+        "censo": 62,
+        "corporacion": "SE",
+        "mesa": "0700001010002000016",
+        "votantes": 67
+      },
+      {
+        "censo": 21,
+        "corporacion": "CA",
+        "mesa": "0700001010004000023",
+        "votantes": 80
+      },
+      {
+        "censo": 21,
+        "corporacion": "SE",
+        "mesa": "0700001010004000023",
+        "votantes": 85
+      },
+      {
+        "censo": 25,
+        "corporacion": "CA",
+        "mesa": "0700001010005000020",
+        "votantes": 59
+      },
+      {
+        "censo": 25,
+        "corporacion": "SE",
+        "mesa": "0700001010005000020",
+        "votantes": 68
+      },
+      {
+        "censo": 19,
+        "corporacion": "CA",
+        "mesa": "0700001010006000028",
+        "votantes": 76
+      },
+      {
+        "censo": 19,
+        "corporacion": "SE",
+        "mesa": "0700001010006000028",
+        "votantes": 89
+      },
+      {
+        "censo": 78,
+        "corporacion": "CA",
+        "mesa": "0700001020001000034",
+        "votantes": 155
+      }
+    ]
+  },
+  "totals": {
+    "candidatos": 1127,
+    "carga_log": 4494,
+    "mesas": 1107,
+    "municipios": 4,
+    "partidos": 25,
+    "puestos": 73,
+    "resultados_candidato": 1247589,
+    "resultados_partido": 27675,
+    "resumen_mesa": 2214
+  }
+}

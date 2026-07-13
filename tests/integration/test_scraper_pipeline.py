@@ -7,8 +7,8 @@ import unittest
 from pathlib import Path
 
 from db.database import initialize_database
-from scraper.http_client import FetchResult
 from scraper.act_parser import ActParseError
+from scraper.http_client import FetchResult
 from scraper.nomenclator import load_nomenclator
 from scraper.scraper import run_pipeline
 

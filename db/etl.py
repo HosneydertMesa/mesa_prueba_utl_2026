@@ -5,9 +5,10 @@ from __future__ import annotations
 import hashlib
 import json
 import sqlite3
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from datetime import datetime, timezone
-from typing import Any, Mapping, Sequence
+from datetime import UTC, datetime
+from typing import Any
 
 from scraper.act_parser import TableResult, parse_table_result
 from scraper.nomenclator import MunicipalityScope, PartyInfo, PositionScope, party_catalog
@@ -36,7 +37,7 @@ def canonical_payload_hash(payload: Mapping[str, Any]) -> str:
 
 
 def _utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _insert_or_get_id(

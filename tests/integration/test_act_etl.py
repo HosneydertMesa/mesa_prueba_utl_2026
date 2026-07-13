@@ -108,7 +108,9 @@ class ActEtlIntegrationTests(unittest.TestCase):
         self.assertEqual(log["estado"], "FALLIDA")
         self.assertIn("resultado cambió", log["error"])
         self.assertEqual(
-            self.connection.execute("SELECT votos FROM resultados_partido WHERE id = 1").fetchone()[0],
+            self.connection.execute(
+                "SELECT votos FROM resultados_partido WHERE id = 1"
+            ).fetchone()[0],
             40,
         )
         assert_integrity(self.connection)

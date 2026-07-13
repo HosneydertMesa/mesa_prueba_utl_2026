@@ -24,13 +24,15 @@ Antes de desarrollar, incorporar en `sample_data/` los archivos provistos por la
 
 ## Pipeline de ejecución
 
-Contrato objetivo, aún pendiente de implementación:
+Pipeline implementado hasta la auditoría local de cobertura:
 
 ```bash
 python scraper/scraper.py --preflight
 python scraper/scraper.py --preflight --municipios TUNJA PAIPA
 python scraper/scraper.py
-python db/etl.py
+python scripts/audit_database.py
+
+# Incrementos siguientes
 python dashboard/export_data.py
 python viz/heatmap.py
 python viz/scatter.py
@@ -64,12 +66,38 @@ Si la API no responde durante la ejecución, se usarán los archivos oficiales d
 
 ## Municipios en la BD
 
-Objetivo obligatorio: Tunja, Paipa, Sogamoso y Duitama. La base aún no ha sido cargada.
+La corrida completa validada contiene los cuatro municipios y ambas corporaciones:
+
+| Municipio | Puestos | Mesas | CA | SE |
+|---|---:|---:|---:|---:|
+| Tunja | 26 | 424 | 424 | 424 |
+| Paipa | 7 | 95 | 95 | 95 |
+| Sogamoso | 18 | 301 | 301 | 301 |
+| Duitama | 22 | 287 | 287 | 287 |
+
+La base local `db/puestos_2026.db` se excluye de Git por tamaño. La auditoría
+reproducible y versionable está en `outputs/auditoria_local.json`; la estrategia
+de distribución de la base se cerrará antes de la entrega.
 
 ## Hallazgos principales
 
-Todavía no existen hallazgos de datos. La estrategia evita presentar correlaciones como causalidad y exige reportar cobertura, faltantes, duplicados, denominadores y sensibilidad por municipio. Véase [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-analitica-ml.md).
+- Cobertura: 1.107/1.107 mesas y 2.214/2.214 resultados CA/SE.
+- Partido líder agregado en SE dentro de los cuatro municipios: Pacto Histórico
+  Senado (`codpar=92`), con 53.700 votos.
+- Candidato líder agregado en SE: John Edickson Amaya Rodriguez
+  (`codpar=57`, `codcan=5`), con 14.036 votos.
+- La fuente presenta 53 registros CA/SE con `votantes > censo`. Se conservan y
+  reportan sin imputación; los balances de votos, partidos y candidatos sí son
+  consistentes en toda la base.
+
+Son hallazgos descriptivos del alcance cargado, no evidencia causal. La estrategia
+analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-analitica-ml.md).
 
 ## Bonus implementados
 
-Ninguno todavía. Orden recomendado: `--preflight`, tres índices justificados, explicación CA vs atribución SE, dark mode, exportación CSV y municipios adicionales solo después de asegurar los 100 puntos base.
+- `--preflight` funcional sin escritura de base ni descarga de ACT (+3 previsto).
+- Cinco índices analíticos justificados y verificados con `EXPLAIN QUERY PLAN`
+  (+2 previsto).
+
+Los bonus de dashboard y municipios adicionales siguen pospuestos hasta asegurar
+los 100 puntos base.

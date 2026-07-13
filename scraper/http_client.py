@@ -6,10 +6,11 @@ import hashlib
 import json
 import logging
 import time
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -96,21 +97,27 @@ class JsonHttpClient:
             try:
                 response = self.transport(url, self.headers, self.timeout)
                 if response.status == 200:
-                    payload = self._decode_json(response.body, url)
-                    result = FetchResult(
-                        url=url,
-                        payload=payload,
-                        status=response.status,
-                        from_cache=False,
-                        etag=self._header(response.headers, "ETag"),
-                    )
-                    if use_cache:
-                        self._write_cache(cache_path, result)
-                    return result
-                last_error = HttpClientError(f"HTTP {response.status} al consultar {url}")
-                if response.status not in RETRYABLE_STATUS:
-                    raise last_error
-                retry_after = self._retry_after(response.headers)
+                    try:
+                        payload = self._decode_json(response.body, url)
+                    except HttpClientError as error:
+                        last_error = error
+                        retry_after = 0.0
+                    else:
+                        result = FetchResult(
+                            url=url,
+                            payload=payload,
+                            status=response.status,
+                            from_cache=False,
+                            etag=self._header(response.headers, "ETag"),
+                        )
+                        if use_cache:
+                            self._write_cache(cache_path, result)
+                        return result
+                else:
+                    last_error = HttpClientError(f"HTTP {response.status} al consultar {url}")
+                    if response.status not in RETRYABLE_STATUS:
+                        raise last_error
+                    retry_after = self._retry_after(response.headers)
             except (URLError, TimeoutError, OSError) as error:
                 last_error = error
                 retry_after = 0.0
@@ -157,7 +164,7 @@ class JsonHttpClient:
         record = {
             "url": result.url,
             "etag": result.etag,
-            "fetched_at": datetime.now(timezone.utc).isoformat(),
+            "fetched_at": datetime.now(UTC).isoformat(),
             "payload": result.payload,
         }
         temporary = path.with_suffix(".tmp")

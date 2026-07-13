@@ -7,9 +7,10 @@ import json
 import logging
 import sqlite3
 import sys
+from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterator, Mapping, Protocol, Sequence, TextIO
+from typing import Any, Protocol, TextIO
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -263,7 +264,9 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _load_nomenclator(args: argparse.Namespace, client: JsonHttpClient) -> tuple[Mapping[str, Any], str]:
+def _load_nomenclator(
+    args: argparse.Namespace, client: JsonHttpClient
+) -> tuple[Mapping[str, Any], str]:
     if args.nomenclator:
         with args.nomenclator.open(encoding="utf-8") as source:
             return json.load(source), str(args.nomenclator)
@@ -303,7 +306,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         logging.info("base=%s cargas=%s", args.db, summary.loads)
         return 0
-    except (OSError, ValueError, HttpClientError, NomenclatorError, EtlError, sqlite3.Error) as error:
+    except (
+        OSError,
+        ValueError,
+        HttpClientError,
+        NomenclatorError,
+        EtlError,
+        sqlite3.Error,
+    ) as error:
         logging.error("scraper falló: %s", error)
         return 1
     finally:

@@ -17,7 +17,9 @@ ACT por mesa -> parser estricto -> modelos tipados
 - Los balances usan los totales de esa cámara, no el agregado superior de otras circunscripciones.
 - `amb` es una mesa de 19 caracteres y corresponde al puesto esperado.
 - Conteos son enteros no negativos.
-- Votantes no superan el censo.
+- Se conservan censo y votantes tal como los publica la fuente. Los casos
+  `votantes > censo` se reportan como anomalía de calidad porque existen en ACT
+  oficiales; no se corrigen ni se descartan silenciosamente.
 - `válidos + nulos + no marcados = votantes`.
 - `votos de partidos + blancos = votos válidos`.
 - La suma de candidatos coincide con los votos del partido.

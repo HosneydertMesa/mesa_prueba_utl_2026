@@ -36,6 +36,14 @@ class ActParserTests(unittest.TestCase):
         with self.assertRaisesRegex(ActParseError, "suma de candidatos inconsistente"):
             parse_table_result(payload, "CA")
 
+    def test_preserves_source_census_anomaly_for_later_audit(self) -> None:
+        payload = copy.deepcopy(load_fixture("act_ca_mesa_min.json"))
+        payload["totales"]["act"]["centota"] = "62"
+
+        result = parse_table_result(payload, "CA")
+
+        self.assertEqual((result.census, result.voters), (62, 80))
+
     def test_rejects_response_for_other_scope(self) -> None:
         with self.assertRaisesRegex(ActParseError, "ámbito inesperado"):
             parse_table_result(

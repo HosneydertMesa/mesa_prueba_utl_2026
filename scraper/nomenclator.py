@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import json
 import unicodedata
+from collections.abc import Iterator, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterator, Mapping
+from typing import Any
 from urllib.parse import quote
 
 DEFAULT_BASE_URL = "https://resultadospreccongreso2026.registraduria.gov.co"
@@ -135,7 +136,11 @@ def resolve_municipality(
 
     municipality = candidates[0]
     positions: list[PositionScope] = []
-    pending = [int(child) for relation in municipality.get("h", []) for child in relation.get("p", [])]
+    pending = [
+        int(child)
+        for relation in municipality.get("h", [])
+        for child in relation.get("p", [])
+    ]
     visited: set[int] = set()
     while pending:
         record_id = pending.pop()
