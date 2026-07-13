@@ -12,7 +12,7 @@
 | 3.2 Dominancia | 8 | Implementado | 3.780 filas, umbral estricto probado | manifest oficial |
 | 3.3 Atribución | 8 | Implementado | fórmula exacta y top 5 | manifest oficial |
 | 4 Dashboard | 15 | Implementado | `dashboard/index.html`, JSON embebido y 5 contratos HTML | revisión manual Chrome/Firefox |
-| 5.1 Heatmap | 5 | Pendiente | scaffold únicamente | script + PNG 8×4 |
+| 5.1 Heatmap | 5 | Implementado | `viz/heatmap.py` + PNG 8×4 anotado | validación oficial |
 | 5.2 Scatter | 5 | Pendiente | scaffold únicamente | OLS/Pearson + PNG + stdout |
 | B1 Preflight | +3 | Implementado | 4/4 sin escribir BD ni ACT | validación oficial |
 | B2 Índices | +2 | Implementado | cinco índices + `EXPLAIN QUERY PLAN` | validación oficial |
@@ -23,8 +23,8 @@
 
 ## Resumen cuantitativo
 
-- Base implementada y verificada internamente: 90/100 puntos potenciales.
-- Base pendiente de implementación: 10/100 puntos (Reto 5).
+- Base implementada y verificada internamente: 95/100 puntos potenciales.
+- Base pendiente de implementación: 5/100 puntos (Reto 5.2).
 - Bonus implementado: +7 puntos potenciales.
 - Validación oficial pendiente: retos 1.3, 2.3 y 3.x por ausencia del generador.
 
@@ -54,5 +54,7 @@
   top 10 CA, líder SE, arrastre por puesto y colores obligatorios.
 - Reto 4.2 dashboard HTML: implementado como archivo autocontenido, sin servidor,
   dependencias externas ni `fetch`; contrato validado para 4/4 municipios.
-- Reto 5: pendiente.
+- Reto 5.1 heatmap: implementado con top 8 CA consolidado, cuatro municipios,
+  porcentaje del total CA municipal, anotaciones y PNG >10 KB.
+- Reto 5.2 scatter: pendiente.
 

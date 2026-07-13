@@ -133,7 +133,11 @@ def gate_review() -> None:
         raise GateFailure("título contractual del README inválido")
     if headings[1:] != REQUIRED_H2:
         raise GateFailure("headings H2 del README no coinciden exactamente con el contrato")
-    pdfs = [path.relative_to(ROOT) for path in ROOT.rglob("*.pdf") if ".git" not in path.parts]
+    pdfs = [
+        path.relative_to(ROOT)
+        for path in ROOT.rglob("*.pdf")
+        if not any(part in IGNORED_PARTS for part in path.relative_to(ROOT).parts)
+    ]
     if pdfs:
         raise GateFailure("PDF dentro del repo público: " + ", ".join(map(str, pdfs)))
 

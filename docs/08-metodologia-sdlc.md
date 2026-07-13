@@ -10,9 +10,9 @@ Se adopta desarrollo troncal ligero para una prueba individual:
 - Los commits atómicos se publican en un PR borrador cuando el usuario lo autoriza.
 - La promoción se realiza por evidencia: DEV -> QA -> SEC -> REVIEW.
 
-Estado actual: los retos 1-3 están en
-`codex/feat-reto-1-2b-parser-loader` y en el PR #1. Cada push pasó CI. La rama no
-se fusiona a `main` hasta completar la revisión acordada y recibir autorización.
+Estado actual: los retos 1-4 fueron promovidos a `main` mediante el PR #1 después
+de aprobar CI y recibir autorización. El Reto 5 continúa en ramas cortas e
+independientes para conservar revisiones y promociones atómicas.
 
 No se mantendrán ramas largas llamadas `dev`, `qa` o `sec`: para una persona y una ventana corta añadirían merges y divergencia sin ofrecer aislamiento real. Esos nombres representan puertas de calidad repetibles.
 

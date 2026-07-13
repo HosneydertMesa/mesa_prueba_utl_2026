@@ -3,11 +3,13 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 42 pruebas, Ruff, DEV, QA, SEC y REVIEW.
-- En nube: PR #1 borrador, sin conflictos; `main` aún no se fusiona.
+- Verdes localmente: 45 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- En nube: retos 1-4 integrados en `main` mediante PR #1; 5.1 se desarrolla en
+  `codex/feat-reto-5-1-heatmap`.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
   autocontenido con datos embebidos.
-- Pendientes: PNG, insumos/manifest oficial, Release de DB y clon limpio.
+- Completado adicional: heatmap 8×4 anotado y superior a 10 KB.
+- Pendientes: scatter, insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
 
@@ -15,7 +17,7 @@
 2. Regenerar `dashboard/data.json` y confirmar contrato.
 3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
 4. Mantener dark mode/CSV pospuestos hasta completar los 100 puntos base.
-5. Implementar `viz/heatmap.py` y validar PNG 8×4 >10 KB.
+5. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
 6. Implementar `viz/scatter.py`, PNG y stdout exacto.
 7. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
 8. Publicar SQLite como Release asset y enlazar checksum/URL.
