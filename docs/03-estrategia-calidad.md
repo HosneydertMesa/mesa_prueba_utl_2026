@@ -9,18 +9,18 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 45 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 49 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
-cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten el scatter
-y el manifest oficial.
+cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
+insumos del manifest oficial y la distribución de la base.
 
 ## Pirámide de pruebas
 
 - Unitarias: normalización, parsing, claves, ratios, atribución y stdout.
 - Integración: fixture CA+SE -> SQLite temporal -> SQL -> exportación.
 - Contrato: archivos, headings, colores, JSON, columnas y HTML autocontenido.
-- End-to-end: cuatro municipios ya auditados, dashboard contractual y heatmap
-  completos; revisión manual multinavegador, manifest y scatter pendientes.
+- End-to-end: cuatro municipios ya auditados, dashboard contractual, heatmap y
+  scatter completos; revisión manual multinavegador y manifest pendientes.
 
 ## Evidencia específica del dashboard
 
@@ -38,6 +38,15 @@ y el manifest oficial.
 - Error temprano si falta un municipio, un candidato o un denominador positivo.
 - PNG real inspeccionado visualmente, con anotaciones y peso superior a 10 KB.
 - CI instala las dependencias declaradas antes de ejecutar los gates.
+
+## Evidencia específica del scatter
+
+- Una observación por cada mesa con resúmenes CA y SE; 1.107/1.107 pareadas.
+- Cuatro municipios presentes con conteos 424, 95, 301 y 287.
+- Fixture exacto `SE = 2 × CA + 5` para validar `r=1`, pendiente 2 e intercepto 5.
+- Error temprano si una mesa carece de cualquiera de las dos corporaciones.
+- Stdout exacto probado con tres decimales y `n_mesas` entero.
+- PNG inspeccionado visualmente y superior a 10 KB; lenguaje no causal.
 
 ## Reglas de calidad de datos
 
