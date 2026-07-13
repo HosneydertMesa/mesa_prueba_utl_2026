@@ -9,8 +9,8 @@ scatter permiten alternar entre el contrato obligatorio y el alcance ampliado;
 los valores oficiales permanecen disponibles sin modificación.
 
 No se introduce servidor, CDN, `fetch` ni librería JavaScript. El dashboard sigue
-abriendo directamente mediante `file://`; la publicación opcional en GitHub
-Pages sirve el mismo artefacto estático y no reemplaza el contrato local.
+abriendo directamente mediante `file://`; la publicación activa en GitHub Pages
+sirve el mismo artefacto estático y no reemplaza el contrato local.
 
 ## Contrato de datos v2
 

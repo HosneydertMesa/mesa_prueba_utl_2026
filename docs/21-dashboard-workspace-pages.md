@@ -1,5 +1,8 @@
 # Dashboard Workspace 3.0 y GitHub Pages
 
+> Estado al 13 de julio de 2026: PR #7 fusionado, workflows `quality` y
+> `deploy-dashboard-pages` verdes, HTTPS activo y contenido público verificado.
+
 ## Objetivo
 
 El incremento 4.5 reemplaza la navegación vertical tipo landing por un workspace
@@ -47,7 +50,7 @@ data.json
 ```
 
 No se publica la base SQLite, el PDF, el scraper, documentación interna ni
-credenciales. El sitio esperado del proyecto es:
+credenciales. La URL pública verificada del proyecto es:
 
 ```text
 https://hosneydertmesa.github.io/mesa_prueba_utl_2026/
@@ -55,8 +58,18 @@ https://hosneydertmesa.github.io/mesa_prueba_utl_2026/
 
 La configuración usa permisos mínimos `contents: read`, `pages: write` e
 `id-token: write`, el entorno `github-pages` y concurrencia serializada. La
-activación del sitio es una operación administrativa separada de la revisión del
-código; el despliegue ocurre al fusionar el PR a `main`.
+activación del sitio se completó con origen `workflow`. El despliegue validado
+corresponde al merge commit `7c5272e04f6e1a329c96ab55e5ccc9da95ffe0e6` y
+publica desde `main`.
+
+## Evidencia de publicación
+
+- URL: `https://hosneydertmesa.github.io/mesa_prueba_utl_2026/`.
+- HTML: respuesta HTTPS `200`, 528.167 bytes y control `Ampliado 7` presente.
+- JSON: respuesta HTTPS `200`, 7 municipios, 1.432 mesas y 1.432 puntos en el
+  scatter ampliado.
+- GitHub Actions: `quality` y `deploy-dashboard-pages` concluyeron `success`.
+- Seguridad: Pages sirve solo HTML, JSON y `.nojekyll`; HTTPS está forzado.
 
 ## Validación
 

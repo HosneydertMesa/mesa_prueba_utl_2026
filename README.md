@@ -43,7 +43,7 @@ python scripts/audit_database.py --db db/puestos_2026_bonus.db \
 python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
 # Abrir dashboard/index.html directamente en el navegador
 
-# Incrementos siguientes
+# Artefactos y verificación final
 python viz/heatmap.py
 python viz/scatter.py
 python outputs/generar_manifest.py
@@ -71,6 +71,9 @@ La evolución interactiva con hallazgos, heatmap y scatter está documentada en
 La navegación espacial tipo BI y la publicación controlada mediante GitHub Pages
 están documentadas en
 [docs/21-dashboard-workspace-pages.md](docs/21-dashboard-workspace-pages.md).
+
+Los pendientes de entrega y las mejoras opcionales priorizadas están en
+[docs/22-hoja-ruta-mejoras.md](docs/22-hoja-ruta-mejoras.md).
 
 El criterio, la fórmula y la validación del heatmap 8×4 están documentados en
 [docs/16-heatmap-municipios.md](docs/16-heatmap-municipios.md).

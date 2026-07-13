@@ -42,3 +42,6 @@ ML se autoriza únicamente si:
   están verdes;
 - quedan al menos 90 minutos de reserva;
 - el resultado se presenta como sensibilidad exploratoria y no como predicción.
+
+La secuencia priorizada, criterios de terminado y mejoras que no conviene
+ejecutar antes de la entrega están en `docs/22-hoja-ruta-mejoras.md`.
