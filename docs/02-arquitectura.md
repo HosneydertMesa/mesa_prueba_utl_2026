@@ -1,44 +1,91 @@
-# Arquitectura propuesta
+# Arquitectura del pipeline
 
-## Flujo
+## Estado
+
+Las capas de adquisición, parsing, ETL, SQLite, auditoría, SQL, exportación JSON
+y presentación HTML están implementadas. Las visualizaciones del Reto 5 son el
+siguiente bloque de construcción.
+
+## Flujo actual y planificado
 
 ```text
-API Registraduría o sample_data
-  -> scraper (adquisición y validación de forma)
-  -> ETL normalizador -> SQLite
-  -> SQL 3.x + export_data.py + viz/*.py
-  -> manifest y dashboard/index.html
+Nomenclator + ACT públicos
+  -> JsonHttpClient (timeout, retry/backoff, caché atómica)
+  -> parser ACT (contrato, ámbito, cámara y balances)
+  -> ETL transaccional e idempotente
+  -> SQLite normalizado + carga_log
+  -> SQL 3.1 / 3.2 / 3.3
+  -> auditoría local reproducible
+  -> export_data.py -> data.json + JSON embebido
+  -> dashboard/index.html autocontenido
+  -> [siguiente] heatmap.py / scatter.py -> PNG
+  -> [bloqueado] generar_manifest.py oficial
 ```
 
 ## Responsabilidades
 
-- `scraper/`: red, nomenclator, retry/backoff, municipios y parsing; sin reglas analíticas.
-- `db/`: schema, normalización, transacciones, deduplicación y auditoría.
-- `sql/`: consultas puras e independientes de Python.
-- `dashboard/`: contrato de exportación y presentación estática.
-- `viz/`: productos reproducibles derivados de SQLite.
-- `outputs/`: evaluador provisto y resultado; no duplicar su lógica.
-- `tests/`: unitarias, integración y contratos.
+- `scraper/http_client.py`: transporte estándar `urllib`, caché, timeout,
+  Retry-After y reintento de HTTP/JSON transitorio.
+- `scraper/nomenclator.py`: jerarquía electoral, municipios, puestos, mesas,
+  URLs ACT y catálogo de partidos.
+- `scraper/act_parser.py`: modelos tipados e invariantes por cámara/mesa.
+- `scraper/scraper.py`: CLI, filtros, preflight, recorrido y progreso.
+- `db/schema.sql`: restricciones, claves naturales e índices.
+- `db/etl.py`: dimensiones, hechos, transacciones, idempotencia y auditoría.
+- `scripts/audit_database.py`: cobertura, integridad, calidad y ejecución SQL.
+- `sql/`: consultas puras, deterministas e independientes de Python.
+- `dashboard/export_data.py`: contrato determinista SQLite→JSON, validaciones y
+  sincronización atómica del bloque embebido en el HTML.
+- `dashboard/index.html`: presentación estática autocontenida compatible con
+  apertura directa, sin runtime ni recursos externos.
+- `viz/`: productos reproducibles derivados de SQLite pendientes.
+- `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
+- `tests/`: unitarias e integración de contratos y casos calculables.
 
-## Modelo lógico mínimo a confirmar
+## Modelo lógico implementado
 
-- `municipios(id, codigo, nombre)`
-- `puestos(id, municipio_id, codigo, nombre)`
-- `mesas(id, puesto_id, numero)`
+```text
+municipios 1---N puestos 1---N mesas
+
+partidos 1---N candidatos
+
+mesas 1---N resumen_mesa
+mesas 1---N resultados_partido N---1 partidos
+mesas 1---N resultados_candidato N---1 candidatos
+
+carga_log 1---N resumen_mesa/resultados_*
+```
+
+Tablas implementadas:
+
+- `municipios(id, codigo, nombre, departamento_codigo)`
+- `puestos(id, municipio_id, codigo, nombre, mesas_esperadas)`
+- `mesas(id, puesto_id, numero, codigo)`
 - `partidos(id, corporacion, codpar, nombre)`
-- `candidatos(id, partido_id, codigo, nombre_normalizado, nombre_fuente)`
-- `resultados(id, mesa_id, candidato_id, corporacion, votos, fuente_hash)`
-- `carga_log(id, inicio, fin, fuente, estado, leidas, insertadas, omitidas, error)`
+- `candidatos(id, partido_id, codcan, nombre_fuente, nombre_normalizado, es_lista)`
+- `resumen_mesa(..., corporacion, censo, votantes, votos_*)`
+- `resultados_partido(mesa_id, partido_id, carga_id, votos)`
+- `resultados_candidato(mesa_id, candidato_id, carga_id, votos)`
+- `carga_log(..., estado, fuente_sha256, filas_leidas, insertadas, omitidas)`
 
-Las claves naturales finales se definen al observar el JSON. `codpar` no debe asumirse global: el enunciado muestra homologaciones distintas entre CA y SE.
+`codpar` no es global: la clave de partido incluye corporación y la relación CA→SE
+se expresa sólo en las consultas que la necesitan.
 
-## Decisiones técnicas
+## Decisiones técnicas vigentes
 
-- Python 3.11/3.12 y SQLite por compatibilidad.
-- `requests.Session` + retry/backoff; timeouts explícitos y jitter.
-- Transacción por unidad de carga, nunca `commit` por fila.
-- `INSERT OR IGNORE` respaldado por `UNIQUE`; no ocultar errores de FK.
-- JSON agregado y pequeño para el dashboard.
-- Orden explícito en SQL para resultados repetibles.
+- Python 3.11/3.12 y librería estándar para el pipeline base.
+- SQLite con `foreign_keys=ON`, WAL y transacción por respuesta ACT.
+- `INSERT OR IGNORE` únicamente sobre claves `UNIQUE`, seguido de comparación.
+- Conflictos de una clave con valores diferentes hacen rollback y dejan evidencia.
+- Datos fuente y nombres normalizados se conservan por separado.
+- Orden explícito y `NULLIF` en SQL para resultados repetibles y cero seguro.
+- La base de 64 MB no se versiona; la entrega prevista es GitHub Release asset.
+- El dashboard incorpora los datos como JSON embebido para ser compatible con
+  `file://` sin servidor ni solicitudes bloqueadas por CORS.
 
-Cada etapa registrará municipio, corporación, fuente, leídas, insertadas, omitidas, duración y resultado, sin secretos ni payloads completos.
+## Límites deliberados
+
+- No se persiste `cedula` porque no es necesaria para los retos.
+- No se imputa `censo` cuando la fuente publica `votantes > censo`.
+- La atribución SE es determinística y descriptiva, no causal.
+- ML queda fuera del camino crítico hasta completar los 100 puntos base.

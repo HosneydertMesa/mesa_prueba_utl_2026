@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import json
 import unicodedata
+from collections.abc import Iterator, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterator, Mapping
+from typing import Any
 from urllib.parse import quote
 
 DEFAULT_BASE_URL = "https://resultadospreccongreso2026.registraduria.gov.co"
@@ -36,6 +37,14 @@ class MunicipalityScope:
         return sum(position.table_count for position in self.positions)
 
 
+@dataclass(frozen=True)
+class PartyInfo:
+    runtime_code: int
+    source_code: str
+    name: str
+    color: str
+
+
 def load_nomenclator(path: str | Path) -> dict[str, Any]:
     with Path(path).open(encoding="utf-8") as source:
         payload = json.load(source)
@@ -48,6 +57,30 @@ def normalize_name(value: str) -> str:
     decomposed = unicodedata.normalize("NFKD", value.strip())
     without_accents = "".join(char for char in decomposed if not unicodedata.combining(char))
     return " ".join(without_accents.upper().split())
+
+
+def party_catalog(payload: Mapping[str, Any]) -> dict[int, PartyInfo]:
+    """Indexa partidos por `i`, que es el codpar publicado en ACT."""
+
+    records = payload.get("partidos")
+    if not isinstance(records, list):
+        raise NomenclatorError("falta la colección partidos")
+    catalog: dict[int, PartyInfo] = {}
+    for record in records:
+        try:
+            runtime_code = int(record["i"])
+            item = PartyInfo(
+                runtime_code=runtime_code,
+                source_code=str(record["codpar"]),
+                name=str(record["nombre"]).strip(),
+                color=str(record.get("color", "")).strip(),
+            )
+        except (KeyError, TypeError, ValueError) as error:
+            raise NomenclatorError(f"partido inválido: {record!r}") from error
+        if runtime_code in catalog:
+            raise NomenclatorError(f"código de partido duplicado en nomenclator: {runtime_code}")
+        catalog[runtime_code] = item
+    return catalog
 
 
 def _election_block(payload: Mapping[str, Any], election: str) -> list[Mapping[str, Any]]:
@@ -103,7 +136,11 @@ def resolve_municipality(
 
     municipality = candidates[0]
     positions: list[PositionScope] = []
-    pending = [int(child) for relation in municipality.get("h", []) for child in relation.get("p", [])]
+    pending = [
+        int(child)
+        for relation in municipality.get("h", [])
+        for child in relation.get("p", [])
+    ]
     visited: set[int] = set()
     while pending:
         record_id = pending.pop()

@@ -34,6 +34,12 @@
         {"i": 203, "n": "PUESTO DUITAMA", "c": "0700079010001", "l": 6, "m": 1}
       ]
     }
+  ],
+  "partidos": [
+    {"i": "5", "codpar": "4", "nombre": "PARTIDO ALIANZA VERDE", "color": "#007C34"},
+    {"i": "57", "codpar": "3020", "nombre": "ALIANZA POR COLOMBIA", "color": "#007C34"},
+    {"i": "87", "codpar": "3058", "nombre": "PACTO HISTÓRICO BOYACÁ", "color": "#7B2D8B"},
+    {"i": "92", "codpar": "3063", "nombre": "PACTO HISTÓRICO SENADO", "color": "#7B2D8B"}
   ]
 }
 

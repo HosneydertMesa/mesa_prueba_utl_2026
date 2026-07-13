@@ -1,0 +1,41 @@
+{
+  "elec": "1",
+  "amb": "0700001010001000001",
+  "dept": "07",
+  "totales": {
+    "act": {
+      "centota": "100",
+      "votant": "78",
+      "votnul": "2",
+      "votnma": "3",
+      "votblan": "3",
+      "votval": "73"
+    }
+  },
+  "camaras": [
+    {
+      "cam": "0",
+      "totales": {"act": {"votant": "78", "votnul": "2", "votnma": "3", "votbla": "3", "votval": "73", "votcan": "70"}},
+      "partotabla": [
+        {
+          "act": {
+            "codpar": "57",
+            "vot": "45",
+            "cantotabla": [
+              {"codcan": "0", "nomcan": "SOLO POR LA LISTA", "apecan": "", "nomcan2": "", "apecan2": "", "vot": "45"}
+            ]
+          }
+        },
+        {
+          "act": {
+            "codpar": "92",
+            "vot": "25",
+            "cantotabla": [
+              {"codcan": "0", "nomcan": "SOLO POR LA LISTA", "apecan": "", "nomcan2": "", "apecan2": "", "vot": "25"}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

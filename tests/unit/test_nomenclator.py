@@ -8,6 +8,7 @@ from scraper.nomenclator import (
     build_act_url,
     iter_table_scope_codes,
     load_nomenclator,
+    party_catalog,
     resolve_municipality,
     table_scope_code,
 )
@@ -51,4 +52,9 @@ class NomenclatorTests(unittest.TestCase):
     def test_rejects_unknown_election(self) -> None:
         with self.assertRaises(NomenclatorError):
             resolve_municipality(self.payload, "Tunja", "XX")
+
+    def test_party_catalog_uses_runtime_i_not_source_codpar(self) -> None:
+        catalog = party_catalog(self.payload)
+        self.assertEqual(catalog[5].name, "PARTIDO ALIANZA VERDE")
+        self.assertEqual(catalog[5].source_code, "4")
 

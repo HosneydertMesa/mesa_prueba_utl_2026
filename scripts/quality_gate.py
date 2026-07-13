@@ -12,7 +12,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TEXT_SUFFIXES = {".py", ".md", ".yml", ".yaml", ".json", ".toml", ".txt", ".sql", ".html"}
 TEXT_NAMES = {".gitignore", ".editorconfig"}
-IGNORED_PARTS = {".git", ".venv", "venv", "__pycache__", ".pytest_cache", ".ruff_cache", "tmp"}
+IGNORED_PARTS = {
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".cache",
+    "tmp",
+}
 
 REQUIRED_BASE = (
     "README.md",
@@ -20,9 +29,11 @@ REQUIRED_BASE = (
     "scraper/scraper.py",
     "scraper/nomenclator.py",
     "scraper/http_client.py",
+    "scraper/act_parser.py",
     "db/schema.sql",
     "db/database.py",
     "db/etl.py",
+    "scripts/audit_database.py",
     "sql/tarea_3_1.sql",
     "sql/tarea_3_2.sql",
     "sql/tarea_3_3.sql",

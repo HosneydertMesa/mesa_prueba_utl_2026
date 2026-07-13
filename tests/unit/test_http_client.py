@@ -48,7 +48,11 @@ class JsonHttpClientTests(unittest.TestCase):
     def test_does_not_retry_non_retryable_status(self) -> None:
         transport = SequencedTransport([HttpResponse(404, b"missing", {})])
         with tempfile.TemporaryDirectory() as directory:
-            client = JsonHttpClient(cache_dir=directory, transport=transport, sleeper=lambda _: None)
+            client = JsonHttpClient(
+                cache_dir=directory,
+                transport=transport,
+                sleeper=lambda _: None,
+            )
             with self.assertRaises(HttpClientError):
                 client.get_json("https://example.test/missing.json")
         self.assertEqual(transport.calls, 1)
@@ -56,7 +60,35 @@ class JsonHttpClientTests(unittest.TestCase):
     def test_rejects_invalid_json(self) -> None:
         transport = SequencedTransport([HttpResponse(200, b"not-json", {})])
         with tempfile.TemporaryDirectory() as directory:
-            client = JsonHttpClient(cache_dir=Path(directory), transport=transport)
+            client = JsonHttpClient(
+                cache_dir=Path(directory),
+                max_attempts=1,
+                transport=transport,
+            )
             with self.assertRaises(HttpClientError):
                 client.get_json("https://example.test/invalid.json")
+
+    def test_retries_invalid_json_then_caches_success(self) -> None:
+        transport = SequencedTransport(
+            [
+                HttpResponse(200, b"not-json", {}),
+                HttpResponse(200, b'{"ok":true}', {"ETag": '"v2"'}),
+            ]
+        )
+        sleeps: list[float] = []
+        with tempfile.TemporaryDirectory() as directory:
+            client = JsonHttpClient(
+                cache_dir=Path(directory),
+                max_attempts=2,
+                backoff_initial=0.1,
+                transport=transport,
+                sleeper=sleeps.append,
+            )
+            first = client.get_json("https://example.test/transient-invalid.json")
+            second = client.get_json("https://example.test/transient-invalid.json")
+
+        self.assertEqual(first.payload, {"ok": True})
+        self.assertTrue(second.from_cache)
+        self.assertEqual(transport.calls, 2)
+        self.assertEqual(sleeps, [0.1])
 

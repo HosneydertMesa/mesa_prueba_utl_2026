@@ -1,5 +1,1029 @@
 {
-  "status": "scaffold",
-  "municipios": []
+  "meta": {
+    "schema_version": 1,
+    "dataset": "Congreso 2026 - Cámara y Senado - Boyacá",
+    "corporaciones": [
+      "CA",
+      "SE"
+    ],
+    "municipios": 4,
+    "puestos": 73,
+    "mesas": 1107,
+    "referencia_arrastre": 1.0
+  },
+  "colores_partido": {
+    "5": "#007C34",
+    "57": "#007C34",
+    "87": "#7B2D8B",
+    "92": "#7B2D8B",
+    "10": "#1E477D",
+    "2": "#E07B00"
+  },
+  "comparativo_ca": [
+    {
+      "municipio": "TUNJA",
+      "votos_ca_total": 72461
+    },
+    {
+      "municipio": "PAIPA",
+      "votos_ca_total": 16807
+    },
+    {
+      "municipio": "SOGAMOSO",
+      "votos_ca_total": 50881
+    },
+    {
+      "municipio": "DUITAMA",
+      "votos_ca_total": 48187
+    }
+  ],
+  "municipios": [
+    {
+      "codigo": "0700001",
+      "nombre": "TUNJA",
+      "puestos": 26,
+      "mesas": 424,
+      "votos_ca_total": 72461,
+      "votos_se_total": 74243,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 4294,
+          "porcentaje_ca_municipal": 5.9259,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 3986,
+          "porcentaje_ca_municipal": 5.5009,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 3933,
+          "porcentaje_ca_municipal": 5.4277,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 4,
+          "codpar": 121,
+          "codcan": "101",
+          "candidato": "INGRID MARLEN SOGAMOSO ALFONSO",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 2903,
+          "porcentaje_ca_municipal": 4.0063,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 5,
+          "codpar": 122,
+          "codcan": "102",
+          "candidato": "FABIAN CAMILO ROJAS BARRERA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 2848,
+          "porcentaje_ca_municipal": 3.9304,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 6,
+          "codpar": 121,
+          "codcan": "106",
+          "candidato": "WILDER IVAN SUESCA OCHOA",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 2756,
+          "porcentaje_ca_municipal": 3.8034,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 7,
+          "codpar": 2,
+          "codcan": "106",
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 2341,
+          "porcentaje_ca_municipal": 3.2307,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 8,
+          "codpar": 121,
+          "codcan": "103",
+          "candidato": "JOSE DARIO MAHECHA CASTILLO",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 2242,
+          "porcentaje_ca_municipal": 3.0941,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 9,
+          "codpar": 2,
+          "codcan": "101",
+          "candidato": "OSCAR LEONARDO AVILA ROMERO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 2180,
+          "porcentaje_ca_municipal": 3.0085,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 10,
+          "codpar": 120,
+          "codcan": "101",
+          "candidato": "JAIRO ENRIQUE CASTIBLANCO PARRA",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 1911,
+          "porcentaje_ca_municipal": 2.6373,
+          "color": "#64748B"
+        }
+      ],
+      "lider_se": {
+        "codpar": 92,
+        "partido": "PACTO HISTÓRICO SENADO",
+        "votos": 20651,
+        "porcentaje_se_municipal": 27.8154,
+        "color": "#7B2D8B"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700001010001",
+          "puesto": "COL. BOYACA FCO DE PAULA SANTANDER",
+          "votos_ca_verde": 986,
+          "votos_se_verde": 990,
+          "ratio_arrastre": 1.004057
+        },
+        {
+          "puesto_codigo": "0700001010002",
+          "puesto": "I.T. GONZALO SUAREZ RENDON SEDE CENTRAL",
+          "votos_ca_verde": 591,
+          "votos_se_verde": 619,
+          "ratio_arrastre": 1.047377
+        },
+        {
+          "puesto_codigo": "0700001010003",
+          "puesto": "COL DE BOYACA SD JOSE IGNACIO DE MARQUEZ",
+          "votos_ca_verde": 493,
+          "votos_se_verde": 521,
+          "ratio_arrastre": 1.056795
+        },
+        {
+          "puesto_codigo": "0700001010004",
+          "puesto": "IES JUAN CASTELLANOS SD CRISANTO LUQUE",
+          "votos_ca_verde": 953,
+          "votos_se_verde": 936,
+          "ratio_arrastre": 0.982162
+        },
+        {
+          "puesto_codigo": "0700001010005",
+          "puesto": "AUDITORIO GUSTAVO M CASTELLANOS COMFABOY",
+          "votos_ca_verde": 715,
+          "votos_se_verde": 778,
+          "ratio_arrastre": 1.088112
+        },
+        {
+          "puesto_codigo": "0700001010006",
+          "puesto": "COLEGIO SALESIANO MALDONADO",
+          "votos_ca_verde": 1083,
+          "votos_se_verde": 1142,
+          "ratio_arrastre": 1.054478
+        },
+        {
+          "puesto_codigo": "0700001020001",
+          "puesto": "UNIVERSIDAD JUAN DE CASTELLANOS",
+          "votos_ca_verde": 1230,
+          "votos_se_verde": 1224,
+          "ratio_arrastre": 0.995122
+        },
+        {
+          "puesto_codigo": "0700001020002",
+          "puesto": "C.A.S.D. BARRIO SAN ANTONIO",
+          "votos_ca_verde": 651,
+          "votos_se_verde": 656,
+          "ratio_arrastre": 1.00768
+        },
+        {
+          "puesto_codigo": "0700001020003",
+          "puesto": "INEM CARLOS ARTURO TORRES SD CENTRAL",
+          "votos_ca_verde": 627,
+          "votos_se_verde": 612,
+          "ratio_arrastre": 0.976077
+        },
+        {
+          "puesto_codigo": "0700001020004",
+          "puesto": "IE LIBERTADOR SIMON BOLIVAR SEDE CENTRAL",
+          "votos_ca_verde": 514,
+          "votos_se_verde": 573,
+          "ratio_arrastre": 1.114786
+        },
+        {
+          "puesto_codigo": "0700001020005",
+          "puesto": "UNIVERSIDAD SANTO TOMAS",
+          "votos_ca_verde": 903,
+          "votos_se_verde": 865,
+          "ratio_arrastre": 0.957918
+        },
+        {
+          "puesto_codigo": "0700001020006",
+          "puesto": "COLISEO SAN ANTONIO",
+          "votos_ca_verde": 564,
+          "votos_se_verde": 537,
+          "ratio_arrastre": 0.952128
+        },
+        {
+          "puesto_codigo": "0700001020007",
+          "puesto": "I.E GUSTAVO ROJAS PINILLA SD CENTRAL",
+          "votos_ca_verde": 671,
+          "votos_se_verde": 762,
+          "ratio_arrastre": 1.135618
+        },
+        {
+          "puesto_codigo": "0700001020008",
+          "puesto": "IE LIBERTADOR SIMON BOLIVAR SN FRANCISCO",
+          "votos_ca_verde": 397,
+          "votos_se_verde": 434,
+          "ratio_arrastre": 1.093199
+        },
+        {
+          "puesto_codigo": "0700001020009",
+          "puesto": "I.E. SILVINO RODRIGUEZ SD MANZANARES",
+          "votos_ca_verde": 126,
+          "votos_se_verde": 122,
+          "ratio_arrastre": 0.968254
+        },
+        {
+          "puesto_codigo": "0700001020010",
+          "puesto": "IE NORMAL SUPERIOR SD JARDIN NACIONAL",
+          "votos_ca_verde": 275,
+          "votos_se_verde": 313,
+          "ratio_arrastre": 1.138182
+        },
+        {
+          "puesto_codigo": "0700001020011",
+          "puesto": "CTRO DE REHAB. INTEG. DE BOYACA - CRIB",
+          "votos_ca_verde": 9,
+          "votos_se_verde": 8,
+          "ratio_arrastre": 0.888889
+        },
+        {
+          "puesto_codigo": "0700001030001",
+          "puesto": "COLISEO CUBIERTO MUNICIPAL",
+          "votos_ca_verde": 904,
+          "votos_se_verde": 914,
+          "ratio_arrastre": 1.011062
+        },
+        {
+          "puesto_codigo": "0700001030002",
+          "puesto": "COLISEO MUNICIPAL COMFABOY",
+          "votos_ca_verde": 921,
+          "votos_se_verde": 949,
+          "ratio_arrastre": 1.030402
+        },
+        {
+          "puesto_codigo": "0700001030003",
+          "puesto": "N. S. LEONOR ALVAREZ PINZON PRIMARIA",
+          "votos_ca_verde": 205,
+          "votos_se_verde": 243,
+          "ratio_arrastre": 1.185366
+        },
+        {
+          "puesto_codigo": "0700001030004",
+          "puesto": "COLISEO I.R.D.ET",
+          "votos_ca_verde": 821,
+          "votos_se_verde": 917,
+          "ratio_arrastre": 1.116931
+        },
+        {
+          "puesto_codigo": "0700001030005",
+          "puesto": "I.E. ANTONIO JOSE SANDOVAL GOMEZ",
+          "votos_ca_verde": 327,
+          "votos_se_verde": 345,
+          "ratio_arrastre": 1.055046
+        },
+        {
+          "puesto_codigo": "0700001030006",
+          "puesto": "COLISEO UNIBOYACA",
+          "votos_ca_verde": 901,
+          "votos_se_verde": 888,
+          "ratio_arrastre": 0.985572
+        },
+        {
+          "puesto_codigo": "0700001900001",
+          "puesto": "PUESTO CENSO (COL. BOY SAN AGUSTIN)",
+          "votos_ca_verde": 911,
+          "votos_se_verde": 908,
+          "ratio_arrastre": 0.996707
+        },
+        {
+          "puesto_codigo": "0700001980001",
+          "puesto": "CARCEL",
+          "votos_ca_verde": 5,
+          "votos_se_verde": 5,
+          "ratio_arrastre": 1.0
+        },
+        {
+          "puesto_codigo": "0700001990021",
+          "puesto": "PUENTE DE BOYACA",
+          "votos_ca_verde": 53,
+          "votos_se_verde": 35,
+          "ratio_arrastre": 0.660377
+        }
+      ]
+    },
+    {
+      "codigo": "0700181",
+      "nombre": "PAIPA",
+      "puestos": 7,
+      "mesas": 95,
+      "votos_ca_total": 16807,
+      "votos_se_total": 16393,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 4756,
+          "porcentaje_ca_municipal": 28.2977,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1465,
+          "porcentaje_ca_municipal": 8.7166,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 2,
+          "codcan": "106",
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 1393,
+          "porcentaje_ca_municipal": 8.2882,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 4,
+          "codpar": 10,
+          "codcan": "102",
+          "candidato": "EDUAR ALEXIS TRIANA RINCON",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 869,
+          "porcentaje_ca_municipal": 5.1705,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 5,
+          "codpar": 121,
+          "codcan": "106",
+          "candidato": "WILDER IVAN SUESCA OCHOA",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 729,
+          "porcentaje_ca_municipal": 4.3375,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 6,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 353,
+          "porcentaje_ca_municipal": 2.1003,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 7,
+          "codpar": 2,
+          "codcan": "101",
+          "candidato": "OSCAR LEONARDO AVILA ROMERO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 273,
+          "porcentaje_ca_municipal": 1.6243,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 8,
+          "codpar": 120,
+          "codcan": "105",
+          "candidato": "NANCY YANETH ZAPATA PACHON",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 268,
+          "porcentaje_ca_municipal": 1.5946,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 9,
+          "codpar": 121,
+          "codcan": "101",
+          "candidato": "INGRID MARLEN SOGAMOSO ALFONSO",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 195,
+          "porcentaje_ca_municipal": 1.1602,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 10,
+          "codpar": 121,
+          "codcan": "102",
+          "candidato": "HERNEL DAVID ORTEGA GOMEZ",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 185,
+          "porcentaje_ca_municipal": 1.1007,
+          "color": "#64748B"
+        }
+      ],
+      "lider_se": {
+        "codpar": 57,
+        "partido": "ALIANZA POR COLOMBIA",
+        "votos": 4161,
+        "porcentaje_se_municipal": 25.3828,
+        "color": "#007C34"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700181010001",
+          "puesto": "I.E.TOMAS VASQUEZ RODRIGUEZ",
+          "votos_ca_verde": 2017,
+          "votos_se_verde": 1183,
+          "ratio_arrastre": 0.586515
+        },
+        {
+          "puesto_codigo": "0700181010002",
+          "puesto": "I.E.EL ROSARIO SEDE CAMPESTRE",
+          "votos_ca_verde": 963,
+          "votos_se_verde": 602,
+          "ratio_arrastre": 0.62513
+        },
+        {
+          "puesto_codigo": "0700181020001",
+          "puesto": "COLISEO MUNICIPAL DE DEPORTES DE PAIPA",
+          "votos_ca_verde": 2042,
+          "votos_se_verde": 1220,
+          "ratio_arrastre": 0.597453
+        },
+        {
+          "puesto_codigo": "0700181020002",
+          "puesto": "I.E. EL ROSARIO SEDE CENTRAL",
+          "votos_ca_verde": 1546,
+          "votos_se_verde": 930,
+          "ratio_arrastre": 0.601552
+        },
+        {
+          "puesto_codigo": "0700181990001",
+          "puesto": "PALERMO",
+          "votos_ca_verde": 332,
+          "votos_se_verde": 62,
+          "ratio_arrastre": 0.186747
+        },
+        {
+          "puesto_codigo": "0700181990015",
+          "puesto": "EL VENADO",
+          "votos_ca_verde": 25,
+          "votos_se_verde": 9,
+          "ratio_arrastre": 0.36
+        },
+        {
+          "puesto_codigo": "0700181990038",
+          "puesto": "PANTANO DE VARGAS",
+          "votos_ca_verde": 246,
+          "votos_se_verde": 155,
+          "ratio_arrastre": 0.630081
+        }
+      ]
+    },
+    {
+      "codigo": "0700277",
+      "nombre": "SOGAMOSO",
+      "puestos": 18,
+      "mesas": 301,
+      "votos_ca_total": 50881,
+      "votos_se_total": 50847,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 2,
+          "codcan": "106",
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 5568,
+          "porcentaje_ca_municipal": 10.9432,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 2771,
+          "porcentaje_ca_municipal": 5.446,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 2,
+          "codcan": "103",
+          "candidato": "DIANA PAOLA HERRERA NUÑEZ",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 1962,
+          "porcentaje_ca_municipal": 3.8561,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 4,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1757,
+          "porcentaje_ca_municipal": 3.4532,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 5,
+          "codpar": 122,
+          "codcan": "101",
+          "candidato": "NADIA ALEXANDRA CARREÑO AVELLA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 1736,
+          "porcentaje_ca_municipal": 3.4119,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 6,
+          "codpar": 122,
+          "codcan": "102",
+          "candidato": "FABIAN CAMILO ROJAS BARRERA",
+          "partido": "CR-NUEVO LIBERALISMO",
+          "votos": 1380,
+          "porcentaje_ca_municipal": 2.7122,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 7,
+          "codpar": 120,
+          "codcan": "106",
+          "candidato": "YURY NEILL DIAZ ARANGUREN",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 1342,
+          "porcentaje_ca_municipal": 2.6375,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 8,
+          "codpar": 120,
+          "codcan": "101",
+          "candidato": "JAIRO ENRIQUE CASTIBLANCO PARRA",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 1319,
+          "porcentaje_ca_municipal": 2.5923,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 9,
+          "codpar": 2,
+          "codcan": "101",
+          "candidato": "OSCAR LEONARDO AVILA ROMERO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 1237,
+          "porcentaje_ca_municipal": 2.4312,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 10,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1201,
+          "porcentaje_ca_municipal": 2.3604,
+          "color": "#007C34"
+        }
+      ],
+      "lider_se": {
+        "codpar": 92,
+        "partido": "PACTO HISTÓRICO SENADO",
+        "votos": 13957,
+        "porcentaje_se_municipal": 27.449,
+        "color": "#7B2D8B"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700277010001",
+          "puesto": "IE INTEGRADO JOAQUIN GONZALEZ CAM",
+          "votos_ca_verde": 896,
+          "votos_se_verde": 835,
+          "ratio_arrastre": 0.93192
+        },
+        {
+          "puesto_codigo": "0700277010002",
+          "puesto": "COL REYES PATRIA",
+          "votos_ca_verde": 553,
+          "votos_se_verde": 560,
+          "ratio_arrastre": 1.012658
+        },
+        {
+          "puesto_codigo": "0700277010003",
+          "puesto": "UNIVERSIDAD DE BOYACA SEDE SOGAMOSO",
+          "votos_ca_verde": 728,
+          "votos_se_verde": 623,
+          "ratio_arrastre": 0.855769
+        },
+        {
+          "puesto_codigo": "0700277010004",
+          "puesto": "IE FRANCISCO DE PAULA SANTANDER",
+          "votos_ca_verde": 684,
+          "votos_se_verde": 708,
+          "ratio_arrastre": 1.035088
+        },
+        {
+          "puesto_codigo": "0700277010005",
+          "puesto": "COL NZADO GUSTAVO JIMENEZ",
+          "votos_ca_verde": 276,
+          "votos_se_verde": 320,
+          "ratio_arrastre": 1.15942
+        },
+        {
+          "puesto_codigo": "0700277020001",
+          "puesto": "IE LIBERTADOR",
+          "votos_ca_verde": 752,
+          "votos_se_verde": 817,
+          "ratio_arrastre": 1.086436
+        },
+        {
+          "puesto_codigo": "0700277020002",
+          "puesto": "IE MAGDALENA",
+          "votos_ca_verde": 921,
+          "votos_se_verde": 953,
+          "ratio_arrastre": 1.034745
+        },
+        {
+          "puesto_codigo": "0700277020003",
+          "puesto": "IEPAGS SEDE ROSARIO",
+          "votos_ca_verde": 722,
+          "votos_se_verde": 754,
+          "ratio_arrastre": 1.044321
+        },
+        {
+          "puesto_codigo": "0700277020004",
+          "puesto": "IE INSEANDES",
+          "votos_ca_verde": 642,
+          "votos_se_verde": 642,
+          "ratio_arrastre": 1.0
+        },
+        {
+          "puesto_codigo": "0700277020005",
+          "puesto": "IE SUGAMUXI",
+          "votos_ca_verde": 656,
+          "votos_se_verde": 675,
+          "ratio_arrastre": 1.028963
+        },
+        {
+          "puesto_codigo": "0700277020006",
+          "puesto": "COL POLITÉCNICO",
+          "votos_ca_verde": 513,
+          "votos_se_verde": 553,
+          "ratio_arrastre": 1.077973
+        },
+        {
+          "puesto_codigo": "0700277020007",
+          "puesto": "IE SILVESTRE ARENAS",
+          "votos_ca_verde": 165,
+          "votos_se_verde": 156,
+          "ratio_arrastre": 0.945455
+        },
+        {
+          "puesto_codigo": "0700277900001",
+          "puesto": "COLEGIO CELCO",
+          "votos_ca_verde": 485,
+          "votos_se_verde": 479,
+          "ratio_arrastre": 0.987629
+        },
+        {
+          "puesto_codigo": "0700277980001",
+          "puesto": "CÁRCEL DEL CIRCUITO",
+          "votos_ca_verde": 3,
+          "votos_se_verde": 3,
+          "ratio_arrastre": 1.0
+        },
+        {
+          "puesto_codigo": "0700277990001",
+          "puesto": "MORCA",
+          "votos_ca_verde": 51,
+          "votos_se_verde": 49,
+          "ratio_arrastre": 0.960784
+        },
+        {
+          "puesto_codigo": "0700277990002",
+          "puesto": "LA PLAYITA",
+          "votos_ca_verde": 15,
+          "votos_se_verde": 35,
+          "ratio_arrastre": 2.333333
+        },
+        {
+          "puesto_codigo": "0700277990003",
+          "puesto": "EL CRUCERO",
+          "votos_ca_verde": 12,
+          "votos_se_verde": 19,
+          "ratio_arrastre": 1.583333
+        },
+        {
+          "puesto_codigo": "0700277990004",
+          "puesto": "LAS CINTAS",
+          "votos_ca_verde": 12,
+          "votos_se_verde": 14,
+          "ratio_arrastre": 1.166667
+        }
+      ]
+    },
+    {
+      "codigo": "0700079",
+      "nombre": "DUITAMA",
+      "puestos": 22,
+      "mesas": 287,
+      "votos_ca_total": 48187,
+      "votos_se_total": 48843,
+      "top_candidatos_ca": [
+        {
+          "posicion": 1,
+          "codpar": 2,
+          "codcan": "106",
+          "candidato": "HECTOR DAVID CHAPARRO CHAPARRO",
+          "partido": "PARTIDO LIBERAL COLOMBIANO",
+          "votos": 4559,
+          "porcentaje_ca_municipal": 9.4611,
+          "color": "#E07B00"
+        },
+        {
+          "posicion": 2,
+          "codpar": 5,
+          "codcan": "101",
+          "candidato": "JAIME RAUL SALAMANCA TORRES",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 2198,
+          "porcentaje_ca_municipal": 4.5614,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 3,
+          "codpar": 121,
+          "codcan": "102",
+          "candidato": "HERNEL DAVID ORTEGA GOMEZ",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 1558,
+          "porcentaje_ca_municipal": 3.2332,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 4,
+          "codpar": 5,
+          "codcan": "105",
+          "candidato": "RAMIRO BARRAGAN ADAME",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1518,
+          "porcentaje_ca_municipal": 3.1502,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 5,
+          "codpar": 5,
+          "codcan": "106",
+          "candidato": "YAMIT NOE HURTADO NEIRA",
+          "partido": "PARTIDO ALIANZA VERDE",
+          "votos": 1316,
+          "porcentaje_ca_municipal": 2.731,
+          "color": "#007C34"
+        },
+        {
+          "posicion": 6,
+          "codpar": 121,
+          "codcan": "101",
+          "candidato": "INGRID MARLEN SOGAMOSO ALFONSO",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 1148,
+          "porcentaje_ca_municipal": 2.3824,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 7,
+          "codpar": 120,
+          "codcan": "105",
+          "candidato": "NANCY YANETH ZAPATA PACHON",
+          "partido": "PARTIDO DE LA U - PARTIDO MIRA",
+          "votos": 1136,
+          "porcentaje_ca_municipal": 2.3575,
+          "color": "#64748B"
+        },
+        {
+          "posicion": 8,
+          "codpar": 10,
+          "codcan": "103",
+          "candidato": "JICLY ESGARDO MUTIS ISAZA",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 1064,
+          "porcentaje_ca_municipal": 2.2081,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 9,
+          "codpar": 10,
+          "codcan": "102",
+          "candidato": "EDUAR ALEXIS TRIANA RINCON",
+          "partido": "PARTIDO CENTRO DEMOCRÁTICO",
+          "votos": 924,
+          "porcentaje_ca_municipal": 1.9175,
+          "color": "#1E477D"
+        },
+        {
+          "posicion": 10,
+          "codpar": 121,
+          "codcan": "103",
+          "candidato": "JOSE DARIO MAHECHA CASTILLO",
+          "partido": "PARTIDO CONSERVADOR - MOVIMIENTO SALVACIÓN NACIONAL",
+          "votos": 920,
+          "porcentaje_ca_municipal": 1.9092,
+          "color": "#64748B"
+        }
+      ],
+      "lider_se": {
+        "codpar": 92,
+        "partido": "PACTO HISTÓRICO SENADO",
+        "votos": 15423,
+        "porcentaje_se_municipal": 31.5767,
+        "color": "#7B2D8B"
+      },
+      "arrastre_verde": [
+        {
+          "puesto_codigo": "0700079010001",
+          "puesto": "COLEGIO SALESIANO",
+          "votos_ca_verde": 364,
+          "votos_se_verde": 472,
+          "ratio_arrastre": 1.296703
+        },
+        {
+          "puesto_codigo": "0700079010002",
+          "puesto": "ANTIGUO TERMINAL DE TRANSPORTE",
+          "votos_ca_verde": 439,
+          "votos_se_verde": 539,
+          "ratio_arrastre": 1.22779
+        },
+        {
+          "puesto_codigo": "0700079010003",
+          "puesto": "COL SANTO T DE AQUINO SD PRIA 1",
+          "votos_ca_verde": 310,
+          "votos_se_verde": 371,
+          "ratio_arrastre": 1.196774
+        },
+        {
+          "puesto_codigo": "0700079010004",
+          "puesto": "COL JESUS EUCARISTIA",
+          "votos_ca_verde": 243,
+          "votos_se_verde": 364,
+          "ratio_arrastre": 1.497942
+        },
+        {
+          "puesto_codigo": "0700079010005",
+          "puesto": "COL SANTO T DE AQUINO SD PRIA 2",
+          "votos_ca_verde": 227,
+          "votos_se_verde": 344,
+          "ratio_arrastre": 1.515419
+        },
+        {
+          "puesto_codigo": "0700079010006",
+          "puesto": "COL LA NUEVA FAMILIA",
+          "votos_ca_verde": 366,
+          "votos_se_verde": 495,
+          "ratio_arrastre": 1.352459
+        },
+        {
+          "puesto_codigo": "0700079020001",
+          "puesto": "COLEGIO BOYACA",
+          "votos_ca_verde": 760,
+          "votos_se_verde": 924,
+          "ratio_arrastre": 1.215789
+        },
+        {
+          "puesto_codigo": "0700079020002",
+          "puesto": "COL GUILLERMO LEON VALENCIA",
+          "votos_ca_verde": 838,
+          "votos_se_verde": 1200,
+          "ratio_arrastre": 1.431981
+        },
+        {
+          "puesto_codigo": "0700079020003",
+          "puesto": "U.P.T.C.",
+          "votos_ca_verde": 610,
+          "votos_se_verde": 834,
+          "ratio_arrastre": 1.367213
+        },
+        {
+          "puesto_codigo": "0700079020004",
+          "puesto": "COL.FRANCISCO DE PAULA SANTAN",
+          "votos_ca_verde": 369,
+          "votos_se_verde": 416,
+          "ratio_arrastre": 1.127371
+        },
+        {
+          "puesto_codigo": "0700079020005",
+          "puesto": "COLEGIO SIMON BOLIVAR",
+          "votos_ca_verde": 435,
+          "votos_se_verde": 543,
+          "ratio_arrastre": 1.248276
+        },
+        {
+          "puesto_codigo": "0700079020006",
+          "puesto": "PARQUE LA ESPERANZA",
+          "votos_ca_verde": 323,
+          "votos_se_verde": 415,
+          "ratio_arrastre": 1.28483
+        },
+        {
+          "puesto_codigo": "0700079020007",
+          "puesto": "COLEGIO JAIRO ANIBAL NIÑO",
+          "votos_ca_verde": 165,
+          "votos_se_verde": 159,
+          "ratio_arrastre": 0.963636
+        },
+        {
+          "puesto_codigo": "0700079900001",
+          "puesto": "COLEGIO SEMINARIO",
+          "votos_ca_verde": 439,
+          "votos_se_verde": 554,
+          "ratio_arrastre": 1.261959
+        },
+        {
+          "puesto_codigo": "0700079980001",
+          "puesto": "CARCEL",
+          "votos_ca_verde": 6,
+          "votos_se_verde": 2,
+          "ratio_arrastre": 0.333333
+        },
+        {
+          "puesto_codigo": "0700079990005",
+          "puesto": "SIRATA",
+          "votos_ca_verde": 39,
+          "votos_se_verde": 45,
+          "ratio_arrastre": 1.153846
+        },
+        {
+          "puesto_codigo": "0700079990007",
+          "puesto": "SAN ANTONIO NORTE",
+          "votos_ca_verde": 220,
+          "votos_se_verde": 221,
+          "ratio_arrastre": 1.004545
+        },
+        {
+          "puesto_codigo": "0700079990010",
+          "puesto": "SURBA Y BONZA",
+          "votos_ca_verde": 220,
+          "votos_se_verde": 319,
+          "ratio_arrastre": 1.45
+        },
+        {
+          "puesto_codigo": "0700079990020",
+          "puesto": "QUEBRADA DE BECERRA",
+          "votos_ca_verde": 52,
+          "votos_se_verde": 51,
+          "ratio_arrastre": 0.980769
+        },
+        {
+          "puesto_codigo": "0700079990040",
+          "puesto": "EL CARMEN",
+          "votos_ca_verde": 5,
+          "votos_se_verde": 7,
+          "ratio_arrastre": 1.4
+        },
+        {
+          "puesto_codigo": "0700079990050",
+          "puesto": "AVENDAÑOS",
+          "votos_ca_verde": 15,
+          "votos_se_verde": 19,
+          "ratio_arrastre": 1.266667
+        },
+        {
+          "puesto_codigo": "0700079990070",
+          "puesto": "SALON COMUNAL TOCOGUA",
+          "votos_ca_verde": 62,
+          "votos_se_verde": 77,
+          "ratio_arrastre": 1.241935
+        }
+      ]
+    }
+  ]
 }
-
