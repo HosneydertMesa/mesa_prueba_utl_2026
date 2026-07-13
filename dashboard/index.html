@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Dashboard electoral de Cámara y Senado para Tunja, Paipa, Sogamoso y Duitama.">
+  <meta name="description" content="Workspace analítico electoral de Cámara y Senado para siete municipios de Boyacá.">
   <title>Panorama electoral · Boyacá 2026</title>
   <style>
     :root {
@@ -998,15 +998,346 @@
       .bonus-grid { grid-template-columns: 1fr; }
       #scatter-canvas { height: 420px; }
     }
+
+    /* Workspace analítico 3.0: navegación espacial sin perder el HTML autocontenido. */
+    body { overflow: hidden; }
+
+    .workspace-shell {
+      display: grid;
+      grid-template-columns: 15.5rem minmax(0, 1fr);
+      min-height: 100vh;
+      background: var(--canvas);
+    }
+
+    .workspace-sidebar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 1.1rem 0.9rem;
+      color: #dbe9f5;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(77, 151, 207, 0.2), transparent 30%),
+        linear-gradient(180deg, #071f38, #0b2948 64%, #071a2d);
+      box-shadow: 12px 0 32px rgba(7, 27, 47, 0.15);
+    }
+
+    .workspace-sidebar .brand {
+      padding: 0.3rem 0.35rem 1.15rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .workspace-sidebar .brand-copy {
+      display: grid;
+      gap: 0.1rem;
+    }
+
+    .workspace-sidebar .brand-copy small {
+      color: #91b6d2;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+    }
+
+    .workspace-nav {
+      display: grid;
+      gap: 0.42rem;
+      margin-top: 1.15rem;
+    }
+
+    .workspace-nav-label {
+      margin: 0 0.4rem 0.35rem;
+      color: #7899b5;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .workspace-nav-button {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.65rem;
+      align-items: center;
+      width: 100%;
+      min-height: 3rem;
+      padding: 0.58rem 0.65rem;
+      color: #afc5d8;
+      border: 1px solid transparent;
+      border-radius: 0.75rem;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 720;
+      text-align: left;
+    }
+
+    .workspace-nav-button:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .workspace-nav-button[aria-selected="true"] {
+      color: #fff;
+      border-color: rgba(130, 190, 234, 0.22);
+      background: linear-gradient(90deg, rgba(47, 111, 178, 0.42), rgba(47, 111, 178, 0.13));
+      box-shadow: inset 3px 0 #75aee0;
+    }
+
+    .workspace-nav-button:focus-visible {
+      outline: 3px solid rgba(117, 174, 224, 0.42);
+      outline-offset: 2px;
+    }
+
+    .workspace-nav-icon {
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      color: #b8d9f2;
+      border: 1px solid rgba(184, 217, 242, 0.2);
+      border-radius: 0.55rem;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.66rem;
+      font-weight: 850;
+    }
+
+    .workspace-sidebar-footer {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .workspace-contract {
+      margin: 0;
+      color: #8faec7;
+      font-size: 0.65rem;
+    }
+
+    .workspace-sidebar .action-button {
+      justify-content: center;
+      color: #e5f1fa;
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .workspace-content {
+      min-width: 0;
+      height: 100vh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .workspace-content .hero-inner,
+    .workspace-content main,
+    .workspace-content .footer-inner {
+      width: 100%;
+      max-width: 1680px;
+      padding-right: 1.35rem;
+      padding-left: 1.35rem;
+    }
+
+    .workspace-content .hero::after {
+      right: -15rem;
+      bottom: -25rem;
+    }
+
+    .workspace-content .brand-row { padding: 0.9rem 0 0.7rem; }
+
+    .workspace-breadcrumb {
+      display: grid;
+      gap: 0.06rem;
+    }
+
+    .workspace-breadcrumb span {
+      color: #91b6d2;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .workspace-breadcrumb strong { font-size: 0.9rem; }
+
+    .workspace-content .hero-copy {
+      grid-template-columns: minmax(19rem, 0.7fr) minmax(34rem, 1.3fr);
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1.15rem 0 1.45rem;
+    }
+
+    .workspace-content h1 {
+      margin: 0.55rem 0 0.45rem;
+      font-size: clamp(2rem, 3.5vw, 3.25rem);
+      line-height: 0.98;
+    }
+
+    .workspace-content .hero-lead { font-size: 0.86rem; }
+
+    .workspace-content .hero-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .workspace-content .hero-stat {
+      min-height: 4.8rem;
+      padding: 0.85rem;
+      border-radius: 0.8rem;
+    }
+
+    .workspace-content .hero-stat strong { font-size: clamp(1.3rem, 2vw, 1.75rem); }
+    .workspace-content .hero-stat span { font-size: 0.68rem; }
+
+    .workspace-content main { padding-top: 1.15rem; padding-bottom: 1.25rem; }
+
+    .workspace-view {
+      display: grid;
+      gap: 1rem;
+      animation: workspace-enter 180ms ease-out both;
+    }
+
+    .workspace-view[hidden] { display: none; }
+
+    @keyframes workspace-enter {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .workspace-view .section {
+      margin-bottom: 0;
+      padding: clamp(1rem, 2vw, 1.45rem);
+      border-radius: 1rem;
+      box-shadow: 0 8px 28px rgba(17, 43, 70, 0.075);
+    }
+
+    .workspace-view .section-heading { margin-bottom: 1.2rem; }
+    .workspace-view h2 { font-size: clamp(1.35rem, 2.2vw, 1.8rem); }
+    .workspace-view .insight-card { min-height: 11rem; }
+    .workspace-view .leader-card { min-height: 19rem; }
+
+    .workspace-content footer { padding: 0.9rem 0 1.1rem; }
+    .workspace-content .footer-inner { font-size: 0.68rem; }
+
+    @media (min-width: 1500px) {
+      #view-analytics .analytics-grid {
+        grid-template-columns: minmax(42rem, 1.05fr) minmax(36rem, 0.95fr);
+        align-items: start;
+      }
+
+      #view-analytics .heatmap-table { min-width: 650px; }
+    }
+
+    @media (max-width: 1080px) {
+      .workspace-shell { grid-template-columns: 5.1rem minmax(0, 1fr); }
+      .workspace-sidebar { padding-right: 0.65rem; padding-left: 0.65rem; }
+      .workspace-sidebar .brand { justify-content: center; }
+      .workspace-sidebar .brand-copy,
+      .workspace-nav-label,
+      .workspace-nav-text,
+      .workspace-contract,
+      .workspace-sidebar .action-button span:not(.action-icon) { display: none; }
+      .workspace-nav-button { grid-template-columns: 1fr; justify-items: center; padding: 0.5rem; }
+      .workspace-sidebar .action-button { padding: 0.55rem; }
+      .workspace-content .hero-copy { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      body { overflow: auto; padding-bottom: 4.6rem; }
+      .workspace-shell { display: block; min-height: auto; }
+      .workspace-content { height: auto; overflow: visible; }
+      .workspace-sidebar {
+        position: fixed;
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 50;
+        display: grid;
+        width: 100%;
+        height: auto;
+        padding: 0.45rem 0.55rem calc(0.45rem + env(safe-area-inset-bottom));
+        box-shadow: 0 -10px 30px rgba(7, 27, 47, 0.22);
+      }
+      .workspace-sidebar > .brand,
+      .workspace-nav-label { display: none; }
+      .workspace-sidebar {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.25rem;
+      }
+      .workspace-nav { grid-template-columns: repeat(4, 1fr); gap: 0.25rem; margin: 0; }
+      .workspace-nav-button {
+        min-height: 3.45rem;
+        gap: 0.16rem;
+        padding: 0.3rem;
+        font-size: 0.58rem;
+        text-align: center;
+      }
+      .workspace-nav-button[aria-selected="true"] { box-shadow: inset 0 3px #75aee0; }
+      .workspace-nav-icon { width: 1.6rem; height: 1.6rem; }
+      .workspace-nav-text { display: block; }
+      .workspace-sidebar-footer {
+        display: block;
+        margin: 0;
+        padding: 0 0 0 0.25rem;
+        border: 0;
+      }
+      .workspace-sidebar .action-button {
+        width: 3.45rem;
+        height: 3.45rem;
+        padding: 0.3rem;
+      }
+      .workspace-content .hero-inner,
+      .workspace-content main,
+      .workspace-content .footer-inner { padding-right: 0.8rem; padding-left: 0.8rem; }
+      .workspace-content .hero-copy { padding: 1rem 0 1.2rem; }
+      .workspace-content .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .workspace-content .status-pill { font-size: 0.6rem; }
+      .workspace-content .brand-row { align-items: flex-start; }
+      .workspace-view .section { padding: 1rem; }
+    }
   </style>
 </head>
 <body>
+  <div class="workspace-shell">
+    <aside class="workspace-sidebar" aria-label="Navegación del workspace analítico">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">HM</span>
+        <span class="brand-copy">Mesa · Data Lab<small>Boyacá 2026</small></span>
+      </div>
+      <nav class="workspace-nav" role="tablist" aria-label="Vistas del dashboard" aria-orientation="vertical">
+        <p class="workspace-nav-label" role="presentation">Espacios de análisis</p>
+        <button id="nav-overview" class="workspace-nav-button" type="button" role="tab" aria-selected="true" aria-controls="view-overview" data-workspace-target="overview">
+          <span class="workspace-nav-icon" aria-hidden="true">01</span><span class="workspace-nav-text">Resumen</span>
+        </button>
+        <button id="nav-municipality" class="workspace-nav-button" type="button" role="tab" aria-selected="false" aria-controls="view-municipality" data-workspace-target="municipality" tabindex="-1">
+          <span class="workspace-nav-icon" aria-hidden="true">02</span><span class="workspace-nav-text">Municipio</span>
+        </button>
+        <button id="nav-analytics" class="workspace-nav-button" type="button" role="tab" aria-selected="false" aria-controls="view-analytics" data-workspace-target="analytics" tabindex="-1">
+          <span class="workspace-nav-icon" aria-hidden="true">03</span><span class="workspace-nav-text">Analítica</span>
+        </button>
+        <button id="nav-bonus" class="workspace-nav-button" type="button" role="tab" aria-selected="false" aria-controls="view-bonus" data-workspace-target="bonus" tabindex="-1">
+          <span class="workspace-nav-icon" aria-hidden="true">04</span><span class="workspace-nav-text">Bonus</span>
+        </button>
+      </nav>
+      <div class="workspace-sidebar-footer">
+        <p class="workspace-contract">Contrato v2 · 4 municipios obligatorios + 3 bonus · analítica sobre 1.107 mesas.</p>
+        <button id="theme-toggle" class="action-button" type="button" aria-pressed="false">
+          <span class="action-icon" aria-hidden="true">◐</span>
+          <span id="theme-label">Modo oscuro</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="workspace-content">
   <header class="hero">
     <div class="hero-inner">
       <div class="brand-row">
-        <div class="brand">
-          <span class="brand-mark" aria-hidden="true">HM</span>
-          <span>Mesa · Data Lab</span>
+        <div class="workspace-breadcrumb">
+          <span id="active-view-kicker">Vista ejecutiva</span>
+          <strong id="active-view-title" aria-live="polite">Resumen territorial</strong>
         </div>
         <span class="status-pill"><span class="status-dot" aria-hidden="true"></span><span id="scope-status">Base + bonus completos</span></span>
       </div>
@@ -1032,7 +1363,8 @@
 
   <noscript><div class="noscript">Este dashboard necesita JavaScript habilitado para representar los datos embebidos.</div></noscript>
 
-  <main>
+  <main id="workspace-main">
+    <div id="view-overview" class="workspace-view" role="tabpanel" aria-labelledby="nav-overview" data-workspace-view="overview">
     <section class="section" aria-labelledby="comparison-title">
       <div class="section-heading">
         <div>
@@ -1053,7 +1385,9 @@
         </aside>
       </div>
     </section>
+    </div>
 
+    <div id="view-municipality" class="workspace-view" role="tabpanel" aria-labelledby="nav-municipality" data-workspace-view="municipality" hidden>
     <section class="section" aria-labelledby="municipality-title">
       <div class="section-heading">
         <div>
@@ -1070,10 +1404,6 @@
         </div>
         <div id="municipality-summary" class="mini-summary" aria-live="polite"></div>
         <div class="dashboard-actions" role="group" aria-label="Acciones del dashboard">
-          <button id="theme-toggle" class="action-button" type="button" aria-pressed="false">
-            <span class="action-icon" aria-hidden="true">◐</span>
-            <span id="theme-label">Modo oscuro</span>
-          </button>
           <button id="csv-export" class="action-button" type="button">
             <span class="action-icon" aria-hidden="true">↓</span>
             Exportar CSV
@@ -1124,12 +1454,14 @@
         <div id="drag-chart" class="drag-chart" role="img" aria-label="Ratio de arrastre Verde por puesto"></div>
       </div>
 
-      <p id="analytics-scope-note" class="method-note">
+      <p id="drag-method-note" class="method-note">
         Un ratio superior a 1,0 describe más votos para la lista homologada de Senado que para Cámara en ese puesto.
         Es una comparación determinística de resultados agregados; no demuestra transferencia causal ni intención individual.
       </p>
     </section>
+    </div>
 
+    <div id="view-analytics" class="workspace-view" role="tabpanel" aria-labelledby="nav-analytics" data-workspace-view="analytics" hidden>
     <section class="section" aria-labelledby="analytics-title">
       <div class="section-heading">
         <div>
@@ -1173,11 +1505,13 @@
         </article>
       </div>
 
-      <p class="method-note">
+      <p id="analytics-scope-note" class="method-note">
         Pearson y OLS describen asociación entre resultados agregados del mismo evento. Los puntos alejados de la recta no se clasifican como fraude ni prueban transferencia o causalidad.
       </p>
     </section>
+    </div>
 
+    <div id="view-bonus" class="workspace-view" role="tabpanel" aria-labelledby="nav-bonus" data-workspace-view="bonus" hidden>
     <section class="section" aria-labelledby="bonus-title">
       <div class="section-heading">
         <div>
@@ -1197,6 +1531,7 @@
         El dashboard muestra siete municipios, pero el heatmap 8×4 y el scatter de 1.107 mesas conservan exactamente el alcance obligatorio del Reto 5.
       </p>
     </section>
+    </div>
   </main>
 
   <footer>
@@ -1205,6 +1540,8 @@
       <span>Fuente: resultados públicos ACT · Cámara y Senado</span>
     </div>
   </footer>
+    </div>
+  </div>
 
   <script id="dashboard-data" type="application/json">
 {
@@ -9709,12 +10046,71 @@
     let analyticsInitialized = false;
     let scatterFilter = "TODOS";
     let scatterResizeFrame = null;
+    const WORKSPACE_VIEWS = {
+      overview: { kicker: "Vista ejecutiva", title: "Resumen territorial" },
+      municipality: { kicker: "Exploración detallada", title: "Análisis municipal" },
+      analytics: { kicker: "Modelo descriptivo", title: "Analítica CA–SE" },
+      bonus: { kicker: "Evidencia técnica", title: "Bonus verificables" }
+    };
 
     function createElement(tag, className, text) {
       const element = document.createElement(tag);
       if (className) element.className = className;
       if (text !== undefined) element.textContent = text;
       return element;
+    }
+
+    function setWorkspaceView(view, updateHash = true) {
+      const selectedView = WORKSPACE_VIEWS[view] ? view : "overview";
+      document.querySelectorAll("[data-workspace-view]").forEach(panel => {
+        panel.hidden = panel.dataset.workspaceView !== selectedView;
+      });
+      document.querySelectorAll("[data-workspace-target]").forEach(button => {
+        const selected = button.dataset.workspaceTarget === selectedView;
+        button.setAttribute("aria-selected", String(selected));
+        button.tabIndex = selected ? 0 : -1;
+      });
+      const context = WORKSPACE_VIEWS[selectedView];
+      document.getElementById("active-view-kicker").textContent = context.kicker;
+      document.getElementById("active-view-title").textContent = context.title;
+      document.title = `${context.title} · Panorama electoral`;
+      document.querySelector(".workspace-content").scrollTop = 0;
+      if (updateHash) {
+        try {
+          window.history.replaceState(null, "", `#${selectedView}`);
+        } catch (_) {
+          window.location.hash = selectedView;
+        }
+      }
+      if (selectedView === "analytics" && analyticsInitialized) {
+        window.requestAnimationFrame(renderScatter);
+      }
+    }
+
+    function initializeWorkspaceNavigation() {
+      const buttons = [...document.querySelectorAll("[data-workspace-target]")];
+      buttons.forEach((button, index) => {
+        button.addEventListener("click", () => setWorkspaceView(button.dataset.workspaceTarget));
+        button.addEventListener("keydown", event => {
+          const keys = ["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft", "Home", "End"];
+          if (!keys.includes(event.key)) return;
+          event.preventDefault();
+          let nextIndex = index;
+          if (event.key === "Home") nextIndex = 0;
+          else if (event.key === "End") nextIndex = buttons.length - 1;
+          else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+            nextIndex = (index + 1) % buttons.length;
+          } else {
+            nextIndex = (index - 1 + buttons.length) % buttons.length;
+          }
+          buttons[nextIndex].focus();
+          buttons[nextIndex].click();
+        });
+      });
+      window.addEventListener("hashchange", () => {
+        setWorkspaceView(window.location.hash.slice(1), false);
+      });
+      setWorkspaceView(window.location.hash.slice(1) || "overview", false);
     }
 
     function preferredTheme() {
@@ -10228,6 +10624,7 @@
       renderMunicipality(DATA.municipios[0].nombre);
       initializeAnalytics();
       renderBonusEvidence();
+      initializeWorkspaceNavigation();
       document.getElementById("csv-export").addEventListener("click", exportSelectedMunicipalityCsv);
     }
 

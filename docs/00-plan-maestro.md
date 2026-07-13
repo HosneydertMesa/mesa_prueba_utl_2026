@@ -97,6 +97,18 @@ Evidencia: `dashboard/data.json` contiene siete municipios, seis bonus por
 municipal, tooltips, OLS global y una explicación no causal.
 Véase `docs/20-dashboard-analitico-2.md`.
 
+### Incremento 4.5 - Workspace analítico y Pages (completado, suplementario)
+
+- Sustituir la lectura tipo landing por cuatro espacios de trabajo navegables.
+- Preservar un solo HTML, apertura `file://`, dark mode, CSV y accesibilidad.
+- Mantener el universo analítico obligatorio separado de los municipios bonus.
+- Publicar únicamente los artefactos estáticos del dashboard mediante GitHub
+  Pages después de revisión y fusión a `main`.
+
+Evidencia: navegación lateral/inferior accesible, estado por fragmento de URL,
+redibujado seguro del Canvas y workflow con permisos mínimos. Véase
+`docs/21-dashboard-workspace-pages.md`.
+
 ### Incremento B6 - Municipios adicionales (completado, +3 potencial)
 
 - Extender el nomenclátor y el scraper a municipios adicionales de Boyacá.

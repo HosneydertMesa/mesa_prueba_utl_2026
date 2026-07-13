@@ -68,6 +68,10 @@ en [docs/15-dashboard-html.md](docs/15-dashboard-html.md).
 La evolución interactiva con hallazgos, heatmap y scatter está documentada en
 [docs/20-dashboard-analitico-2.md](docs/20-dashboard-analitico-2.md).
 
+La navegación espacial tipo BI y la publicación controlada mediante GitHub Pages
+están documentadas en
+[docs/21-dashboard-workspace-pages.md](docs/21-dashboard-workspace-pages.md).
+
 El criterio, la fórmula y la validación del heatmap 8×4 están documentados en
 [docs/16-heatmap-municipios.md](docs/16-heatmap-municipios.md).
 

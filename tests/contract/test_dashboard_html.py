@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).parents[2]
 HTML_PATH = ROOT / "dashboard" / "index.html"
 JSON_PATH = ROOT / "dashboard" / "data.json"
+PAGES_WORKFLOW_PATH = ROOT / ".github" / "workflows" / "pages.yml"
 REQUIRED_MUNICIPALITIES = ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"]
 BONUS_MUNICIPALITIES = ["CHIQUINQUIRA", "PUERTO BOYACA", "MONIQUIRA"]
 EXPECTED_MUNICIPALITIES = REQUIRED_MUNICIPALITIES + BONUS_MUNICIPALITIES
@@ -76,6 +77,33 @@ class DashboardHtmlContractTests(unittest.TestCase):
         self.assertIn('id="drag-chart"', self.html)
         self.assertGreaterEqual(self.html.count('role="img"'), 3)
         self.assertIn('aria-live="polite"', self.html)
+
+    def test_workspace_navigation_replaces_the_long_landing_flow(self) -> None:
+        identifiers = re.findall(r'\bid="([^"]+)"', self.html)
+        self.assertEqual(len(identifiers), len(set(identifiers)))
+        self.assertIn('class="workspace-shell"', self.html)
+        self.assertIn('class="workspace-sidebar"', self.html)
+        self.assertIn('role="tablist"', self.html)
+        for view in ("overview", "municipality", "analytics", "bonus"):
+            self.assertIn(f'data-workspace-target="{view}"', self.html)
+            self.assertIn(f'data-workspace-view="{view}"', self.html)
+            self.assertIn(f'aria-controls="view-{view}"', self.html)
+        self.assertIn("function setWorkspaceView(", self.html)
+        self.assertIn("function initializeWorkspaceNavigation()", self.html)
+        self.assertIn("window.location.hash.slice(1)", self.html)
+
+    def test_github_pages_workflow_publishes_only_dashboard_artifacts(self) -> None:
+        workflow = PAGES_WORKFLOW_PATH.read_text(encoding="utf-8")
+        self.assertIn("branches: [main]", workflow)
+        self.assertIn("pull_request:", workflow)
+        self.assertIn("pages: write", workflow)
+        self.assertIn("id-token: write", workflow)
+        self.assertIn("actions/configure-pages@v5", workflow)
+        self.assertIn("actions/upload-pages-artifact@v4", workflow)
+        self.assertIn("actions/deploy-pages@v4", workflow)
+        self.assertIn("if: github.event_name != 'pull_request'", workflow)
+        self.assertIn("cp dashboard/index.html dashboard/data.json _site/", workflow)
+        self.assertIn("path: _site", workflow)
 
     def test_bonus_dark_mode_and_csv_export_are_self_contained(self) -> None:
         self.assertIn('html[data-theme="dark"]', self.html)

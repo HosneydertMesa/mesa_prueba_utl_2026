@@ -93,6 +93,10 @@ se expresa sólo en las consultas que la necesitan.
   se genera con `Blob` desde el mismo JSON embebido. Ninguna función requiere red.
 - El schema v2 reutiliza `load_heatmap_data`, `load_scatter_data` y
   `fit_regression`; así los PNG y las vistas interactivas comparten fórmulas.
+- La capa de presentación 3.0 conserva un único documento, pero organiza sus
+  secciones como cuatro paneles accesibles controlados por fragmento de URL.
+- GitHub Pages recibe un artefacto mínimo con `index.html` y `data.json`; el
+  pipeline, SQLite y evidencias internas permanecen fuera del sitio público.
 
 ## Límites deliberados
 

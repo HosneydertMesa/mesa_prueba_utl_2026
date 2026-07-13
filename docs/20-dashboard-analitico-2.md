@@ -8,8 +8,8 @@ arrastre y CSV abarcan cuatro municipios obligatorios y tres bonus. El heatmap,
 scatter, colores y ratios contractuales permanecen sobre el alcance obligatorio.
 
 No se introduce servidor, CDN, `fetch` ni librería JavaScript. El dashboard sigue
-abriendo directamente mediante `file://` y no se publica en hosting para preservar
-el contrato de entrega local.
+abriendo directamente mediante `file://`; la publicación opcional en GitHub
+Pages sirve el mismo artefacto estático y no reemplaza el contrato local.
 
 ## Contrato de datos v2
 
@@ -72,3 +72,6 @@ schema v2, matriz 8×4, 1.107 puntos, estadísticos observados, controles
 interactivos y ausencia de recursos externos.
 La revisión manual pendiente debe abrir el archivo en Chrome y Firefox, alternar
 el tema, recorrer la tabla, filtrar cada municipio y comprobar los tooltips.
+
+La evolución espacial y su despliegue están documentados en
+`docs/21-dashboard-workspace-pages.md`.

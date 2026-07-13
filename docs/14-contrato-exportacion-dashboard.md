@@ -18,7 +18,7 @@ python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
 Salida observada:
 
 ```text
-DASHBOARD_EXPORT municipios=7 puestos=104 mesas=1432 json_bytes=216655 html_bytes=273589
+DASHBOARD_EXPORT municipios=7 puestos=104 mesas=1432 json_bytes=216655 html_bytes=287687
 INFO salida=dashboard\data.json html=dashboard\index.html schema_version=2
 ```
 
