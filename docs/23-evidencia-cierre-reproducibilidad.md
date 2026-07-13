@@ -1,7 +1,7 @@
 # Evidencia de Release, clon limpio y QA final
 
-> Corte: 13 de julio de 2026. Esta evidencia cubre todo lo ejecutable sin los
-> tres archivos originales del manifest de la UTL.
+> Corte: 13 de julio de 2026. El ensayo inicial se ejecutó antes de implementar
+> el manifest; el cierre posterior documentado aquí resolvió ese último gate.
 
 ## Release de datos
 
@@ -51,15 +51,49 @@ Resultados observados:
 - recorrido completo observado por debajo de dos minutos, muy inferior al
   presupuesto de diez minutos.
 
-`python scripts/quality_gate.py release` conserva un único bloqueo conocido:
+## Cierre posterior de muestras y manifest
+
+Una segunda lectura literal del PDF confirmó que los tres archivos de `outputs/`
+son obligatorios, pero no afirma que el generador o el ejemplo sean suministrados.
+Sólo `sample_data/` aparece descrito como «provisto» y el paquete recibido no lo
+incluía. El PDF tampoco contiene adjuntos embebidos.
+
+Se implementó entonces:
 
 ```text
+sample_data/candidate_captured/nomenclator_boyaca_sample.json
+sample_data/candidate_captured/act_ca_tunja_mesa_001.json
+sample_data/candidate_captured/act_se_tunja_mesa_001.json
+sample_data/candidate_captured/provenance.json
 outputs/generar_manifest.py
-outputs/evaluation_manifest.json
 outputs/evaluation_manifest.example.json
 ```
 
-Esos archivos deben venir de la UTL y no se generan ni simulan en el proyecto.
+Las muestras proceden de respuestas reales conservadas en la caché del scraper.
+`provenance.json` registra URL, ETag, fecha, tamaño y SHA-256, y declara
+`official_utl_sample=false`. El generador declara
+`candidate_implemented_from_pdf_contract`, produce el manifest real y no se
+presenta como herramienta oficial recibida.
+
+Resultado actual observado:
+
+```text
+4/4 municipios | mesas=1107
+SQL OK 3.1 | filas=73
+SQL OK 3.2 | filas=3780
+SQL OK 3.3 | filas=5
+r=0.964 | pendiente=0.933 | n_mesas=1107
+MANIFEST OK | salida=outputs\evaluation_manifest.json
+[PASS] DEV
+[PASS] QA
+[PASS] SEC
+[PASS] REVIEW
+[PASS] RELEASE
+```
+
+La suite actual contiene 65 pruebas y valida además la procedencia/hash/carga ETL
+de las muestras y el contrato JSON del manifest. Antes del tag final se repetirá
+el ensayo limpio sobre el SHA ya fusionado.
 
 ## QA del dashboard publicado
 
@@ -88,6 +122,6 @@ de congelar la entrega: Firefox y apertura directa de `dashboard/index.html`.
 - Reproducibilidad de código y datos: cerrada.
 - Distribución de bases: cerrada.
 - QA web automatizable: cerrada.
-- Manifest oficial: bloqueado por insumo externo.
+- Manifest contractual y RELEASE: cerrados.
 - QA Firefox/`file://`: manual pendiente.
-- Tag final y envío: pendientes hasta manifest verde.
+- Tag final y envío: pendientes del QA manual y autorización de congelamiento.

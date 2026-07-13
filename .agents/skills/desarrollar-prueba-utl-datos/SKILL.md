@@ -33,4 +33,4 @@ description: Desarrollar y revisar incrementos de la Prueba Tecnica UTL Senado 2
 - SQL: casos calculables a mano, orden determinista y cuatro municipios.
 - Dashboard: `file://`, consola limpia, cuatro municipios, colores y línea 1.0.
 - Viz/ML: stdout exacto, etiquetas legibles, validación agrupada y lenguaje no causal.
-- Entrega: estructura, manifest oficial, clon cronometrado y repo público.
+- Entrega: estructura, manifest contractual reproducible, clon cronometrado y repo público.

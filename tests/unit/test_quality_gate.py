@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import unittest
 
-from scripts.quality_gate import REQUIRED_H2, find_secrets, markdown_headings
+from scripts.quality_gate import (
+    REQUIRED_H2,
+    find_secrets,
+    markdown_headings,
+    validate_release_manifest,
+)
 
 
 class QualityGateTests(unittest.TestCase):
@@ -18,7 +23,18 @@ class QualityGateTests(unittest.TestCase):
             ["# A — Prueba Técnica UTL Senado 2026", *REQUIRED_H2],
         )
 
+    def test_release_manifest_validator_rejects_incomplete_contract(self) -> None:
+        failures = validate_release_manifest(
+            {
+                "overall_status": "ERROR",
+                "scope": {"municipalities_loaded": 3, "municipalities_expected": 4},
+                "sql_tasks": {},
+            }
+        )
+        self.assertIn("overall_status no es OK", failures)
+        self.assertIn("cobertura del manifest distinta de 4/4", failures)
+        self.assertIn("tareas SQL incompletas", failures)
+
 
 if __name__ == "__main__":
     unittest.main()
-

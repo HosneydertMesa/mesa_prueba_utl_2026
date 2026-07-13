@@ -11,15 +11,15 @@ meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 
 | Bloque | Puntos base | Estado | Evidencia |
 |---|---:|---|---|
-| Reto 1 - API y scraper | 25 | Implementado; manifest oficial pendiente | 1.107 mesas, 2.214 ACT, segunda corrida sin inserciones |
-| Reto 2 - SQLite y ETL | 25 | Implementado; manifest oficial pendiente | integridad `ok`, cero FK inválidas, auditoría local |
+| Reto 1 - API y scraper | 25 | Implementado y validado por manifest | 4/4, 1.107 mesas, 2.214 ACT, segunda corrida sin inserciones |
+| Reto 2 - SQLite y ETL | 25 | Implementado y validado por manifest | integridad `ok`, cero FK inválidas y líderes SE municipales |
 | Reto 3 - SQL analítico | 25 | Implementado y probado | SQL 3.1/3.2/3.3 `ok`, casos calculables |
 | Reto 4 - Dashboard | 15 | Implementado y probado | HTML autocontenido, 4 obligatorios + 3 bonus etiquetados |
 | Reto 5 - Visualizaciones | 10 | Implementado y probado | heatmap 8×4 + scatter de 1.107 mesas |
 
 Cobertura funcional interna: **100/100 puntos base potenciales**. Esta cifra no es
-una calificación oficial: los retos 1.3 y 2.3 sólo quedan cerrados para entrega
-cuando se ejecute `generar_manifest.py` original, aún no suministrado.
+una calificación oficial. El `generar_manifest.py` implementado desde el contrato
+observable del PDF queda verde con 4/4 municipios y SQL `OK` en los tres retos.
 
 Bonus implementados y documentados: `--preflight` (+3 potencial), cinco índices
 (+2), explicación CA vs atribución SE (+2), modo oscuro (+3), exportación CSV
@@ -45,7 +45,7 @@ evaluación.
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
 | 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 7 municipios con alcance explícito y JS válido |
 | 5. Visualizaciones | Completada | Heatmap + scatter | ambos PNG >10 KB y stdout 5.2 exacto |
-| 6. Entrega | En curso, bloqueo externo parcial | Repo, Pages, Release y clon limpio verificados | manifest oficial, QA Firefox/`file://` y tag final |
+| 6. Entrega | En curso | Repo, Pages, Release, muestras, manifest y clon limpio verificados | QA Firefox/`file://` y tag final |
 
 ## Plan atómico restante
 
@@ -147,20 +147,25 @@ municipales, OLS global, Pearson anotado y stdout exacto. Resultado observado:
 
 ### Incremento 6 - Preparación de entrega
 
-- Incorporar `sample_data`, `generar_manifest.py` y ejemplo originales sin modificarlos.
-- Ejecutar manifest oficial y corregir cualquier diferencia contractual.
+- Incorporar muestras reales con procedencia explícita y sin atribuirlas a la UTL.
+- Implementar y ejecutar `generar_manifest.py` desde el contrato observable del PDF.
+- Generar `evaluation_manifest.json` y su ejemplo de forma determinista.
 - Release `data-v1.0.0` publicado con bases 4/4 y 7/7, tamaños y SHA-256.
 - Clon limpio ensayado en menos de 2 minutos observados; gates base verdes.
-- Ejecutar gate `release`, revisar en incógnito y fusionar el PR sólo con autorización.
+- Ejecutar gate `release`, revisar `file://`/Firefox y congelar el tag final.
 
-## Bloqueos externos
+## Decisión sobre insumos no incluidos
 
-- No se recibieron `sample_data/` oficiales.
-- No se recibieron `outputs/generar_manifest.py` ni
-  `evaluation_manifest.example.json` originales.
+- El PDF describe `sample_data/` como provisto, pero el paquete recibido sólo
+  contenía el PDF y no tenía adjuntos embebidos.
+- El PDF exige el generador y el ejemplo, pero no afirma que sean suministrados.
+- Se incluyeron capturas reales de la API con `official_utl_sample=false` y se
+  implementó el generador con
+  `generator_provenance=candidate_implemented_from_pdf_contract`.
 
-Estos bloqueos no impiden Reto 4 o 5. Sí impiden declarar cerrados oficialmente
-1.3, 2.3 y la entrega final.
+La ausencia del paquete adicional ya no se trata como bloqueo externo. Si la UTL
+entrega posteriormente archivos originales, se conservarán aparte y se compararán
+sin reescribir la evidencia actual.
 
 ## Definición de terminado global
 
@@ -174,7 +179,7 @@ Estos bloqueos no impiden Reto 4 o 5. Sí impiden declarar cerrados oficialmente
   suplementaria cubre siete municipios y 1.432 mesas.
 - PNG legibles y mayores de 10 KB.
 - README conserva exactamente los headings obligatorios.
-- Base accesible mediante Release, metadata real, manifest oficial y repo público.
+- Base accesible mediante Release, metadata real, manifest contractual y repo público.
 
 Las decisiones contrastadas con fuentes están en
 [07-fuentes-investigacion.md](07-fuentes-investigacion.md).

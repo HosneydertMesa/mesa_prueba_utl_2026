@@ -3,8 +3,8 @@
 ## Estado
 
 Las capas de adquisición, parsing, ETL, SQLite, auditoría, SQL, exportación JSON
-y presentación HTML están implementadas. Heatmap 5.1 y scatter 5.2 completan el
-camino funcional base; la preparación de entrega es el siguiente bloque.
+y presentación HTML están implementadas. Heatmap 5.1, scatter 5.2, muestras
+trazables y manifest completan el camino funcional base.
 
 ## Flujo actual y planificado
 
@@ -20,7 +20,8 @@ Nomenclator + ACT públicos
   -> dashboard/index.html autocontenido + analítica interactiva
   -> heatmap.py -> heatmap_municipios.png
   -> scatter.py -> scatter_ca_se.png + stdout contractual
-  -> [bloqueado] generar_manifest.py oficial
+  -> generar_manifest.py -> evaluation_manifest.json + ejemplo
+  -> quality_gate.py release
 ```
 
 ## Responsabilidades
@@ -42,7 +43,8 @@ Nomenclator + ACT públicos
   y construye la exportación CSV, heatmap semántico y scatter Canvas en memoria.
 - `viz/heatmap.py`: selección top 8 consolidada, matriz porcentual y PNG.
 - `viz/scatter.py`: pareo CA/SE por mesa, Pearson, OLS, PNG y stdout contractual.
-- `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
+- `sample_data/candidate_captured/`: fallback CA/SE real con procedencia y hashes.
+- `outputs/`: auditorías y manifest contractual generado por el candidato.
 - `tests/`: unitarias e integración de contratos y casos calculables.
 
 ## Modelo lógico implementado
@@ -104,5 +106,5 @@ se expresa sólo en las consultas que la necesitan.
 - No se persiste `cedula` porque no es necesaria para los retos.
 - No se imputa `censo` cuando la fuente publica `votantes > censo`.
 - La atribución SE es determinística y descriptiva, no causal.
-- ML queda fuera del camino crítico hasta cerrar manifest, revisión manual
-  Firefox/`file://` y congelamiento final de entrega.
+- ML queda fuera del camino crítico hasta cerrar la revisión manual
+  Firefox/`file://` y el congelamiento final de entrega.

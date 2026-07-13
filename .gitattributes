@@ -1,2 +1,5 @@
 dashboard/data.json text eol=lf
 outputs/auditoria_local.json text eol=lf
+outputs/evaluation_manifest.json text eol=lf
+outputs/evaluation_manifest.example.json text eol=lf
+sample_data/candidate_captured/*.json text eol=lf

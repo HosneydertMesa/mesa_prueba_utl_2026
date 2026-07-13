@@ -62,9 +62,9 @@ python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
 ```
 
-Resultado local consolidado: 60 pruebas aprobadas, Ruff limpio, JavaScript
-sintácticamente válido, auditoría 4/4 municipios y gates DEV/QA/SEC/REVIEW
-verdes.
+Resultado local consolidado actual: 65 pruebas aprobadas, Ruff limpio, JavaScript
+sintácticamente válido, auditoría/manifest 4/4 municipios y gates
+DEV/QA/SEC/REVIEW/RELEASE verdes.
 
 La automatización verifica:
 

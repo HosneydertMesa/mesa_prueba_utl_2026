@@ -30,16 +30,15 @@ La validación debe agrupar por municipio o puesto; una partición aleatoria mez
 
 Entregable opcional: `analysis/model_diagnostics.py` y
 `outputs/model_metrics.json`, sólo cuando dashboard, heatmap, scatter y manifest
-base estén verdes. Los 100 puntos base ya están implementados localmente; el
-modelo continúa pospuesto hasta cerrar los controles de entrega y manifest.
+base estén verdes. Los 100 puntos base y el manifest ya están verdes; el modelo
+continúa pospuesto hasta cerrar los controles manuales y congelar la entrega.
 
 ## Criterio de activación ML
 
 ML se autoriza únicamente si:
 
 - Reto 4 y Reto 5 pasan sus contratos;
-- el manifest oficial está disponible o todos los controles locales equivalentes
-  están verdes;
+- el manifest contractual y el gate RELEASE están verdes;
 - quedan al menos 90 minutos de reserva;
 - el resultado se presenta como sensibilidad exploratoria y no como predicción.
 

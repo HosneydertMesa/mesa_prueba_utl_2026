@@ -56,8 +56,8 @@ python scripts/audit_database.py
 
 El comando genera `outputs/auditoria_local.json`, devuelve código distinto de
 cero si falla un control bloqueante y etiqueta la salida como
-`local_non_official`. No sustituye `generar_manifest.py` ni el manifest oficial,
-que no fueron entregados junto al PDF disponible.
+`local_non_official`. Complementa `generar_manifest.py`, implementado desde el
+contrato observable del PDF y validado por el gate RELEASE.
 
 La carga ampliada de siete municipios se conserva separada y está documentada
 en `docs/19-bonus-municipios-boyaca.md`; no modifica estos conteos base.

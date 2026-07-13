@@ -1,0 +1,99 @@
+{
+  "artifacts": {
+    "dashboard": {
+      "bytes": 0,
+      "exists": true,
+      "minimum_bytes": 1,
+      "path": "dashboard/index.html",
+      "sha256": "<SHA256>",
+      "status": "OK|ERROR"
+    },
+    "heatmap": {
+      "bytes": 0,
+      "exists": true,
+      "minimum_bytes": 10001,
+      "path": "viz/heatmap_municipios.png",
+      "sha256": "<SHA256>",
+      "status": "OK|ERROR"
+    },
+    "scatter": {
+      "bytes": 0,
+      "exists": true,
+      "minimum_bytes": 10001,
+      "path": "viz/scatter_ca_se.png",
+      "sha256": "<SHA256>",
+      "status": "OK|ERROR"
+    }
+  },
+  "database": {
+    "blocking_checks": {},
+    "bytes": 0,
+    "coverage": {},
+    "leaders_SE_by_municipality": {},
+    "load_status": {},
+    "path": "db/puestos_2026.db",
+    "quality": {},
+    "sha256": "<SHA256>",
+    "status": "OK|ERROR",
+    "totals": {}
+  },
+  "generator_provenance": "candidate_implemented_from_pdf_contract",
+  "meta": {
+    "email": "<EMAIL>",
+    "nombre": "<NOMBRE COMPLETO>",
+    "repositorio": "https://github.com/<USUARIO>/<REPOSITORIO>"
+  },
+  "overall_status": "OK|ERROR",
+  "sample_data": {
+    "files": {},
+    "official_utl_sample": false,
+    "path": "sample_data/candidate_captured/provenance.json",
+    "provenance": "candidate_captured_from_public_api_cache",
+    "status": "OK|ERROR"
+  },
+  "scatter_statistics": {
+    "intercept": 0.0,
+    "n_mesas": 0,
+    "pearson_r": 0.0,
+    "slope": 0.0,
+    "status": "OK|ERROR",
+    "stdout": "r=X.XXX | pendiente=X.XXX | n_mesas=NNN"
+  },
+  "schema_version": 1,
+  "scope": {
+    "corporations": [
+      "CA",
+      "SE"
+    ],
+    "municipalities_expected": 4,
+    "municipalities_loaded": 4,
+    "required_municipalities": [
+      "TUNJA",
+      "PAIPA",
+      "SOGAMOSO",
+      "DUITAMA"
+    ],
+    "tables_expected": 1107
+  },
+  "source_data_updated_at": "<TIMESTAMP DE LA CARGA>",
+  "sql_tasks": {
+    "3.1": {
+      "columns": [],
+      "row_count": 0,
+      "sample": [],
+      "status": "OK|ERROR"
+    },
+    "3.2": {
+      "columns": [],
+      "row_count": 0,
+      "sample": [],
+      "status": "OK|ERROR"
+    },
+    "3.3": {
+      "columns": [],
+      "row_count": 0,
+      "sample": [],
+      "status": "OK|ERROR"
+    }
+  }
+}

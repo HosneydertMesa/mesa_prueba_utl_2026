@@ -1,10 +1,19 @@
-# Insumos del evaluador pendientes
+# Manifest de evaluación
 
-Incorporar `generar_manifest.py` y `evaluation_manifest.example.json` originales. Generar `evaluation_manifest.json` al final; no fabricarlo manualmente.
+El PDF recibido exige `generar_manifest.py`, `evaluation_manifest.json` y
+`evaluation_manifest.example.json`, pero el paquete no contenía archivos
+adicionales. El generador de este directorio implementa los observables descritos
+en el documento y declara
+`generator_provenance=candidate_implemented_from_pdf_contract`.
 
-Mientras se reciben esos insumos, `python scripts/audit_database.py` genera
-`auditoria_local.json`. El archivo declara `audit_type=local_non_official` para
-evitar confundirlo con el manifest del evaluador.
+```bash
+python outputs/generar_manifest.py
+```
 
-`auditoria_bonus_local.json` aplica el mismo contrato local a una base separada
-de siete municipios. También es evidencia no oficial y no reemplaza el manifest.
+El comando regenera de forma determinista tanto el resultado real como el ejemplo
+de contrato. Valida 4/4 municipios, conteos e integridad, líderes SE municipales,
+SQL 3.1-3.3, artefactos, muestras y estadísticas del scatter. Nunca se debe editar
+`evaluation_manifest.json` manualmente.
+
+`auditoria_local.json` y `auditoria_bonus_local.json` conservan controles más
+detallados para los alcances base y ampliado; complementan el manifest contractual.

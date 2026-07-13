@@ -36,7 +36,7 @@ No se mantendrán ramas largas llamadas `dev`, `qa` o `sec`: para una persona y 
 | QA | ¿Hace lo esperado y falla correctamente? | pruebas, fixture, invariantes y regresión |
 | SEC | ¿Evita exposición o corrupción? | escaneo de secretos, parámetros SQL, límites API |
 | REVIEW | ¿Es comprensible, trazable y entregable? | diff pequeño, requisito enlazado, docs y salida |
-| RELEASE | ¿La prueba completa puede enviarse? | manifest oficial, Release DB, 4/4, SQL OK, PNG, metadata y repo |
+| RELEASE | ¿La prueba completa puede enviarse? | manifest contractual, muestras trazables, Release DB, 4/4, SQL OK, PNG, metadata y repo |
 
 ## Comandos
 
