@@ -31,3 +31,8 @@
 | README no reproducible | -10 | ensayo desde clon limpio |
 | Archivo ausente | -2 c/u | verificador estructural y CI |
 
+## Estado de incrementos
+
+- Reto 1.1 API: implementado y verificado contra el portal oficial; contrato en `docs/09-contrato-api-registraduria.md` y resolución en `scraper/nomenclator.py`.
+- Resto de retos: pendientes.
+

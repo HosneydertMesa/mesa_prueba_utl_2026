@@ -18,6 +18,7 @@ REQUIRED_BASE = (
     "README.md",
     "requirements.txt",
     "scraper/scraper.py",
+    "scraper/nomenclator.py",
     "db/schema.sql",
     "db/etl.py",
     "sql/tarea_3_1.sql",

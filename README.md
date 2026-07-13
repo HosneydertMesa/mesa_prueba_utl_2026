@@ -42,10 +42,17 @@ La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/0
 
 ## API
 
-- Portal oficial: `https://resultadospreccongreso2026.registraduria.gov.co`.
-- El patrón exacto de endpoints, nomenclator, cabeceras y campos JSON se descubrirá y congelará como contrato antes de implementar el scraper.
-- Si el portal no responde, el parser se desarrollará contra `sample_data/` y se documentará el intento, como autoriza el enunciado.
-- No se asumirán endpoints ni cabeceras sin evidencia de Network/F12 o muestras provistas.
+- Portal: `https://resultadospreccongreso2026.registraduria.gov.co`.
+- Nomenclator: `GET /json/nomenclator.json`.
+- Resultados: `GET /json/ACT/{SE|CA}/{scope_code}.json`.
+- Códigos: Tunja `0700001`, Paipa `0700181`, Sogamoso `0700277`, Duitama `0700079`.
+- Mesa: código de puesto de 13 caracteres + número de mesa en 6 dígitos.
+- Acceso público sin autenticación; se recomienda `Accept: application/json`, User-Agent identificable, timeout y backoff.
+- Campos verificados: `elec`, `amb`, `dept`, `mdhm`, `metota`, `mesesc`, `centota`, `votant`, `codpar`, `codcan`, `nomcan`, `apecan`, `vot` y `pref`, entre otros.
+- Contrato, evidencias, jerarquía y fallback: [docs/09-contrato-api-registraduria.md](docs/09-contrato-api-registraduria.md).
+
+Si la API no responde durante la ejecución, se usarán los archivos oficiales de `sample_data/` y se documentará el intento, sin cambiar el modelo de dominio.
+
 
 ## Municipios en la BD
 
