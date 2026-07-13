@@ -65,6 +65,9 @@ El contrato SQLite→JSON del dashboard está documentado en
 La implementación y validación del dashboard autocontenido están documentadas
 en [docs/15-dashboard-html.md](docs/15-dashboard-html.md).
 
+La evolución interactiva con hallazgos, heatmap y scatter está documentada en
+[docs/20-dashboard-analitico-2.md](docs/20-dashboard-analitico-2.md).
+
 El criterio, la fórmula y la validación del heatmap 8×4 están documentados en
 [docs/16-heatmap-municipios.md](docs/16-heatmap-municipios.md).
 

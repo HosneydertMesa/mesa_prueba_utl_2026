@@ -11,7 +11,7 @@
 | 3.1 Arrastre | 9 | Implementado | 73 puestos, `5→57`, cero seguro | manifest oficial |
 | 3.2 Dominancia | 8 | Implementado | 3.780 filas, umbral estricto probado | manifest oficial |
 | 3.3 Atribución | 8 | Implementado | fórmula exacta y top 5 | manifest oficial |
-| 4 Dashboard | 15 | Implementado | `dashboard/index.html`, JSON embebido y 5 contratos HTML | revisión manual Chrome/Firefox |
+| 4 Dashboard | 15 | Implementado + v2 | HTML autocontenido, JSON v2, heatmap y scatter interactivos | revisión manual Chrome/Firefox |
 | 5.1 Heatmap | 5 | Implementado | `viz/heatmap.py` + PNG 8×4 anotado | validación oficial |
 | 5.2 Scatter | 5 | Implementado | `viz/scatter.py`, OLS/Pearson, PNG y stdout exacto | validación oficial |
 | B1 Preflight | +3 | Implementado | 4/4 sin escribir BD ni ACT | validación oficial |

@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 52 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 53 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
 cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
 insumos del manifest oficial y la distribución de la base.
@@ -42,6 +42,9 @@ insumos del manifest oficial y la distribución de la base.
 - El CSV exportado contiene la selección municipal visible, cabeceras estables,
   BOM UTF-8 y valores escapados; no necesita backend ni acceso de red.
 - El JavaScript embebido se compila sintácticamente con Node antes del commit.
+- El schema v2 exige matriz 8×4, 1.107 puntos y `n_mesas=1107`.
+- El heatmap interactivo usa una tabla semántica; el scatter Canvas conserva
+  resumen textual, filtros con `aria-pressed` y descripción accesible.
 
 ## Evidencia específica del heatmap
 

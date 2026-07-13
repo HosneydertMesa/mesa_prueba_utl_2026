@@ -83,6 +83,17 @@ sistema y persistencia local; exportación CSV UTF-8 de la selección municipal
 visible. Ambos funcionan desde `file://`, sin recursos externos, y están bajo
 pruebas contractuales. Véase `docs/18-bonus-dashboard.md`.
 
+### Incremento 4.4 - Dashboard Analítico 2.0 (completado, suplementario)
+
+- Extender el contrato embebido a schema v2 sin cambiar las vistas obligatorias.
+- Reutilizar la matriz 8×4 y las 1.107 observaciones del Reto 5.
+- Añadir hallazgos ejecutivos, heatmap semántico y scatter Canvas interactivo.
+- Mantener `file://`, accesibilidad, tema oscuro y ausencia de dependencias web.
+
+Evidencia: `dashboard/data.json` contiene la matriz y los puntos auditados; el
+HTML ofrece filtro municipal, tooltips, OLS global y una explicación no causal.
+Véase `docs/20-dashboard-analitico-2.md`.
+
 ### Incremento B6 - Municipios adicionales (completado, +3 potencial)
 
 - Extender el nomenclátor y el scraper a municipios adicionales de Boyacá.

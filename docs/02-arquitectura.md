@@ -17,7 +17,7 @@ Nomenclator + ACT públicos
   -> SQL 3.1 / 3.2 / 3.3
   -> auditoría local reproducible
   -> export_data.py -> data.json + JSON embebido
-  -> dashboard/index.html autocontenido
+  -> dashboard/index.html autocontenido + analítica interactiva
   -> heatmap.py -> heatmap_municipios.png
   -> scatter.py -> scatter_ca_se.png + stdout contractual
   -> [bloqueado] generar_manifest.py oficial
@@ -39,7 +39,7 @@ Nomenclator + ACT públicos
   sincronización atómica del bloque embebido en el HTML.
 - `dashboard/index.html`: presentación estática autocontenida compatible con
   apertura directa, sin runtime ni recursos externos; administra el tema local
-  y construye la exportación CSV en memoria.
+  y construye la exportación CSV, heatmap semántico y scatter Canvas en memoria.
 - `viz/heatmap.py`: selección top 8 consolidada, matriz porcentual y PNG.
 - `viz/scatter.py`: pareo CA/SE por mesa, Pearson, OLS, PNG y stdout contractual.
 - `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
@@ -89,6 +89,8 @@ se expresa sólo en las consultas que la necesitan.
   `file://` sin servidor ni solicitudes bloqueadas por CORS.
 - El tema se resuelve con CSS custom properties y una preferencia local; el CSV
   se genera con `Blob` desde el mismo JSON embebido. Ninguna función requiere red.
+- El schema v2 reutiliza `load_heatmap_data`, `load_scatter_data` y
+  `fit_regression`; así los PNG y las vistas interactivas comparten fórmulas.
 
 ## Límites deliberados
 

@@ -60,7 +60,7 @@ python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
 ```
 
-Resultado local consolidado: 52 pruebas aprobadas, Ruff limpio, JavaScript
+Resultado local consolidado: 53 pruebas aprobadas, Ruff limpio, JavaScript
 sintácticamente válido, auditoría 4/4 municipios y gates DEV/QA/SEC/REVIEW
 verdes.
 
@@ -77,3 +77,6 @@ La revisión manual de entrega debe abrir el archivo en Chrome y Firefox,
 cambiar los cuatro municipios, inspeccionar el comportamiento responsive y
 confirmar una consola limpia. Esta comprobación complementa los contratos; no
 se sustituye por un servidor local.
+
+La evolución suplementaria del mismo archivo está descrita en
+`docs/20-dashboard-analitico-2.md`.

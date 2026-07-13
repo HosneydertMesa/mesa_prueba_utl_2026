@@ -159,10 +159,68 @@ def _green_drag_by_municipality(
     return result
 
 
+def _analytical_views(connection: sqlite3.Connection) -> dict[str, Any]:
+    """Serializa los mismos datos que alimentan los PNG del Reto 5."""
+
+    from viz.heatmap import load_heatmap_data
+    from viz.scatter import MUNICIPALITY_COLORS, fit_regression, load_scatter_data
+
+    heatmap = load_heatmap_data(connection)
+    scatter = load_scatter_data(connection)
+    statistics = fit_regression(scatter)
+    municipality_count = len(heatmap.municipalities)
+    maximum_index = int(heatmap.percentages.argmax())
+    maximum_row, maximum_column = divmod(maximum_index, municipality_count)
+    heatmap_rows = [
+        {
+            "candidato": label.replace("\n", " · "),
+            "codpar": heatmap.candidate_keys[index][0],
+            "codcan": heatmap.candidate_keys[index][1],
+            "votos_consolidados": heatmap.consolidated_votes[index],
+            "votos": [int(value) for value in heatmap.votes[index]],
+            "porcentajes": [
+                round(float(value), 4) for value in heatmap.percentages[index]
+            ],
+        }
+        for index, label in enumerate(heatmap.candidate_labels)
+    ]
+    scatter_points = [
+        {
+            "mesa": scatter.table_codes[index],
+            "municipio": scatter.municipalities[index],
+            "votos_ca": int(scatter.camera_votes[index]),
+            "votos_se": int(scatter.senate_votes[index]),
+        }
+        for index in range(len(scatter.table_codes))
+    ]
+    return {
+        "heatmap": {
+            "municipios": list(heatmap.municipalities),
+            "candidatos": heatmap_rows,
+            "maximo": {
+                "candidato": heatmap_rows[maximum_row]["candidato"],
+                "municipio": heatmap.municipalities[maximum_column],
+                "porcentaje": heatmap_rows[maximum_row]["porcentajes"][maximum_column],
+            },
+        },
+        "scatter": {
+            "puntos": scatter_points,
+            "colores_municipio": MUNICIPALITY_COLORS,
+            "estadisticas": {
+                "pearson_r": round(statistics.pearson_r, 6),
+                "pendiente": round(statistics.slope, 6),
+                "intercepto": round(statistics.intercept, 6),
+                "n_mesas": statistics.table_count,
+            },
+        },
+    }
+
+
 def build_dashboard_data(
     connection: sqlite3.Connection,
     *,
     municipality_order: Sequence[str] = REQUIRED_MUNICIPALITIES,
+    include_analytics: bool | None = None,
 ) -> dict[str, Any]:
     catalog = _municipality_catalog(connection)
     missing = [name for name in municipality_order if name not in catalog]
@@ -197,9 +255,11 @@ def build_dashboard_data(
         municipalities.append(item)
         comparison.append({"municipio": name, "votos_ca_total": camera_total})
 
-    return {
+    if include_analytics is None:
+        include_analytics = tuple(municipality_order) == REQUIRED_MUNICIPALITIES
+    result = {
         "meta": {
-            "schema_version": 1,
+            "schema_version": 2,
             "dataset": "Congreso 2026 - Cámara y Senado - Boyacá",
             "corporaciones": ["CA", "SE"],
             "municipios": len(municipalities),
@@ -211,12 +271,16 @@ def build_dashboard_data(
         "comparativo_ca": comparison,
         "municipios": municipalities,
     }
+    if include_analytics:
+        result["analitica"] = _analytical_views(connection)
+    return result
 
 
 def validate_dashboard_contract(
     data: Mapping[str, Any],
     *,
     require_top_ten: bool = True,
+    require_analytics: bool | None = None,
 ) -> None:
     municipalities = list(data["municipios"])
     meta = data["meta"]
@@ -227,6 +291,8 @@ def validate_dashboard_contract(
     if int(meta["mesas"]) != sum(int(item["mesas"]) for item in municipalities):
         raise DashboardExportError("meta.mesas no coincide con el detalle")
     names = [str(item["nombre"]) for item in municipalities]
+    if require_analytics is None:
+        require_analytics = tuple(names) == REQUIRED_MUNICIPALITIES
     comparison_names = [str(item["municipio"]) for item in data["comparativo_ca"]]
     if names != comparison_names or len(names) != len(set(names)):
         raise DashboardExportError("orden o unicidad municipal inconsistente")
@@ -242,6 +308,24 @@ def validate_dashboard_contract(
             raise DashboardExportError(f"{item['nombre']} no tiene top 10 CA")
         if item["lider_se"] is None:
             raise DashboardExportError(f"{item['nombre']} no tiene líder SE")
+    if require_analytics:
+        analytics = data.get("analitica")
+        if not isinstance(analytics, Mapping):
+            raise DashboardExportError("falta el contrato analítico v2")
+        heatmap = analytics.get("heatmap")
+        scatter = analytics.get("scatter")
+        if not isinstance(heatmap, Mapping) or not isinstance(scatter, Mapping):
+            raise DashboardExportError("heatmap o scatter analítico ausente")
+        if heatmap.get("municipios") != list(REQUIRED_MUNICIPALITIES):
+            raise DashboardExportError("municipios del heatmap analítico inválidos")
+        if len(heatmap.get("candidatos", [])) != 8:
+            raise DashboardExportError("el heatmap analítico debe tener 8 candidatos")
+        points = scatter.get("puntos", [])
+        statistics = scatter.get("estadisticas", {})
+        if len(points) != int(meta["mesas"]):
+            raise DashboardExportError("el scatter analítico no contiene una fila por mesa")
+        if int(statistics.get("n_mesas", 0)) != int(meta["mesas"]):
+            raise DashboardExportError("n_mesas analítico no coincide con metadata")
 
 
 def write_dashboard_data(data: Mapping[str, Any], output_path: str | Path) -> int:

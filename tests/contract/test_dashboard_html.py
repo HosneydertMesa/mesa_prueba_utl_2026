@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).parents[2]
 HTML_PATH = ROOT / "dashboard" / "index.html"
 JSON_PATH = ROOT / "dashboard" / "data.json"
+EXPECTED_MUNICIPALITIES = ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"]
 DATA_PATTERN = re.compile(
     r'<script id="dashboard-data" type="application/json">\s*(.*?)\s*</script>',
     re.DOTALL,
@@ -37,7 +38,7 @@ class DashboardHtmlContractTests(unittest.TestCase):
         self.assertEqual(self.embedded["meta"]["mesas"], 1107)
         self.assertEqual(
             [item["nombre"] for item in self.embedded["municipios"]],
-            ["TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"],
+            EXPECTED_MUNICIPALITIES,
         )
 
     def test_each_municipality_has_required_views(self) -> None:
@@ -78,3 +79,17 @@ class DashboardHtmlContractTests(unittest.TestCase):
         self.assertIn('link.download = `dashboard-${slug}.csv`', self.html)
         self.assertIn('"\\uFEFF"', self.html)
         self.assertIn('"ratio_arrastre"', self.html)
+
+    def test_analytical_v2_reuses_heatmap_and_scatter_contracts(self) -> None:
+        self.assertEqual(self.embedded["meta"]["schema_version"], 2)
+        analytics = self.embedded["analitica"]
+        self.assertEqual(analytics["heatmap"]["municipios"], EXPECTED_MUNICIPALITIES)
+        self.assertEqual(len(analytics["heatmap"]["candidatos"]), 8)
+        self.assertEqual(len(analytics["scatter"]["puntos"]), 1107)
+        statistics = analytics["scatter"]["estadisticas"]
+        self.assertEqual(statistics["n_mesas"], 1107)
+        self.assertAlmostEqual(statistics["pearson_r"], 0.964, places=3)
+        self.assertAlmostEqual(statistics["pendiente"], 0.933, places=3)
+        self.assertIn('id="interactive-heatmap"', self.html)
+        self.assertIn('id="scatter-canvas"', self.html)
+        self.assertIn('id="scatter-filters"', self.html)

@@ -17,8 +17,8 @@ python dashboard/export_data.py --db db/puestos_2026.db --output dashboard/data.
 Salida observada:
 
 ```text
-DASHBOARD_EXPORT municipios=4 puestos=73 mesas=1107 bytes=30257
-INFO salida=dashboard\data.json schema_version=1
+DASHBOARD_EXPORT municipios=4 puestos=73 mesas=1107 json_bytes=198208 html_bytes=249578
+INFO salida=dashboard\data.json html=dashboard\index.html schema_version=2
 ```
 
 ## Schema lógico
@@ -40,6 +40,10 @@ municipios[]
   top_candidatos_ca[10]
   lider_se
   arrastre_verde[un elemento por puesto]
+
+analitica
+  heatmap: municipios[4], candidatos[8], maximo
+  scatter: puntos[1107], colores_municipio, estadisticas OLS/Pearson
 ```
 
 Cada candidato CA incluye posición, `codpar`, `codcan`, nombre, partido, votos,
@@ -69,6 +73,8 @@ obligatorios se validan antes de escribir el archivo.
 - Top 10 y líderes usan desempate por códigos.
 - JSON se escribe como UTF-8 con LF mediante reemplazo atómico.
 - Dos ejecuciones sobre la misma base producen los mismos bytes.
+- Las vistas interactivas reutilizan las funciones que generan los PNG, evitando
+  fórmulas paralelas entre el Reto 5 y el dashboard.
 
 ## Controles bloqueantes
 
