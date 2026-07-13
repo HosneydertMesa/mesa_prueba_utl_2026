@@ -1,0 +1,43 @@
+{
+  "elec": "2",
+  "amb": "0700001010001000001",
+  "dept": "07",
+  "totales": {
+    "act": {
+      "centota": "100",
+      "votant": "80",
+      "votnul": "2",
+      "votnma": "3",
+      "votblan": "5",
+      "votval": "75"
+    }
+  },
+  "camaras": [
+    {
+      "cam": "1",
+      "totales": {"act": {"votant": "80", "votnul": "2", "votnma": "3", "votbla": "5", "votval": "75", "votcan": "70"}},
+      "partotabla": [
+        {
+          "act": {
+            "codpar": "5",
+            "vot": "40",
+            "cantotabla": [
+              {"codcan": "0", "nomcan": "SOLO POR LA LISTA", "apecan": "", "nomcan2": "", "apecan2": "", "vot": "10"},
+              {"codcan": "101", "nomcan": "ANA MARÍA", "apecan": "PÉREZ LÓPEZ", "nomcan2": "", "apecan2": "", "vot": "20"},
+              {"codcan": "102", "nomcan": "BOB", "apecan": "RUIZ", "nomcan2": "", "apecan2": "", "vot": "10"}
+            ]
+          }
+        },
+        {
+          "act": {
+            "codpar": "87",
+            "vot": "30",
+            "cantotabla": [
+              {"codcan": "0", "nomcan": "SOLO POR LA LISTA", "apecan": "", "nomcan2": "", "apecan2": "", "vot": "30"}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

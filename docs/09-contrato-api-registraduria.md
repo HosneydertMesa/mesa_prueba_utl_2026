@@ -69,10 +69,10 @@ Se verificaron más de ocho campos utilizables:
 | `totales.act.metota` | mesas totales del ámbito |
 | `totales.act.mesesc` | mesas escrutadas |
 | `totales.act.centota` | censo total |
-| `totales.act.votant` | votantes |
-| `totales.act.votnul` | votos nulos |
-| `totales.act.votnma` | votos no marcados |
-| `totales.act.votblan` | votos en blanco |
+| `camaras[].totales.act.votant` | votantes de la cámara seleccionada |
+| `camaras[].totales.act.votnul` | votos nulos de la cámara |
+| `camaras[].totales.act.votnma` | votos no marcados de la cámara |
+| `camaras[].totales.act.votbla` | votos en blanco de la cámara |
 | `camaras[].cam` | cámara/circunscripción dentro de la elección |
 | `partotabla[].act.codpar` | código de partido |
 | `partotabla[].act.vot` | votos del partido |
@@ -83,6 +83,8 @@ Se verificaron más de ocho campos utilizables:
 | `cantotabla[].pref` | indicador de voto preferente/lista |
 
 Todos los conteos llegan como strings; porcentajes usan coma decimal y `%`. El parser debe convertir conteos explícitamente y conservar el valor fuente cuando se necesite auditoría.
+
+Los totales superiores pueden agregar varias cámaras/circunscripciones. Las invariantes de partido deben compararse contra `camaras[].totales.act` de la cámara seleccionada; el censo `centota` se toma del total superior porque no aparece repetido en la cámara.
 
 Aunque `cedula` aparece publicada en la respuesta, no se persistirá por defecto: los retos pueden resolverse con `codcan`, `codpar`, nombres y votos. Esta minimización evita almacenar un identificador que no aporta al objetivo analítico.
 

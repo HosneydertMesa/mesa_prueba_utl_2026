@@ -20,6 +20,7 @@ REQUIRED_BASE = (
     "scraper/scraper.py",
     "scraper/nomenclator.py",
     "scraper/http_client.py",
+    "scraper/act_parser.py",
     "db/schema.sql",
     "db/database.py",
     "db/etl.py",
