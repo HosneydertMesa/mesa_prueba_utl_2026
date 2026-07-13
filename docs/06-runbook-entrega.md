@@ -3,7 +3,7 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 56 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- Verdes localmente: 58 pruebas, Ruff, DEV, QA, SEC y REVIEW.
 - En nube: retos 1-5, bonus y Dashboard 2.0 integrados en `main`; toda evolución
   web se valida mediante CI antes de su promoción.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
@@ -22,7 +22,8 @@
 2. Regenerar `dashboard/data.json` y confirmar contrato.
 3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
 4. Validar modo oscuro, persistencia y descarga CSV para los siete municipios.
-5. Validar heatmap 8×4, filtros y tooltips del scatter en el dashboard 2.0.
+5. Validar el selector obligatorio/ampliado, heatmap 8×4/8×7 y scatter de
+   1.107/1.432 mesas con filtros y tooltips.
 6. Validar las cuatro vistas, URL con hash y navegación mediante teclado.
 7. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
 8. Regenerar `viz/scatter_ca_se.png` y confirmar stdout exacto.

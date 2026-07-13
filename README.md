@@ -132,6 +132,9 @@ de distribución de la base se cerrará antes de la entrega.
 - Los votos válidos CA y SE por mesa presentan una asociación lineal alta
   (`r=0,964`, pendiente OLS `0,933`, `n=1.107`). Es una relación descriptiva del
   mismo evento electoral y no demuestra transferencia ni causalidad.
+- En el alcance ampliado de siete municipios la asociación sigue siendo alta
+  (`r=0,957`, pendiente OLS `0,939`, `n=1.432`); es una vista suplementaria y no
+  sustituye los valores contractuales anteriores.
 
 Son hallazgos descriptivos del alcance cargado, no evidencia causal. La estrategia
 analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-analitica-ml.md).
@@ -153,6 +156,6 @@ analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-anal
 Bonus implementado potencial: **+15/+15**. La base obligatoria de cuatro
 municipios permanece separada de `db/puestos_2026_bonus.db`, por lo que la
 ampliación no altera el manifest, SQL ni las visualizaciones contractuales. El
-dashboard publicado sí muestra los siete municipios con etiquetas de alcance y
-una sección de evidencia bonus; su heatmap y scatter conservan las 1.107 mesas
-obligatorias.
+dashboard publicado muestra los siete municipios y permite alternar heatmap y
+scatter entre el contrato 8×4/1.107 y la extensión 8×7/1.432, con estadísticos
+separados.

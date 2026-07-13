@@ -14,7 +14,7 @@ La interfaz se divide en cuatro vistas activadas desde una navegación persisten
 |---|---|---|
 | Resumen | Cobertura y comparativo territorial CA | 4 obligatorios + 3 bonus |
 | Municipio | Top 10 CA, líder SE, CSV y arrastre por puesto | municipio seleccionado |
-| Analítica | Hallazgos, heatmap 8×4 y scatter OLS/Pearson | 4 obligatorios, 1.107 mesas |
+| Analítica | Selector 8×4/8×7, scatter y OLS/Pearson | 4 obligatorios o 7 ampliados |
 | Bonus | Seis mejoras y +15 puntos potenciales | evidencia suplementaria |
 
 Cada vista conserva un fragmento de URL (`#overview`, `#municipality`,
@@ -30,8 +30,8 @@ convierte en una barra inferior y el contenido recupera el desplazamiento normal
 - Sigue existiendo un solo HTML sin CDN, recursos externos ni `fetch`.
 - `file://` continúa siendo un flujo soportado y prioritario para evaluación.
 - Los colores obligatorios, ratio `1.0`, dark mode y CSV no cambian.
-- Los siete municipios se muestran, pero ML/OLS y heatmap conservan exactamente
-  cuatro municipios y 1.107 mesas.
+- La vista obligatoria conserva exactamente cuatro municipios y 1.107 mesas;
+  la vista suplementaria calcula por separado siete municipios y 1.432 mesas.
 - Cambiar de vista no recalcula datos; solo controla presentación y redibuja el
   Canvas al abrir la vista analítica.
 

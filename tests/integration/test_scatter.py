@@ -13,8 +13,13 @@ from viz.scatter import (
     render_scatter,
 )
 
+BASE_MUNICIPALITIES = ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA")
+BONUS_MUNICIPALITIES = ("CHIQUINQUIRA", "PUERTO BOYACA", "MONIQUIRA")
 
-def scatter_connection() -> sqlite3.Connection:
+
+def scatter_connection(
+    municipalities: tuple[str, ...] = BASE_MUNICIPALITIES,
+) -> sqlite3.Connection:
     connection = sqlite3.connect(":memory:")
     connection.row_factory = sqlite3.Row
     connection.executescript(
@@ -37,9 +42,7 @@ def scatter_connection() -> sqlite3.Connection:
         """
     )
     table_id = 0
-    for municipality_id, municipality in enumerate(
-        ("TUNJA", "PAIPA", "SOGAMOSO", "DUITAMA"), start=1
-    ):
+    for municipality_id, municipality in enumerate(municipalities, start=1):
         connection.execute(
             "INSERT INTO municipios(id, nombre) VALUES (?, ?)",
             (municipality_id, municipality),
@@ -106,6 +109,21 @@ class ScatterIntegrationTests(unittest.TestCase):
                 load_scatter_data(connection)
         finally:
             connection.close()
+
+    def test_supports_seven_municipalities_for_bonus_dashboard(self) -> None:
+        municipalities = (*BASE_MUNICIPALITIES, *BONUS_MUNICIPALITIES)
+        connection = scatter_connection(municipalities)
+        try:
+            data = load_scatter_data(
+                connection, municipality_order=municipalities
+            )
+            statistics = fit_regression(data)
+        finally:
+            connection.close()
+
+        self.assertEqual(len(data.camera_votes), 21)
+        self.assertEqual(data.municipalities.count("MONIQUIRA"), 3)
+        self.assertEqual(statistics.table_count, 21)
 
     def test_renders_png_over_required_size(self) -> None:
         connection = scatter_connection()

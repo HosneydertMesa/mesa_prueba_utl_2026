@@ -86,7 +86,9 @@ pruebas contractuales. Véase `docs/18-bonus-dashboard.md`.
 ### Incremento 4.4 - Dashboard Analítico 2.0 (completado, suplementario)
 
 - Extender el contrato embebido a schema v2 sin cambiar las vistas obligatorias.
-- Reutilizar la matriz 8×4 y las 1.107 observaciones del Reto 5.
+- Conservar la matriz contractual 8×4 y las 1.107 observaciones del Reto 5.
+- Añadir una vista suplementaria 8×7 con las 1.432 mesas de los siete
+  municipios, con estadísticas calculadas de forma independiente.
 - Añadir hallazgos ejecutivos, heatmap semántico y scatter Canvas interactivo.
 - Incorporar los tres municipios extra y la evidencia de los seis bonus sin
   cambiar el universo analítico obligatorio.
@@ -166,8 +168,9 @@ Estos bloqueos no impiden Reto 4 o 5. Sí impiden declarar cerrados oficialmente
 - Cuatro municipios y ambas corporaciones presentes.
 - `PRAGMA foreign_key_check` vacío e invariantes de votos aprobadas.
 - Tres SQL ejecutadas por el manifest sin error.
-- Dashboard desde `file://`, siete municipios etiquetados y consola limpia; las
-  vistas analíticas permanecen sobre cuatro municipios y 1.107 mesas.
+- Dashboard desde `file://`, siete municipios etiquetados y consola limpia; la
+  vista contractual conserva cuatro municipios y 1.107 mesas, mientras la vista
+  suplementaria cubre siete municipios y 1.432 mesas.
 - PNG legibles y mayores de 10 KB.
 - README conserva exactamente los headings obligatorios.
 - Base accesible mediante Release, metadata real, manifest oficial y repo público.

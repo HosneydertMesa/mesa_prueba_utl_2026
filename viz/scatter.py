@@ -33,6 +33,9 @@ MUNICIPALITY_COLORS: Final = {
     "PAIPA": "#007C34",
     "SOGAMOSO": "#7B2D8B",
     "DUITAMA": "#E07B00",
+    "CHIQUINQUIRA": "#C13B63",
+    "PUERTO BOYACA": "#008A9A",
+    "MONIQUIRA": "#6B7F2A",
 }
 DEFAULT_DATABASE: Final = Path("db/puestos_2026.db")
 DEFAULT_OUTPUT: Final = Path("viz/scatter_ca_se.png")
@@ -71,10 +74,12 @@ def load_scatter_data(
     *,
     municipality_order: tuple[str, ...] = MUNICIPALITIES,
 ) -> ScatterData:
-    """Carga una observación CA/SE por cada mesa de los cuatro municipios."""
+    """Carga una observación CA/SE por mesa para el alcance solicitado."""
 
-    if len(municipality_order) != 4 or len(set(municipality_order)) != 4:
-        raise ScatterError("el scatter requiere exactamente cuatro municipios únicos")
+    if not municipality_order or len(set(municipality_order)) != len(
+        municipality_order
+    ):
+        raise ScatterError("el scatter requiere municipios únicos y no vacíos")
     placeholders = _placeholders(len(municipality_order))
     catalog = {
         str(row["nombre"])
@@ -105,11 +110,17 @@ def load_scatter_data(
         "JOIN resumen_mesa ca ON ca.mesa_id = me.id AND ca.corporacion = 'CA' "
         "JOIN resumen_mesa se ON se.mesa_id = me.id AND se.corporacion = 'SE' "
         f"WHERE mu.nombre IN ({placeholders}) "
-        "ORDER BY CASE mu.nombre "
-        "WHEN 'TUNJA' THEN 1 WHEN 'PAIPA' THEN 2 "
-        "WHEN 'SOGAMOSO' THEN 3 WHEN 'DUITAMA' THEN 4 ELSE 5 END, me.codigo",
+        "ORDER BY mu.nombre, me.codigo",
         municipality_order,
     ).fetchall()
+    municipality_index = {name: index for index, name in enumerate(municipality_order)}
+    rows = sorted(
+        rows,
+        key=lambda row: (
+            municipality_index[str(row["municipio"])],
+            str(row["mesa_codigo"]),
+        ),
+    )
     if len(rows) != expected_tables:
         raise ScatterError(
             "cada mesa debe tener resumen CA y SE: "
@@ -170,14 +181,14 @@ def render_scatter(
     figure, axis = plt.subplots(figsize=(11.8, 8.2), dpi=180)
 
     municipality_values = np.array(data.municipalities, dtype=object)
-    for municipality in MUNICIPALITIES:
+    for municipality in dict.fromkeys(data.municipalities):
         mask = municipality_values == municipality
         axis.scatter(
             data.camera_votes[mask],
             data.senate_votes[mask],
             s=28,
             alpha=0.58,
-            color=MUNICIPALITY_COLORS[municipality],
+            color=MUNICIPALITY_COLORS.get(municipality, "#64748B"),
             edgecolors="white",
             linewidths=0.35,
             label=f"{municipality.title()} (n={int(mask.sum())})",
