@@ -1,6 +1,6 @@
 # Dashboard Workspace 3.0 y GitHub Pages
 
-> Estado al 13 de julio de 2026: PR #7 fusionado, workflows `quality` y
+> Estado al 13 de julio de 2026: PR #10 y #11 fusionados, workflows `quality` y
 > `deploy-dashboard-pages` verdes, HTTPS activo y contenido público verificado.
 
 ## Objetivo
@@ -86,7 +86,11 @@ La corrección evita atribuir el incidente al dashboard o relajar permisos.
 - JSON: respuesta HTTPS `200`, 7 municipios, 1.432 mesas y 1.432 puntos en el
   scatter ampliado.
 - GitHub Actions: `quality` y `deploy-dashboard-pages` concluyeron `success`.
+- Despliegue final: ejecución `29287276211`; `build`, `deploy` y smoke HTTPS
+  concluyeron `success` sobre `main`.
 - Seguridad: Pages sirve solo HTML, JSON y `.nojekyll`; HTTPS está forzado.
+- QA real: recorrido guiado y URL compartible operativos, consola sin warnings ni
+  errores y vista Municipio a 360 px sin desbordamiento horizontal de página.
 
 ## Validación
 
