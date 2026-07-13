@@ -1,6 +1,6 @@
 # MESA — Prueba Técnica UTL Senado 2026
 
-> Estado: retos 1-5 implementados y auditados localmente; 100/100 base potencial.
+> Estado: retos 1-5 y manifest contractual implementados; 100/100 base potencial.
 > Desarrollo incremental con gates DEV, QA, SEC, REVIEW y validación en CI.
 
 ## Candidato
@@ -22,7 +22,12 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt -r requirements-dev.txt
 ```
 
-Antes de desarrollar, incorporar en `sample_data/` los archivos provistos por la UTL y en `outputs/` el generador y el manifest de ejemplo originales. No se encontraron junto al PDF inicial.
+El paquete recibido contenía únicamente el PDF. Por ello, `sample_data/` incluye
+capturas reproducibles de la API pública con procedencia y SHA-256, mientras
+`outputs/generar_manifest.py` implementa el contrato observable descrito en el
+PDF. Ninguno se presenta como archivo oficial suministrado por la UTL.
+La decisión y el schema están documentados en
+[docs/24-manifest-y-sample-data.md](docs/24-manifest-y-sample-data.md).
 
 ## Pipeline de ejecución
 
@@ -49,6 +54,7 @@ python viz/heatmap.py
 python viz/scatter.py
 python outputs/generar_manifest.py
 python scripts/verify_delivery.py
+python scripts/quality_gate.py release
 ```
 
 `--preflight` valida cobertura sin descargar mesas. La ejecución sin el flag descarga CA/SE por mesa, valida el payload y carga SQLite de forma idempotente. Para smoke tests puede usarse `--limit-mesas 1`; la entrega final debe omitirlo.
@@ -101,7 +107,9 @@ La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/0
 - Campos verificados: `elec`, `amb`, `dept`, `mdhm`, `metota`, `mesesc`, `centota`, `votant`, `codpar`, `codcan`, `nomcan`, `apecan`, `vot` y `pref`, entre otros.
 - Contrato, evidencias, jerarquía y fallback: [docs/09-contrato-api-registraduria.md](docs/09-contrato-api-registraduria.md).
 
-Si la API no responde durante la ejecución, se usarán los archivos oficiales de `sample_data/` y se documentará el intento, sin cambiar el modelo de dominio.
+Si la API no responde durante la ejecución, se usarán las capturas trazables de
+`sample_data/candidate_captured/` y se documentará el intento, sin cambiar el
+modelo de dominio ni atribuir esas muestras a la UTL.
 
 
 ## Municipios en la BD

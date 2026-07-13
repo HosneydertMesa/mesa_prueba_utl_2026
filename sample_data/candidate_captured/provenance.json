@@ -1,0 +1,47 @@
+{
+  "files": {
+    "act_ca_tunja_mesa_001.json": {
+      "bytes": 122567,
+      "etag": "\"69b1a4c3-1f1c0\"",
+      "fetched_at": "2026-07-13T01:49:36.927359+00:00",
+      "sha256": "f6e8230795e0c7b0dfaeddbaf52da6e0f6790ee88dc1c0e1f7e1352e787906b0",
+      "transformation": "payload extraído de la envoltura de caché, sin el campo cedula por minimización, y reserializado",
+      "url": "https://resultadospreccongreso2026.registraduria.gov.co/json/ACT/CA/0700001010001000001.json"
+    },
+    "act_se_tunja_mesa_001.json": {
+      "bytes": 242818,
+      "etag": "\"69b194aa-40af4\"",
+      "fetched_at": "2026-07-13T01:49:37.134631+00:00",
+      "sha256": "ecd5de71c272cee6ad45ffb237bef99c6bf33876a60eedb12163d7466bd1d5e2",
+      "transformation": "payload extraído de la envoltura de caché, sin el campo cedula por minimización, y reserializado",
+      "url": "https://resultadospreccongreso2026.registraduria.gov.co/json/ACT/SE/0700001010001000001.json"
+    },
+    "nomenclator_boyaca_sample.json": {
+      "bytes": 42595,
+      "etag": "\"69b1aa15-88e826\"",
+      "fetched_at": "2026-07-13T01:49:23.186366+00:00",
+      "sha256": "f3ba5a3e8226ab7869b13fc67a3a8fef540d2f70a7e164d75e2a4568ff10346b",
+      "transformation": "subconjunto Boyacá para los cuatro municipios obligatorios",
+      "url": "https://resultadospreccongreso2026.registraduria.gov.co/json/nomenclator.json"
+    }
+  },
+  "official_utl_sample": false,
+  "provenance": "candidate_captured_from_public_api_cache",
+  "schema_version": 1,
+  "scope": {
+    "act_sample_municipality": "TUNJA",
+    "act_sample_table": "0700001010001000001",
+    "corporations": [
+      "CA",
+      "SE"
+    ],
+    "municipalities_in_nomenclator": [
+      "TUNJA",
+      "PAIPA",
+      "SOGAMOSO",
+      "DUITAMA"
+    ]
+  },
+  "serialization": "UTF-8 JSON compacto, claves ordenadas; bytes HTTP originales no disponibles",
+  "source_base_url": "https://resultadospreccongreso2026.registraduria.gov.co"
+}

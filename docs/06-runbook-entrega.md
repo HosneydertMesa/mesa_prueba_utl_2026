@@ -3,7 +3,7 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 60 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- Verdes localmente: 64 pruebas, Ruff, DEV, QA, SEC, REVIEW y RELEASE.
 - En nube: retos 1-5, bonus y Dashboard 2.0 integrados en `main`; toda evolución
   web se valida mediante CI antes de su promoción.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
@@ -18,18 +18,18 @@
   `https://hosneydertmesa.github.io/mesa_prueba-utl_2026/` desde `main`.
 - Publicado: Release `data-v1.0.0` con bases 4/4 y 7/7, tamaños y SHA-256.
 - Verificado: clon limpio, descarga de assets, auditorías, exportador, PNG,
-  60 pruebas y gates DEV/QA/SEC/REVIEW en menos de 2 minutos observados en esta
+  60 pruebas del corte anterior y gates DEV/QA/SEC/REVIEW en menos de 2 minutos observados en esta
   máquina con caché normal de paquetes.
-- Pendientes: insumos/manifest oficial, QA manual Firefox + `file://` y tag final.
+- Verificado adicional: muestras reales trazables, manifest `OK`, 4/4 municipios,
+  SQL `OK` ×3 y gate RELEASE verde.
+- Pendientes: QA manual Firefox + `file://` y tag final.
 
 ## Cierre restante
 
 1. Abrir `dashboard/index.html` mediante `file://` en Chrome y Firefox.
 2. Repetir teclado, tema, CSV y tooltips en Firefox; registrar evidencia manual.
-3. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
-4. Confirmar `evaluation_manifest.json`: 4/4 municipios y SQL `OK` ×3.
-5. Ejecutar `python scripts/quality_gate.py release` hasta obtener verde.
-6. Congelar `main`, crear tag final, registrar SHA y enviar una sola vez.
+3. Regenerar el manifest y confirmar 4/4 municipios, SQL `OK` ×3 y RELEASE verde.
+4. Congelar `main`, crear tag final, registrar SHA y enviar una sola vez.
 
 ## Comandos reproducibles actuales
 
@@ -44,8 +44,10 @@ gh release download data-v1.0.0 --pattern puestos_2026_bonus.db --dir db
 python scripts/audit_database.py --db db/puestos_2026_bonus.db \
   --output outputs/auditoria_bonus_local.json --require-bonus
 python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
+python outputs/generar_manifest.py
 python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
+python scripts/quality_gate.py release
 ```
 
 La segunda ejecución del scraper debe informar `insertadas=0`. Durante desarrollo
@@ -60,8 +62,7 @@ limitaciones en `docs/23-evidencia-cierre-reproducibilidad.md`.
 2. Seguir únicamente el README con cronómetro de 10 minutos.
 3. Instalar dependencias en un entorno virtual.
 4. Obtener la base desde el Release o regenerarla.
-5. Ejecutar auditoría, SQL, exportación y PNG; el manifest requiere los insumos
-   originales de la UTL.
+5. Ejecutar auditoría, SQL, exportación, PNG y manifest contractual.
 6. Abrir dashboard desde disco y revisar DevTools Console.
 7. Registrar cualquier conocimiento implícito, corregir README y repetir.
 
@@ -84,10 +85,11 @@ limitaciones en `docs/23-evidencia-cierre-reproducibilidad.md`.
 
 ## Recuperación
 
-- API caída: usar caché o muestras oficiales, conservar evidencia y documentar.
+- API caída: usar caché o `sample_data/candidate_captured/`, conservar evidencia y documentar.
 - JSON 200 inválido: retry/backoff automático; nunca cachear cuerpo corrupto.
 - SQL ERROR: ejecutar fixture calculable, corregir y regenerar auditoría/manifest.
 - Dashboard `file://` falla: eliminar fetch local y embeber/cargar datos compatible.
 - DB grande: mantener ignorada, crear Release asset y comprobar descarga.
-- Manifest ausente: no fabricarlo; conservar auditoría local y solicitar insumo.
+- Manifest inconsistente: regenerarlo, revisar `overall_status`, corregir la causa
+  y repetir `quality_gate.py release`; no editar el JSON manualmente.
 - GitHub falla al final: conservar SHA/evidencia y usar el canal indicado por UTL.

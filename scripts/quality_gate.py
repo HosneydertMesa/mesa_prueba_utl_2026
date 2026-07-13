@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import compileall
+import json
 import re
 import subprocess
 import sys
@@ -42,6 +43,13 @@ REQUIRED_BASE = (
     "dashboard/index.html",
     "viz/heatmap.py",
     "viz/scatter.py",
+    "outputs/generar_manifest.py",
+    "outputs/evaluation_manifest.example.json",
+    "scripts/export_sample_data.py",
+    "sample_data/candidate_captured/provenance.json",
+    "sample_data/candidate_captured/nomenclator_boyaca_sample.json",
+    "sample_data/candidate_captured/act_ca_tunja_mesa_001.json",
+    "sample_data/candidate_captured/act_se_tunja_mesa_001.json",
 )
 
 REQUIRED_H2 = [
@@ -142,12 +150,54 @@ def gate_review() -> None:
         raise GateFailure("PDF dentro del repo público: " + ", ".join(map(str, pdfs)))
 
 
+def validate_release_manifest(manifest: object) -> list[str]:
+    if not isinstance(manifest, dict):
+        return ["la raíz debe ser un objeto JSON"]
+    failures: list[str] = []
+    if manifest.get("generator_provenance") != "candidate_implemented_from_pdf_contract":
+        failures.append("procedencia del generador inválida")
+    if manifest.get("overall_status") != "OK":
+        failures.append("overall_status no es OK")
+    meta = manifest.get("meta", {})
+    if not isinstance(meta, dict) or any(
+        not str(meta.get(key, "")).strip() for key in ("nombre", "email", "repositorio")
+    ):
+        failures.append("META incompleta")
+    scope = manifest.get("scope", {})
+    if not isinstance(scope, dict) or (
+        scope.get("municipalities_loaded"), scope.get("municipalities_expected")
+    ) != (4, 4):
+        failures.append("cobertura del manifest distinta de 4/4")
+    sql_tasks = manifest.get("sql_tasks", {})
+    if not isinstance(sql_tasks, dict) or set(sql_tasks) != {"3.1", "3.2", "3.3"}:
+        failures.append("tareas SQL incompletas")
+    elif any(
+        not isinstance(task, dict) or task.get("status") != "OK"
+        for task in sql_tasks.values()
+    ):
+        failures.append("alguna tarea SQL no está OK")
+    sample_data = manifest.get("sample_data", {})
+    if not isinstance(sample_data, dict) or sample_data.get("status") != "OK":
+        failures.append("sample_data no está verificado")
+    scatter = manifest.get("scatter_statistics", {})
+    if not isinstance(scatter, dict) or not re.fullmatch(
+        r"r=-?\d+\.\d{3} \| pendiente=-?\d+\.\d{3} \| n_mesas=\d+",
+        str(scatter.get("stdout", "")),
+    ):
+        failures.append("stdout del scatter inválido")
+    return failures
+
+
 def gate_release() -> None:
     required_release = (
         "db/puestos_2026.db",
         "outputs/generar_manifest.py",
         "outputs/evaluation_manifest.json",
         "outputs/evaluation_manifest.example.json",
+        "sample_data/candidate_captured/provenance.json",
+        "sample_data/candidate_captured/nomenclator_boyaca_sample.json",
+        "sample_data/candidate_captured/act_ca_tunja_mesa_001.json",
+        "sample_data/candidate_captured/act_se_tunja_mesa_001.json",
         "viz/heatmap_municipios.png",
         "viz/scatter_ca_se.png",
     )
@@ -157,6 +207,14 @@ def gate_release() -> None:
         missing.append("metadata real del candidato en README")
     if missing:
         raise GateFailure("entrega aún incompleta:\n- " + "\n- ".join(missing))
+    manifest_path = ROOT / "outputs/evaluation_manifest.json"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise GateFailure(f"evaluation_manifest.json inválido: {error}") from error
+    failures = validate_release_manifest(manifest)
+    if failures:
+        raise GateFailure("manifest no conforme:\n- " + "\n- ".join(failures))
 
 
 GATES = {"dev": gate_dev, "qa": gate_qa, "sec": gate_sec, "review": gate_review}

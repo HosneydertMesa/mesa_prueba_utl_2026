@@ -9,19 +9,18 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 60 pruebas pasan, Ruff está limpio y los gates
-DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
-cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
-insumos del manifest oficial y la distribución de la base.
+Estado actual: 64 pruebas pasan, Ruff está limpio y los gates
+DEV/QA/SEC/REVIEW/RELEASE están verdes. GitHub Actions ejecuta los controles
+base en cada push y PR; RELEASE se ejecuta localmente después de descargar la
+base contractual desde el Release.
 
 ## Pirámide de pruebas
 
 - Unitarias: normalización, parsing, claves, ratios, atribución y stdout.
 - Integración: fixture CA+SE -> SQLite temporal -> SQL -> exportación.
 - Contrato: archivos, headings, colores, JSON, columnas y HTML autocontenido.
-- End-to-end: cuatro municipios obligatorios ya auditados, dashboard 7/7,
-  heatmap y scatter completos; base bonus auditada; revisión manual
-  multinavegador y manifest pendientes.
+- End-to-end: cuatro municipios obligatorios auditados, manifest `OK`, dashboard
+  7/7, heatmap y scatter completos; sólo resta la revisión manual Firefox/`file://`.
 
 ## Evidencia específica del bonus municipal
 
@@ -107,10 +106,10 @@ python scripts/audit_database.py
 ruff check scraper scripts tests db
 pytest --cov
 
-# Sólo cuando lleguen los insumos oficiales
 python scripts/verify_delivery.py
 python outputs/generar_manifest.py
+python scripts/quality_gate.py release
 ```
 
 `scripts/audit_database.py` es una verificación local explícitamente no oficial;
-no reemplaza el generador del evaluador.
+complementa el manifest contractual con evidencia de calidad más detallada.

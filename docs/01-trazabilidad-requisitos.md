@@ -4,13 +4,13 @@
 |---|---:|---|---|---|
 | 1.1 API | 8 | Implementado | README, contrato y nomenclator real | ninguno local |
 | 1.2 Scraper | 12 | Implementado | retry, progreso y segunda corrida completa | ninguno local |
-| 1.3 Validación | 5 | Validado local | 4/4 y 2.214 en auditoría | manifest oficial |
+| 1.3 Validación | 5 | Validado | 4/4 y 2.214 en manifest | ninguno local |
 | 2.1 Schema | 10 | Implementado | FK, UNIQUE, NOT NULL, checks y cinco índices | ninguno local |
 | 2.2 ETL | 10 | Implementado | normalización, transacciones y `carga_log` | ninguno local |
-| 2.3 Verificación | 5 | Validado local | conteos, balances y líderes SE | manifest oficial |
-| 3.1 Arrastre | 9 | Implementado | 73 puestos, `5→57`, cero seguro | manifest oficial |
-| 3.2 Dominancia | 8 | Implementado | 3.780 filas, umbral estricto probado | manifest oficial |
-| 3.3 Atribución | 8 | Implementado | fórmula exacta y top 5 | manifest oficial |
+| 2.3 Verificación | 5 | Validado | conteos, balances y líderes SE municipales | ninguno local |
+| 3.1 Arrastre | 9 | Validado | 73 puestos, `5→57`, SQL `OK` | ninguno local |
+| 3.2 Dominancia | 8 | Validado | 3.780 filas, SQL `OK` | ninguno local |
+| 3.3 Atribución | 8 | Validado | fórmula exacta, top 5 y SQL `OK` | ninguno local |
 | 4 Dashboard | 15 | Implementado + v2 | HTML autocontenido, JSON v2, heatmap y scatter interactivos | revisión manual Chrome/Firefox |
 | 5.1 Heatmap | 5 | Implementado | `viz/heatmap.py` + PNG 8×4 anotado | validación oficial |
 | 5.2 Scatter | 5 | Implementado | `viz/scatter.py`, OLS/Pearson, PNG y stdout exacto | validación oficial |
@@ -26,7 +26,7 @@
 - Base implementada y verificada internamente: 100/100 puntos potenciales.
 - Base pendiente de implementación: 0/100 puntos.
 - Bonus implementado: +15/+15 puntos potenciales.
-- Validación oficial pendiente: retos 1.3, 2.3 y 3.x por ausencia del generador.
+- Manifest contractual: `overall_status=OK`, 4/4 municipios y SQL `OK` ×3.
 
 ## Penalizaciones convertidas en controles
 
@@ -43,10 +43,10 @@
 - Reto 1.1 API: implementado y verificado contra el portal oficial; contrato en `docs/09-contrato-api-registraduria.md` y resolución en `scraper/nomenclator.py`.
 - Reto 1.2a preflight/HTTP: implementado; 4/4 municipios, 73 puestos, 1.107 mesas y 2.214 solicitudes ACT estimadas sin descargar resultados.
 - Reto 1.2b descarga, parsing y persistencia idempotente: implementado; corrida completa y segunda ejecución con cero inserciones verificadas.
-- Reto 1.3 validación: auditoría local 4/4, 73 puestos, 1.107 mesas y 2.214 resultados aprobada; manifest oficial pendiente de recibir.
+- Reto 1.3 validación: manifest 4/4, 73 puestos, 1.107 mesas y 2.214 resultados aprobado.
 - Reto 2.1 schema SQLite: implementado con FK, NOT NULL, CHECK, carga_log, claves UNIQUE y cinco índices justificados.
 - Reto 2.2 ETL: implementado con normalización, catálogo de partidos, transacciones y filas insertadas/omitidas.
-- Reto 2.3 verificación: conteos, balances, integridad, anomalías de fuente y líderes SE incluidos en `outputs/auditoria_local.json`; manifest oficial pendiente.
+- Reto 2.3 verificación: conteos, balances, integridad, anomalías de fuente y líderes SE municipales incluidos en el manifest y la auditoría detallada.
 - Reto 3.1 arrastre: implementado con homologación `5→57`, 73 puestos y denominador cero como `NULL`.
 - Reto 3.2 dominancia: implementado para CA/SE, candidatos individuales y umbral estricto `>0.60`.
 - Reto 3.3 atribución: implementado con homologación ponderada, fórmula por mesa y top 5 consolidado.

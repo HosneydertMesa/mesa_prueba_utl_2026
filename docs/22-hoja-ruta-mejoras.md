@@ -2,7 +2,7 @@
 
 > Corte: 13 de julio de 2026. Base de partida del incremento: merge commit
 > `8c7e4ea53a83212cc0b25971fb7c6772bbf50d15`. Estado posterior a PR #10 y #11:
-> dashboard publicado y 60 pruebas verdes.
+> dashboard publicado; el incremento de cierre eleva la suite a 64 pruebas verdes.
 
 ## Propósito
 
@@ -16,26 +16,26 @@ Este documento separa tres clases de trabajo que no deben mezclarse:
    cuando la entrega base está congelada y reproducible.
 
 Las mejoras nunca deben reemplazar el heatmap 8×4, el scatter de 1.107 mesas,
-los tres SQL, los nombres/colores exigidos ni el manifest oficial.
+los tres SQL, los nombres/colores exigidos ni el manifest contractual.
 
 ## Estado de partida
 
 | Área | Estado confirmado | Asunto abierto |
 |---|---|---|
-| Retos 1-5 | 100/100 potenciales, auditados localmente | validación con manifest oficial |
+| Retos 1-5 | 100/100 potenciales, manifest `OK` | evaluación externa |
 | Bonus | +15/+15 potenciales | validación del evaluador |
 | Datos base | 4 municipios, 1.107 mesas, 2.214 ACT; asset y SHA-256 públicos | validación oficial |
 | Datos bonus | 7 municipios, 1.432 mesas, 2.864 ACT; asset y SHA-256 públicos | validación oficial |
 | Dashboard | workspace BI, 4/7, modo guiado, URL compartible, dark mode y CSV | Firefox y apertura manual `file://` |
 | Publicación | Pages HTTPS activo, Actions Node 24 y smoke posdespliegue | validar cada despliegue de `main` |
-| Reproducibilidad | clon limpio completo en <2 minutos observados; gates base verdes | RELEASE espera manifest oficial |
-| Insumos UTL | PDF revisado, contrato documentado | faltan muestras y generador oficiales |
+| Reproducibilidad | clon limpio <2 minutos; gate RELEASE verde en el workspace | repetir tras congelar SHA |
+| Insumos recibidos | sólo PDF, sin adjuntos embebidos | resuelto con capturas trazables y manifest propio explícito |
 
 ## Prioridad P0: cerrar antes de entregar
 
 | ID | Mejora o cierre | Valor | Esfuerzo estimado | Criterio de terminado |
 |---|---|---|---:|---|
-| P0-01 | Incorporar insumos oficiales | Evita falsos positivos frente al evaluador | depende de UTL | archivos originales sin modificar, manifest ejecutado y SQL `OK` ×3 |
+| P0-01 | Resolver archivos obligatorios no incluidos | Evita ausencias y atribución falsa | completado | muestras con hashes, manifest ejecutado y SQL `OK` ×3 |
 | P0-02 | Publicar SQLite contractual en Release | Permite reproducir sin descargar nuevamente 2.214 ACT | 30-45 min | asset descargable, tamaño y SHA-256 documentados en README |
 | P0-03 | Ensayar clon limpio | Prueba que no dependemos de caché o conocimiento implícito | 45-60 min | ejecución documentada en menos de 10 minutos y gate RELEASE verde |
 | P0-04 | QA manual de interfaz | Cubre riesgos visuales que los contratos HTML no detectan | 30-45 min | Chrome y Firefox; desktop y móvil; teclado, tema, CSV, tooltips y consola limpios |
@@ -46,12 +46,13 @@ Estado ejecutado al 13 de julio de 2026:
 - **P0-02 completado:** Release público `data-v1.0.0` con las bases 4/4 y 7/7,
   tamaños y digests SHA-256 verificados por GitHub.
 - **P0-03 completado en su parte técnica:** clon independiente, entorno virtual,
-  descarga, auditorías, dashboard, PNG, 60 pruebas y gates base reproducidos. El
-  gate RELEASE solo espera tres archivos oficiales.
+  descarga, auditorías, dashboard, PNG, 60 pruebas del corte y gates base reproducidos.
+- **P0-01 completado:** tres muestras reales con procedencia, generador, ejemplo,
+  `evaluation_manifest.json`, 4/4 y SQL `OK` ×3; RELEASE está verde.
 - **P0-04 avanzado:** Chrome público, teclado, tema, CSV real, presentación,
   alcance 8×4/8×7, filtro scatter, consola y viewports 360/768/1280/1920 verdes.
   Firefox y `file://` permanecen como comprobación manual.
-- **P0-01 bloqueado externamente** y **P0-05 pendiente** hasta recibir el manifest.
+- **P0-05 pendiente** únicamente del QA manual final y congelamiento autorizado.
 
 ### Evidencia mínima de P0-04
 
@@ -137,10 +138,9 @@ riesgo de sobreajuste que valor.
 ## Orden recomendado de ejecución
 
 1. Completar Firefox y `file://` manual (P0-04).
-2. Solicitar o recibir insumos oficiales (P0-01).
-3. Ejecutar manifest y gate RELEASE.
-4. Congelar SHA/tag y entregar (P0-05).
-5. Solo con margen, completar P1-04/P1-06 o presentar P2-01/P2-02 como anexo.
+2. Regenerar manifest y repetir RELEASE sobre el SHA candidato.
+3. Congelar SHA/tag y entregar (P0-05).
+4. Solo con margen, completar P1-04/P1-06 o presentar P2-01/P2-02 como anexo.
 
 ## Regla de decisión
 

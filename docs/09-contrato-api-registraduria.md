@@ -102,7 +102,8 @@ Además usará timeout explícito, cache local, retry limitado con backoff y con
 ## Fallback y control de cambios
 
 1. Descargar y validar primero nomenclator/config.
-2. Si ACT falla, usar `sample_data` oficial sin cambiar el parser de dominio.
+2. Si ACT falla, usar las capturas trazables de `sample_data/candidate_captured/`
+   sin cambiar el parser de dominio; si llega un paquete UTL, conservarlo aparte.
 3. Registrar fecha, URL, status, ETag y checksum de cada fuente.
 4. Detectar cambios comparando `versionNomenclator`, claves obligatorias y conteos.
 5. No interpretar un 404 como municipio sin votos: revisar extensión `.json`, código y versión.
