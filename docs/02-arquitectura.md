@@ -83,6 +83,8 @@ se expresa sólo en las consultas que la necesitan.
 - Datos fuente y nombres normalizados se conservan por separado.
 - Orden explícito y `NULLIF` en SQL para resultados repetibles y cero seguro.
 - La base de 64 MB no se versiona; la entrega prevista es GitHub Release asset.
+- La ampliación bonus usa `db/puestos_2026_bonus.db`; separar bases impide que los
+  tres municipios adicionales alteren los resultados contractuales de cuatro.
 - El dashboard incorpora los datos como JSON embebido para ser compatible con
   `file://` sin servidor ni solicitudes bloqueadas por CORS.
 - El tema se resuelve con CSS custom properties y una preferencia local; el CSV

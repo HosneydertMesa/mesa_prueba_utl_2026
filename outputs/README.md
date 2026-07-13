@@ -5,3 +5,6 @@ Incorporar `generar_manifest.py` y `evaluation_manifest.example.json` originales
 Mientras se reciben esos insumos, `python scripts/audit_database.py` genera
 `auditoria_local.json`. El archivo declara `audit_type=local_non_official` para
 evitar confundirlo con el manifest del evaluador.
+
+`auditoria_bonus_local.json` aplica el mismo contrato local a una base separada
+de siete municipios. También es evidencia no oficial y no reemplaza el manifest.

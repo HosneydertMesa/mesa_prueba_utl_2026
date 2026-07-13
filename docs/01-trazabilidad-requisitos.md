@@ -19,13 +19,13 @@
 | B3 Explicación | +2 | Implementado | README y `docs/13-sql-analitico.md` | validación oficial |
 | B4 Dark mode | +3 | Implementado | CSS custom properties, preferencia y persistencia local | validación oficial |
 | B5 CSV | +2 | Implementado | exportación UTF-8 de la selección municipal visible | validación oficial |
-| B6 Municipios | +3 | Planificado | incremento independiente documentado | ampliar scraper y regenerar evidencia |
+| B6 Municipios | +3 | Implementado | 3 adicionales, auditoría 7/7 y segunda corrida en cero | validación oficial |
 
 ## Resumen cuantitativo
 
 - Base implementada y verificada internamente: 100/100 puntos potenciales.
 - Base pendiente de implementación: 0/100 puntos.
-- Bonus implementado: +12/+15 puntos potenciales.
+- Bonus implementado: +15/+15 puntos potenciales.
 - Validación oficial pendiente: retos 1.3, 2.3 y 3.x por ausencia del generador.
 
 ## Penalizaciones convertidas en controles

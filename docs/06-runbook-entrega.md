@@ -3,14 +3,15 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 50 pruebas, Ruff, DEV, QA, SEC y REVIEW.
-- En nube: retos 1-5 integrados en `main`; el bonus de interfaz se desarrolla en
-  `codex/feat-bonus-dashboard-dark-csv`.
+- Verdes localmente: 52 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- En nube: retos 1-5 y bonus de interfaz integrados en `main`; el bonus municipal
+  se desarrolla en `codex/feat-bonus-municipios-boyaca`.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
   autocontenido con datos embebidos.
 - Completado adicional: heatmap 8×4 anotado y superior a 10 KB.
 - Completado adicional: scatter de 1.107 mesas, OLS/Pearson y stdout exacto.
 - Completado adicional: modo oscuro persistente y exportación CSV municipal.
+- Completado adicional: tres municipios bonus, auditoría 7/7 e idempotencia.
 - Pendientes: insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
@@ -31,6 +32,10 @@
 python scraper/scraper.py --preflight
 python scraper/scraper.py
 python scripts/audit_database.py
+python scraper/scraper.py --preflight --incluir-bonus
+python scraper/scraper.py --incluir-bonus --db db/puestos_2026_bonus.db
+python scripts/audit_database.py --db db/puestos_2026_bonus.db \
+  --output outputs/auditoria_bonus_local.json --require-bonus
 python dashboard/export_data.py
 python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
@@ -57,6 +62,7 @@ se puede usar la caché ignorada por Git; el clon limpio debe funcionar sin ella
 - Base SQLite disponible en Release con enlace y checksum.
 - Dashboard: cuatro municipios, colores exactos, línea 1.0 y consola limpia.
 - Bonus dashboard: tema claro/oscuro y CSV válido en apertura directa `file://`.
+- Bonus scraper: evidencia 7/7 disponible sin sustituir la base contractual 4/4.
 - PNG existentes, legibles y mayores de 10 KB.
 - Secretos, PDF confidencial, caché y temporales ausentes del commit.
 - `python scripts/quality_gate.py release` verde.
