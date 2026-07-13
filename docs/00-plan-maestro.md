@@ -15,9 +15,9 @@ meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 | Reto 2 - SQLite y ETL | 25 | Implementado; manifest oficial pendiente | integridad `ok`, cero FK inválidas, auditoría local |
 | Reto 3 - SQL analítico | 25 | Implementado y probado | SQL 3.1/3.2/3.3 `ok`, casos calculables |
 | Reto 4 - Dashboard | 15 | Implementado y probado | HTML autocontenido, contrato embebido y 4/4 municipios |
-| Reto 5 - Visualizaciones | 10 | En progreso; 5.1 completo | heatmap 8×4 generado y probado; scatter pendiente |
+| Reto 5 - Visualizaciones | 10 | Implementado y probado | heatmap 8×4 + scatter de 1.107 mesas |
 
-Cobertura funcional interna: **95/100 puntos base potenciales**. Esta cifra no es
+Cobertura funcional interna: **100/100 puntos base potenciales**. Esta cifra no es
 una calificación oficial: los retos 1.3 y 2.3 sólo quedan cerrados para entrega
 cuando se ejecute `generar_manifest.py` original, aún no suministrado.
 
@@ -43,7 +43,7 @@ adicional actual: **+7**, sujeto a evaluación.
 | 2. Cobertura | Completada localmente | Cuatro municipios | 4/4 y 2.214 resultados en auditoría local |
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
 | 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 4 municipios y JS válido |
-| 5. Visualizaciones | En progreso | Heatmap completo; scatter pendiente | ambos PNG >10 KB y stdout 5.2 exacto |
+| 5. Visualizaciones | Completada | Heatmap + scatter | ambos PNG >10 KB y stdout 5.2 exacto |
 | 6. Entrega | Pendiente | Manifest, Release y repo | clon limpio, manifest oficial y PR integrado |
 
 ## Plan atómico restante
@@ -90,12 +90,16 @@ Evidencia: top 8 por votación CA consolidada en los cuatro municipios, matriz
 8×4 con porcentaje sobre votos CA municipales, anotaciones visibles y PNG de
 más de 200 KB. Pruebas cubren ranking, fórmula, cobertura y dimensiones.
 
-### Incremento 5.2 - Scatter (5 puntos)
+### Incremento 5.2 - Scatter (completado, 5 puntos)
 
 - Una observación por mesa y color por municipio.
 - OLS, Pearson y línea ajustada sin lenguaje causal.
 - Stdout exacto: `r=X.XXX | pendiente=X.XXX | n_mesas=NNN`.
 - Generar `viz/scatter_ca_se.png` legible y >10 KB.
+
+Evidencia: 1.107 mesas pareadas mediante `resumen_mesa`, cuatro colores
+municipales, OLS global, Pearson anotado y stdout exacto. Resultado observado:
+`r=0.964 | pendiente=0.933 | n_mesas=1107`; PNG superior a 260 KB.
 
 ### Incremento 6 - Preparación de entrega
 

@@ -1,6 +1,6 @@
 # MESA — Prueba Técnica UTL Senado 2026
 
-> Estado: retos 1-4 y 5.1 implementados y auditados localmente; Reto 5.2 pendiente.
+> Estado: retos 1-5 implementados y auditados localmente; 100/100 base potencial.
 > Desarrollo incremental con gates DEV, QA, SEC, REVIEW y validación en CI.
 
 ## Candidato
@@ -62,6 +62,9 @@ en [docs/15-dashboard-html.md](docs/15-dashboard-html.md).
 El criterio, la fórmula y la validación del heatmap 8×4 están documentados en
 [docs/16-heatmap-municipios.md](docs/16-heatmap-municipios.md).
 
+El pareo por mesa, OLS, Pearson y contrato stdout del scatter están documentados
+en [docs/17-scatter-ca-se.md](docs/17-scatter-ca-se.md).
+
 
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.
 
@@ -111,6 +114,9 @@ de distribución de la base se cerrará antes de la entrega.
 - En el heatmap, Yamit Noé Hurtado Neira registra la mayor participación de una
   celda: 28,3% de los votos CA de Paipa. El ranking de filas es consolidado en
   los cuatro municipios, por lo que no equivale al top individual de cada ciudad.
+- Los votos válidos CA y SE por mesa presentan una asociación lineal alta
+  (`r=0,964`, pendiente OLS `0,933`, `n=1.107`). Es una relación descriptiva del
+  mismo evento electoral y no demuestra transferencia ni causalidad.
 
 Son hallazgos descriptivos del alcance cargado, no evidencia causal. La estrategia
 analítica está en [docs/04-estrategia-analitica-ml.md](docs/04-estrategia-analitica-ml.md).

@@ -6,7 +6,7 @@
 2. **Completado:** arrastre Verde `votos_SE_codpar57 / votos_CA_codpar5` por puesto.
 3. **Completado:** dominancia individual por mesa estrictamente mayor a 60%.
 4. **Completado:** atribución SE con fórmula exacta y homologación documentada.
-5. **Pendiente (Reto 5.2):** OLS y Pearson por mesa, con n y pendiente visibles.
+5. **Completado (Reto 5.2):** OLS y Pearson por mesa, con n y pendiente visibles.
 
 ## Diferenciador recomendado después del Reto 5
 
@@ -30,7 +30,8 @@ La validación debe agrupar por municipio o puesto; una partición aleatoria mez
 
 Entregable opcional: `analysis/model_diagnostics.py` y
 `outputs/model_metrics.json`, sólo cuando dashboard, heatmap, scatter y manifest
-base estén verdes. El modelo no debe retrasar los 25 puntos base restantes.
+base estén verdes. Los 100 puntos base ya están implementados localmente; el
+modelo continúa pospuesto hasta cerrar los controles de entrega y manifest.
 
 ## Criterio de activación ML
 

@@ -3,13 +3,14 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 45 pruebas, Ruff, DEV, QA, SEC y REVIEW.
-- En nube: retos 1-4 integrados en `main` mediante PR #1; 5.1 se desarrolla en
-  `codex/feat-reto-5-1-heatmap`.
+- Verdes localmente: 49 pruebas, Ruff, DEV, QA, SEC y REVIEW.
+- En nube: retos 1-4 integrados mediante PR #1 y 5.1 mediante PR #2; 5.2 se
+  desarrolla en `codex/feat-reto-5-2-scatter-ca-se`.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
   autocontenido con datos embebidos.
 - Completado adicional: heatmap 8×4 anotado y superior a 10 KB.
-- Pendientes: scatter, insumos/manifest oficial, Release de DB y clon limpio.
+- Completado adicional: scatter de 1.107 mesas, OLS/Pearson y stdout exacto.
+- Pendientes: insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
 
@@ -18,7 +19,7 @@
 3. Abrir `dashboard/index.html` directamente en Chrome/Firefox y revisar consola.
 4. Mantener dark mode/CSV pospuestos hasta completar los 100 puntos base.
 5. Regenerar `viz/heatmap_municipios.png` y confirmar matriz 8×4 >10 KB.
-6. Implementar `viz/scatter.py`, PNG y stdout exacto.
+6. Regenerar `viz/scatter_ca_se.png` y confirmar stdout exacto.
 7. Incorporar insumos oficiales sin modificarlos y ejecutar manifest.
 8. Publicar SQLite como Release asset y enlazar checksum/URL.
 9. Ensayar clon limpio, gate RELEASE, revisión en incógnito y promoción.
