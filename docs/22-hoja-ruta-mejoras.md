@@ -1,8 +1,8 @@
 # Hoja de ruta de cierre y mejoras
 
-> Corte: 13 de julio de 2026. Base funcional de referencia: merge commit
-> `8c7e4ea53a83212cc0b25971fb7c6772bbf50d15`, dashboard publicado y 60 pruebas
-> verdes.
+> Corte: 13 de julio de 2026. Base de partida del incremento: merge commit
+> `8c7e4ea53a83212cc0b25971fb7c6772bbf50d15`. Estado posterior a PR #10 y #11:
+> dashboard publicado y 60 pruebas verdes.
 
 ## Propósito
 
