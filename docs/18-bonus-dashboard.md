@@ -56,10 +56,11 @@ python scripts/quality_gate.py all
 Los contratos comprueban la declaración del tema oscuro, controles accesibles,
 persistencia local, creación del `Blob`, MIME, BOM, nombre descargable y columna
 `ratio_arrastre`. La revisión manual final debe alternar ambos temas y descargar
-un CSV para cada uno de los cuatro municipios desde Chrome y Firefox.
+un CSV para cada uno de los siete municipios desde Chrome y Firefox.
 
 ## Relación con el bonus municipal
 
 El scraper fue extendido posteriormente a tres municipios adicionales de Boyacá
-(+3 potencial). Su evidencia permanece separada en
-`docs/19-bonus-municipios-boyaca.md`, sin modificar el dashboard contractual.
+(+3 potencial). Su evidencia de obtención permanece separada en
+`docs/19-bonus-municipios-boyaca.md`; el dashboard 2.0 los presenta como alcance
+bonus y conserva heatmap/scatter sobre los cuatro municipios obligatorios.

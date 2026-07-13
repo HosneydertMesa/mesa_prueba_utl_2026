@@ -53,7 +53,13 @@ class DashboardExportIntegrationTests(unittest.TestCase):
         validate_dashboard_contract(data, require_top_ten=False)
         tunja = data["municipios"][0]
 
-        self.assertEqual(data["meta"]["schema_version"], 1)
+        self.assertEqual(data["meta"]["schema_version"], 2)
+        self.assertNotIn("analitica", data)
+        self.assertEqual(data["meta"]["municipios_obligatorios"], 1)
+        self.assertEqual(data["meta"]["municipios_bonus"], 0)
+        self.assertEqual(data["meta"]["mesas_analiticas"], 1)
+        self.assertEqual(len(data["bonificaciones"]), 6)
+        self.assertEqual(sum(item["puntos"] for item in data["bonificaciones"]), 15)
         self.assertEqual(data["meta"]["referencia_arrastre"], 1.0)
         self.assertEqual(data["colores_partido"]["5"], "#007C34")
         self.assertEqual(data["colores_partido"]["92"], "#7B2D8B")

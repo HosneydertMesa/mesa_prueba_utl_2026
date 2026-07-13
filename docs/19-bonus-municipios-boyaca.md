@@ -7,8 +7,10 @@ La ejecución normal sigue procesando Tunja, Paipa, Sogamoso y Duitama en
 `db/puestos_2026.db`. La opción `--incluir-bonus` añade tres municipios y escribe
 una base separada cuando se usa el comando recomendado.
 
-Esta separación evita que la ampliación cambie los resultados SQL, el dashboard,
-las visualizaciones o el futuro manifest calculados sobre el alcance base.
+Esta separación evita que la ampliación cambie los resultados SQL, las
+visualizaciones o el futuro manifest calculados sobre el alcance base. El
+dashboard 2.0 consume explícitamente la base ampliada, etiqueta esos tres
+municipios como bonus y mantiene su analítica sobre el alcance obligatorio.
 
 ## Criterio de selección
 
@@ -32,6 +34,7 @@ python scraper/scraper.py --preflight --incluir-bonus
 python scraper/scraper.py --incluir-bonus --db db/puestos_2026_bonus.db
 python scripts/audit_database.py --db db/puestos_2026_bonus.db \
   --output outputs/auditoria_bonus_local.json --require-bonus
+python dashboard/export_data.py --db db/puestos_2026_bonus.db --include-bonus
 ```
 
 El parser ya no usa una lista cerrada para `--municipios`: normaliza y elimina

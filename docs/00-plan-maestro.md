@@ -14,7 +14,7 @@ meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 | Reto 1 - API y scraper | 25 | Implementado; manifest oficial pendiente | 1.107 mesas, 2.214 ACT, segunda corrida sin inserciones |
 | Reto 2 - SQLite y ETL | 25 | Implementado; manifest oficial pendiente | integridad `ok`, cero FK inválidas, auditoría local |
 | Reto 3 - SQL analítico | 25 | Implementado y probado | SQL 3.1/3.2/3.3 `ok`, casos calculables |
-| Reto 4 - Dashboard | 15 | Implementado y probado | HTML autocontenido, contrato embebido y 4/4 municipios |
+| Reto 4 - Dashboard | 15 | Implementado y probado | HTML autocontenido, 4 obligatorios + 3 bonus etiquetados |
 | Reto 5 - Visualizaciones | 10 | Implementado y probado | heatmap 8×4 + scatter de 1.107 mesas |
 
 Cobertura funcional interna: **100/100 puntos base potenciales**. Esta cifra no es
@@ -43,7 +43,7 @@ evaluación.
 | 1. Esqueleto vertical | Completada | Mesa CA+SE hasta SQLite | reejecución estable y FK activas |
 | 2. Cobertura | Completada localmente | Cuatro municipios | 4/4 y 2.214 resultados en auditoría local |
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
-| 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 4 municipios y JS válido |
+| 4. Dashboard | Completada | HTML autocontenido + datos embebidos | contrato `file://`, 7 municipios con alcance explícito y JS válido |
 | 5. Visualizaciones | Completada | Heatmap + scatter | ambos PNG >10 KB y stdout 5.2 exacto |
 | 6. Entrega | Pendiente | Manifest, Release y repo | clon limpio, manifest oficial y PR integrado |
 
@@ -82,6 +82,20 @@ Evidencia: tema oscuro implementado con CSS custom properties, preferencia del
 sistema y persistencia local; exportación CSV UTF-8 de la selección municipal
 visible. Ambos funcionan desde `file://`, sin recursos externos, y están bajo
 pruebas contractuales. Véase `docs/18-bonus-dashboard.md`.
+
+### Incremento 4.4 - Dashboard Analítico 2.0 (completado, suplementario)
+
+- Extender el contrato embebido a schema v2 sin cambiar las vistas obligatorias.
+- Reutilizar la matriz 8×4 y las 1.107 observaciones del Reto 5.
+- Añadir hallazgos ejecutivos, heatmap semántico y scatter Canvas interactivo.
+- Incorporar los tres municipios extra y la evidencia de los seis bonus sin
+  cambiar el universo analítico obligatorio.
+- Mantener `file://`, accesibilidad, tema oscuro y ausencia de dependencias web.
+
+Evidencia: `dashboard/data.json` contiene siete municipios, seis bonus por
+15 puntos potenciales, la matriz y los puntos auditados; el HTML ofrece filtro
+municipal, tooltips, OLS global y una explicación no causal.
+Véase `docs/20-dashboard-analitico-2.md`.
 
 ### Incremento B6 - Municipios adicionales (completado, +3 potencial)
 
@@ -140,7 +154,8 @@ Estos bloqueos no impiden Reto 4 o 5. Sí impiden declarar cerrados oficialmente
 - Cuatro municipios y ambas corporaciones presentes.
 - `PRAGMA foreign_key_check` vacío e invariantes de votos aprobadas.
 - Tres SQL ejecutadas por el manifest sin error.
-- Dashboard desde `file://`, cuatro municipios y consola limpia.
+- Dashboard desde `file://`, siete municipios etiquetados y consola limpia; las
+  vistas analíticas permanecen sobre cuatro municipios y 1.107 mesas.
 - PNG legibles y mayores de 10 KB.
 - README conserva exactamente los headings obligatorios.
 - Base accesible mediante Release, metadata real, manifest oficial y repo público.

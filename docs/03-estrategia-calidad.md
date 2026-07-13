@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 52 pruebas pasan, Ruff está limpio y los gates
+Estado actual: 54 pruebas pasan, Ruff está limpio y los gates
 DEV/QA/SEC/REVIEW están verdes. GitHub Actions ejecuta los mismos controles en
 cada push y PR. El gate RELEASE sigue rojo por diseño mientras falten los
 insumos del manifest oficial y la distribución de la base.
@@ -19,9 +19,9 @@ insumos del manifest oficial y la distribución de la base.
 - Unitarias: normalización, parsing, claves, ratios, atribución y stdout.
 - Integración: fixture CA+SE -> SQLite temporal -> SQL -> exportación.
 - Contrato: archivos, headings, colores, JSON, columnas y HTML autocontenido.
-- End-to-end: cuatro municipios ya auditados, dashboard contractual, heatmap y
-  scatter completos; base bonus 7/7 auditada; revisión manual multinavegador y
-  manifest pendientes.
+- End-to-end: cuatro municipios obligatorios ya auditados, dashboard 7/7,
+  heatmap y scatter completos; base bonus auditada; revisión manual
+  multinavegador y manifest pendientes.
 
 ## Evidencia específica del bonus municipal
 
@@ -36,12 +36,17 @@ insumos del manifest oficial y la distribución de la base.
 - El JSON embebido debe ser idéntico a `dashboard/data.json`.
 - Se rechazan `fetch`, scripts externos, CDNs y URLs HTTP en el HTML.
 - Cada municipio debe exponer top 10 CA, líder SE y arrastre por puesto.
+- El contrato exige 4 municipios obligatorios, 3 bonus, 104 puestos, 1.432 mesas
+  totales, 1.107 mesas analíticas y seis bonificaciones que suman +15.
 - Los cuatro colores obligatorios y la referencia `1.0` están bajo contrato.
 - El tema oscuro usa CSS custom properties, conserva estado accesible y persiste
   una preferencia local sin comprometer la apertura mediante `file://`.
 - El CSV exportado contiene la selección municipal visible, cabeceras estables,
   BOM UTF-8 y valores escapados; no necesita backend ni acceso de red.
 - El JavaScript embebido se compila sintácticamente con Node antes del commit.
+- El schema v2 exige matriz 8×4, 1.107 puntos y `n_mesas=1107`.
+- El heatmap interactivo usa una tabla semántica; el scatter Canvas conserva
+  resumen textual, filtros con `aria-pressed` y descripción accesible.
 
 ## Evidencia específica del heatmap
 
