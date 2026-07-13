@@ -9,7 +9,7 @@
 5. Validación local, auditoría/manifest aplicable y documentación.
 6. Commit pequeño, push a rama y CI en PR borrador.
 
-Estado actual: 33 pruebas pasan, Ruff está limpio, los gates
+Estado actual: 36 pruebas pasan, Ruff está limpio, los gates
 DEV/QA/SEC/REVIEW están verdes y GitHub Actions valida el PR #1. El gate RELEASE
 sigue rojo por diseño mientras falten dashboard, PNG y manifest oficial.
 

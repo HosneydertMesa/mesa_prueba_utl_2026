@@ -3,6 +3,7 @@
   "blocking_checks": {
     "candidate_balances": true,
     "coverage": true,
+    "dashboard_export_contract": true,
     "foreign_key_check": true,
     "integrity_check": true,
     "no_failed_or_incomplete_loads": true,
@@ -46,6 +47,12 @@
       "resultados_CA": 424,
       "resultados_SE": 424
     }
+  },
+  "dashboard_export": {
+    "mesas": 1107,
+    "municipios": 4,
+    "ok": true,
+    "puestos": 73
   },
   "leaders_SE": {
     "candidate": {

@@ -13,6 +13,10 @@ if __package__ in {None, ""}:
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from dashboard.export_data import (  # noqa: E402
+    build_dashboard_data,
+    validate_dashboard_contract,
+)
 from db.database import connect_database, integrity_report  # noqa: E402
 
 DEFAULT_EXPECTED_TABLES = {
@@ -156,6 +160,23 @@ def audit_database(
             "ORDER BY total DESC, pa.codpar, ca.codcan LIMIT 1"
         ).fetchone()
         sql_tasks = _audit_sql_tasks(connection)
+        try:
+            dashboard_data = build_dashboard_data(
+                connection,
+                municipality_order=tuple(expected_tables),
+            )
+            validate_dashboard_contract(
+                dashboard_data,
+                require_top_ten=len(expected_tables) == 4,
+            )
+            dashboard_export = {
+                "ok": True,
+                "municipios": dashboard_data["meta"]["municipios"],
+                "puestos": dashboard_data["meta"]["puestos"],
+                "mesas": dashboard_data["meta"]["mesas"],
+            }
+        except Exception as error:  # Se registra como control bloqueante local.
+            dashboard_export = {"ok": False, "error": str(error)}
 
         expected_names = set(expected_tables)
         coverage_ok = set(coverage) == expected_names and all(
@@ -176,6 +197,7 @@ def audit_database(
             "sql_3_1": sql_tasks["3.1"]["ok"],
             "sql_3_2": sql_tasks["3.2"]["ok"],
             "sql_3_3": sql_tasks["3.3"]["ok"],
+            "dashboard_export_contract": dashboard_export["ok"],
         }
         return {
             "audit_type": "local_non_official",
@@ -185,6 +207,7 @@ def audit_database(
             "totals": table_counts,
             "load_status": load_status,
             "sql_tasks": sql_tasks,
+            "dashboard_export": dashboard_export,
             "quality": {
                 "missing_corporations": missing_corporations,
                 "invalid_vote_balances": invalid_vote_balances,

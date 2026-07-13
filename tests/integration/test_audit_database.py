@@ -50,3 +50,5 @@ class DatabaseAuditIntegrationTests(unittest.TestCase):
         self.assertTrue(all(task["ok"] for task in report["sql_tasks"].values()))
         self.assertEqual(report["sql_tasks"]["3.1"]["row_count"], 1)
         self.assertEqual(report["sql_tasks"]["3.3"]["row_count"], 2)
+        self.assertTrue(report["dashboard_export"]["ok"])
+        self.assertEqual(report["dashboard_export"]["municipios"], 1)

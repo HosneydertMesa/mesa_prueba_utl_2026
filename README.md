@@ -51,6 +51,9 @@ El parser, las invariantes y la prueba de doble ejecución están en [docs/11-et
 La implementación, homologación y resultados del Reto 3 están en
 [docs/13-sql-analitico.md](docs/13-sql-analitico.md).
 
+El contrato SQLite→JSON del dashboard está documentado en
+[docs/14-contrato-exportacion-dashboard.md](docs/14-contrato-exportacion-dashboard.md).
+
 
 La secuencia y criterios de salida están en [docs/06-runbook-entrega.md](docs/06-runbook-entrega.md). Cada incremento debe pasar la metodología local [DEV → QA → SEC → REVIEW](docs/08-metodologia-sdlc.md) mediante `python scripts/quality_gate.py all`.
 

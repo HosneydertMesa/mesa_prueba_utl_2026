@@ -2,9 +2,9 @@
 
 ## Estado
 
-Las capas de adquisición, parsing, ETL, SQLite, auditoría y SQL están
-implementadas. Dashboard, exportación y visualizaciones conservan scaffolds y son
-el siguiente bloque de construcción.
+Las capas de adquisición, parsing, ETL, SQLite, auditoría, SQL y exportación JSON
+están implementadas. La presentación HTML y las visualizaciones son el siguiente
+bloque de construcción.
 
 ## Flujo actual y planificado
 
@@ -16,7 +16,8 @@ Nomenclator + ACT públicos
   -> SQLite normalizado + carga_log
   -> SQL 3.1 / 3.2 / 3.3
   -> auditoría local reproducible
-  -> [siguiente] export_data.py -> data.json -> dashboard/index.html
+  -> export_data.py -> data.json
+  -> [siguiente] dashboard/index.html
   -> [siguiente] heatmap.py / scatter.py -> PNG
   -> [bloqueado] generar_manifest.py oficial
 ```
@@ -33,7 +34,8 @@ Nomenclator + ACT públicos
 - `db/etl.py`: dimensiones, hechos, transacciones, idempotencia y auditoría.
 - `scripts/audit_database.py`: cobertura, integridad, calidad y ejecución SQL.
 - `sql/`: consultas puras, deterministas e independientes de Python.
-- `dashboard/`: contrato JSON y presentación estática pendiente.
+- `dashboard/export_data.py`: contrato determinista SQLite→JSON y validaciones.
+- `dashboard/index.html`: presentación estática pendiente.
 - `viz/`: productos reproducibles derivados de SQLite pendientes.
 - `outputs/`: auditoría local; evaluador oficial cuando sea suministrado.
 - `tests/`: unitarias e integración de contratos y casos calculables.

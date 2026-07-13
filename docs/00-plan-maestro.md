@@ -14,7 +14,7 @@ meta sigue siendo **100/100 base antes de ampliar el alcance analítico**.
 | Reto 1 - API y scraper | 25 | Implementado; manifest oficial pendiente | 1.107 mesas, 2.214 ACT, segunda corrida sin inserciones |
 | Reto 2 - SQLite y ETL | 25 | Implementado; manifest oficial pendiente | integridad `ok`, cero FK inválidas, auditoría local |
 | Reto 3 - SQL analítico | 25 | Implementado y probado | SQL 3.1/3.2/3.3 `ok`, casos calculables |
-| Reto 4 - Dashboard | 15 | Pendiente | scaffolds presentes, producto no construido |
+| Reto 4 - Dashboard | 15 | En progreso | exportador y `data.json` completos; HTML pendiente |
 | Reto 5 - Visualizaciones | 10 | Pendiente | scaffolds presentes, PNG no generados |
 
 Cobertura funcional interna: **75/100 puntos base potenciales**. Esta cifra no es
@@ -42,20 +42,22 @@ adicional actual: **+7**, sujeto a evaluación.
 | 1. Esqueleto vertical | Completada | Mesa CA+SE hasta SQLite | reejecución estable y FK activas |
 | 2. Cobertura | Completada localmente | Cuatro municipios | 4/4 y 2.214 resultados en auditoría local |
 | 3. SQL | Completada | Tres consultas | casos manuales, orden estable y ejecución real |
-| 4. Dashboard | Siguiente | JSON + `index.html` | `file://`, 4 municipios, consola limpia |
+| 4. Dashboard | En progreso | JSON completo; `index.html` pendiente | `file://`, 4 municipios, consola limpia |
 | 5. Visualizaciones | Pendiente | Heatmap + scatter | PNG >10 KB, rótulos y stdout exacto |
 | 6. Entrega | Pendiente | Manifest, Release y repo | clon limpio, manifest oficial y PR integrado |
 
 ## Plan atómico restante
 
-### Incremento 4.1 - Contrato de exportación
+### Incremento 4.1 - Contrato de exportación (completado)
 
 - Implementar `dashboard/export_data.py` desde SQLite.
 - Generar `dashboard/data.json` determinista con cuatro municipios.
 - Incluir votos CA totales, top 10 CA, líder SE y arrastre Verde por puesto.
 - Probar schema JSON, orden, colores y regeneración estable.
 
-Puerta: DEV/QA/SEC/REVIEW verdes y `data.json` reproducible.
+Evidencia: cuatro municipios, 73 puestos, 1.107 mesas, colores exactos, top 10,
+líder SE y arrastre por puesto. Serialización determinista y contrato integrado a
+la auditoría local.
 
 ### Incremento 4.2 - Dashboard base (15 puntos)
 

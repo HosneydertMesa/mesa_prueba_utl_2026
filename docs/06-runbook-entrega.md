@@ -3,14 +3,15 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes: 33 pruebas, Ruff, DEV, QA, SEC, REVIEW y GitHub Actions.
+- Verdes: 36 pruebas, Ruff, DEV, QA, SEC, REVIEW y GitHub Actions.
 - En nube: PR #1 borrador, sin conflictos; `main` aún no se fusiona.
-- Pendientes: dashboard, PNG, insumos/manifest oficial, Release de DB y clon limpio.
+- Completado adicional: exportador y contrato `dashboard/data.json`.
+- Pendientes: dashboard HTML, PNG, insumos/manifest oficial, Release de DB y clon limpio.
 
 ## Desarrollo incremental restante
 
 1. Ejecutar `python scripts/audit_database.py` y conservar `ok=True`.
-2. Implementar y probar `dashboard/export_data.py` + `dashboard/data.json`.
+2. Regenerar `dashboard/data.json` y confirmar contrato.
 3. Construir `dashboard/index.html` y validarlo mediante `file://`.
 4. Agregar dark mode/CSV sólo cuando el dashboard base esté completo.
 5. Implementar `viz/heatmap.py` y validar PNG 8×4 >10 KB.
@@ -25,6 +26,7 @@
 python scraper/scraper.py --preflight
 python scraper/scraper.py
 python scripts/audit_database.py
+python dashboard/export_data.py
 python -m unittest discover -s tests -v
 python scripts/quality_gate.py all
 ```
