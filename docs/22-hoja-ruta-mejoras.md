@@ -26,7 +26,7 @@ los tres SQL, los nombres/colores exigidos ni el manifest contractual.
 | Bonus | +15/+15 potenciales | validación del evaluador |
 | Datos base | 4 municipios, 1.107 mesas, 2.214 ACT; asset y SHA-256 públicos | validación oficial |
 | Datos bonus | 7 municipios, 1.432 mesas, 2.864 ACT; asset y SHA-256 públicos | validación oficial |
-| Dashboard | workspace BI, 4/7, modo guiado, URL compartible, dark mode y CSV | Firefox y apertura manual `file://` |
+| Dashboard | workspace BI, 4/7, modo guiado, URL compartible, dark mode y CSV | evaluación externa |
 | Publicación | Pages HTTPS activo, Actions Node 24 y smoke posdespliegue | validar cada despliegue de `main` |
 | Reproducibilidad | clon limpio <2 minutos; gate RELEASE verde en el workspace | repetir tras congelar SHA |
 | Insumos recibidos | sólo PDF, sin adjuntos embebidos | resuelto con capturas trazables y manifest propio explícito |
@@ -51,10 +51,11 @@ Estado ejecutado al 13 de julio de 2026:
   `evaluation_manifest.json`, 4/4 y SQL `OK` ×3; RELEASE está verde.
 - **Blindaje contractual completado:** `python scraper.py` funciona como wrapper
   del punto de entrada canónico y está cubierto por prueba y gate DEV.
-- **P0-04 avanzado:** Chrome público, teclado, tema, CSV real, presentación,
+- **P0-04 completado:** Chrome público, teclado, tema, CSV real, presentación,
   alcance 8×4/8×7, filtro scatter, consola y viewports 360/768/1280/1920 verdes.
-  Firefox y `file://` permanecen como comprobación manual.
-- **P0-05 pendiente** únicamente del QA manual final y congelamiento autorizado.
+  Firefox y `file://` fueron confirmados manualmente por el candidato.
+- **P0-05 completado técnicamente:** acta final, `main` limpio y tag
+  `entrega-v1.0.0`; sólo resta el envío externo por el candidato.
 
 ### Evidencia mínima de P0-04
 

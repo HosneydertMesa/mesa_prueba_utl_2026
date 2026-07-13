@@ -3,7 +3,7 @@
 ## Estado actual
 
 - Completados: contrato API, scraper, schema, ETL, carga 4/4, auditoría y SQL 3.x.
-- Verdes localmente: 65 pruebas, Ruff, DEV, QA, SEC, REVIEW y RELEASE.
+- Verdes localmente: 66 pruebas, Ruff, DEV, QA, SEC, REVIEW y RELEASE.
 - En nube: retos 1-5, bonus y Dashboard 2.0 integrados en `main`; toda evolución
   web se valida mediante CI antes de su promoción.
 - Completado adicional: exportador, contrato `dashboard/data.json` y dashboard
@@ -22,14 +22,19 @@
   máquina con caché normal de paquetes.
 - Verificado adicional: muestras reales trazables, manifest `OK`, 4/4 municipios,
   SQL `OK` ×3 y gate RELEASE verde.
-- Pendientes: QA manual Firefox + `file://` y tag final.
+- QA manual Firefox + `file://`: confirmada por el candidato el 13 de julio de
+  2026; la verificación pública automatizada quedó sin errores de consola.
+- Pendiente externo: enviar una sola vez el correo o formulario de entrega.
 
-## Cierre restante
+## Cierre ejecutado
 
-1. Abrir `dashboard/index.html` mediante `file://` en Chrome y Firefox.
-2. Repetir teclado, tema, CSV y tooltips en Firefox; registrar evidencia manual.
-3. Regenerar el manifest y confirmar 4/4 municipios, SQL `OK` ×3 y RELEASE verde.
-4. Congelar `main`, crear tag final, registrar SHA y enviar una sola vez.
+1. Dashboard público: navegación, 4/7 municipios, modo oscuro, CSV, vista móvil
+   360 px y escritorio 1.280 px verificados sin errores de consola.
+2. `file://` en Firefox: apertura e interacción confirmadas manualmente por el
+   candidato; esta evidencia se declara como manual, no automatizada.
+3. Manifest regenerado: 4/4 municipios, SQL `OK` ×3 y RELEASE verde.
+4. `main` se congela mediante el tag `entrega-v1.0.0` después de fusionar el
+   acta final. El envío del correo o formulario continúa a cargo del candidato.
 
 ## Comandos reproducibles actuales
 

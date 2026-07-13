@@ -10,6 +10,7 @@
 - Repositorio público: https://github.com/HosneydertMesa/mesa_prueba_utl_2026
 - Dashboard público: https://hosneydertmesa.github.io/mesa_prueba_utl_2026/
 - Plan maestro: [docs/00-plan-maestro.md](docs/00-plan-maestro.md)
+- Acta de cierre: [docs/26-acta-cierre-entrega.md](docs/26-acta-cierre-entrega.md)
 
 ## Instalación
 
